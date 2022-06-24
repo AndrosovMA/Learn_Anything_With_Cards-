@@ -1,4 +1,3 @@
-import React from 'react';
 import {AppBar, Button, Container, IconButton, Toolbar, Typography} from "@mui/material";
 import {Menu} from '@mui/icons-material';
 import {Navigate, NavLink, Route, Routes} from "react-router-dom";
