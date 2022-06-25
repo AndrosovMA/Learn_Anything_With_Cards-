@@ -4,10 +4,11 @@ import {Navigate, NavLink, Route, Routes} from "react-router-dom";
 import {Register} from "./pages/Register/Register";
 import {Login} from "./pages/Login/Login";
 import {Home} from "./pages/Home";
+import styled from "styled-components";
 
 function App() {
     return (
-        <div className="App">
+        <Header>
             {/*Header App bar with burger menu*/}
             <AppBar position="static">
                 <Toolbar>
@@ -32,7 +33,7 @@ function App() {
 
             </AppBar>
 
-            <Container maxWidth="xl">
+            <WrapContainer>
                 <Routes>
                     <Route path='/' element={<Home/>}/>
                     <Route path='login' element={<Login/>}/>
@@ -40,9 +41,18 @@ function App() {
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
                     <Route path='*' element={<Navigate to='/404'/>}/>
                 </Routes>
-            </Container>
-        </div>
+            </WrapContainer>
+        </Header>
     );
 }
 
 export default App;
+
+
+const Header = styled.div`
+`
+
+const WrapContainer = styled.div`
+  height: 100vh;
+  background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
+`
