@@ -1,10 +1,9 @@
-import {Checkbox, FormControlLabel,} from "@mui/material"
 import {useFormik} from "formik";
-import {AiFillEye} from "react-icons/ai";
 import styled from "styled-components";
+import {AiFillEye} from "react-icons/ai";
 
 
-export const Login = () => {
+export const CreatePassword = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -17,45 +16,25 @@ export const Login = () => {
     })
 
     return <>
-
         <Wrap>
             <div className="form__wrapper">
                 <div className="form__text">
                     <span className="contents">It-incubator</span>
-                    <span className="sign">Sign In</span>
+                    <span className="sign">Forgot your password?</span>
                 </div>
                 <div className="form__control">
                     <Form>
-                        <span className="form__control__span">Email</span>
+                        <span className="form__control__span">Password</span>
                         <input className="form__group__email"
                                {...formik.getFieldProps('email')}
                                type="email"
                         />
-                        <span className="form__control__span">Password</span>
-                        <input
-                            className="form__group__password"
-                            {...formik.getFieldProps('password')}
-                            type="password"
-                        />
                         <div className="form__control__icon">
                             <AiFillEye style={{cursor: "pointer"}}/>
                         </div>
-                        <div className="form__control__password__wrap">
-                            <FormControlLabel
-                                className="form__control__password__label"
-                                label={'Remember me'}
-                                control={
-                                    <Checkbox
-                                        name='rememberMe'
-                                        onChange={formik.handleChange}
-                                        checked={formik.values.rememberMe}
-                                    />}
-                            />
-                            <a className="form__control__rememberPassword" href="/">Forgot Password</a>
-                        </div>
-                        <button type="submit" className="form__control__btn">Login</button>
-                        <span className="form__control__rememberAccount">Don’t have an account?</span>
-                        <a className="form__control__signUp" href="/">Sign Up</a>
+                        <span className='form__group__description'>Create new password and we will send you further
+                            instructions to email</span>
+                        <button type="submit" className="form__control__btn">Create new password</button>
                     </Form>
                 </div>
             </div>
@@ -78,7 +57,7 @@ const Wrap = styled.div`
 
   .form__wrapper {
     min-height: 600px;
-    min-width: 413px;
+    max-width: 413px;
     background: #F9F9FE;
     border-radius: 8px;
     margin-top: 5%;
@@ -123,6 +102,7 @@ const Form = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+  width: 80%;
 
 
   .form__group__email {
@@ -141,21 +121,6 @@ const Form = styled.div`
     background: #F9F9FE;
   }
 
-  .form__group__password {
-    width: 347px;
-    outline: none;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    border-top: #171718;
-    border-left: none;
-    border-right: none;
-    border-bottom-color: #dfdfdf;
-    background: #F9F9FE;
-  }
-
   .form__control__span {
 
     text-align: inherit;
@@ -166,58 +131,17 @@ const Form = styled.div`
     opacity: 0.5;
     display: inline-block;
     width: 100%;
+    margin-top: 56px;
 
-    :not(:first-child) {
-      margin-top: 25px;
-    }
-  }
-
-  .form__control__icon {
-    position: absolute;
-    top: 90px;
-    left: 320px;
-  }
-
-  .form__control__password__wrap {
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 48px;
-  }
-
-  .form__control__password__label {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    color: #b0bdd3;
-  }
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .form__control__rememberPassword {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    color: cornflowerblue;
-    text-decoration: none;
   }
 
   .form__control__btn {
-    width: 266px;
-    height: 36px;
     background: #21268F;
     box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     border-radius: 30px;
-    border: none;
-    margin-top: 70px;
-    /************/
+    width: 266px;
+    height: 36px;
+    /*************/
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
@@ -225,28 +149,53 @@ const Form = styled.div`
     letter-spacing: 0.01em;
     color: #ECECF9;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-
+    border: none;
+    cursor: pointer;
+    margin-top: 99px;
   }
 
-  .form__control__rememberAccount {
-    font-weight: 600;
-    font-size: 14px;
+  .form__group__description {
+    width: 100%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2D2E46;
+    opacity: 0.5;
+    margin-top: 30px;
+  }
+
+  .form__group__password {
+    font-weight: 400;
+    font-size: 16px;
     line-height: 24px;
     text-align: center;
     color: #2D2E46;
     opacity: 0.5;
-    margin-top: 31px;
+    margin-top: 30px;
   }
 
-  .form__control__signUp {
+  .form__group__login {
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     text-align: center;
     color: #21268F;
-    text-decoration: none;
     margin-top: 11px;
+    text-decoration: none;
+  }
+
+  .form__control__icon {
+    position: absolute;
+    top: 75px;
+    left: 320px;
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
   }
 
 `
+
 
