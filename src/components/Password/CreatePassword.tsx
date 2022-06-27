@@ -1,19 +1,25 @@
-import {useFormik} from "formik";
 import styled from "styled-components";
 import {AiFillEye} from "react-icons/ai";
+import InputField from "../../UI/InputField";
+import {ChangeEvent, useState} from "react";
+import {ButtonField} from "../../UI/Button";
 
 
 export const CreatePassword = () => {
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false
-        },
-        onSubmit: values => {
-            alert(JSON.stringify(values));
-        },
-    })
+
+    const [valuePass, setValuePass] = useState("")
+    const [isVisible, setIsVisible] = useState<boolean>(true)
+
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValuePass(e.currentTarget.value)
+    }
+
+
+    const toggleShow = () => {
+        console.log(isVisible)
+        setIsVisible(!isVisible);
+    }
+
 
     return <>
         <Wrap>
@@ -25,16 +31,19 @@ export const CreatePassword = () => {
                 <div className="form__control">
                     <Form>
                         <span className="form__control__span">Password</span>
-                        <input className="form__group__email"
-                               {...formik.getFieldProps('email')}
-                               type="password"
+                        <InputField
+                            value={valuePass}
+                            onChange={(e: any) => handlePasswordChange(e)}
+                            isVisible={isVisible}
                         />
                         <div className="form__control__icon">
-                            <AiFillEye style={{cursor: "pointer"}}/>
+                            <AiFillEye
+                                onClick={toggleShow}
+                                style={{cursor: "pointer"}}/>
                         </div>
                         <span className='form__group__description'>Create new password and we will send you further
                             instructions to email</span>
-                        <button type="submit" className="form__control__btn">Create new password</button>
+                        <ButtonField>Create new password</ButtonField>
                     </Form>
                 </div>
             </div>
@@ -102,27 +111,10 @@ const Form = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 80%;
-
-
-  .form__group__email {
-    width: 347px;
-    outline: none;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    border-top: #171718;
-    border-left: none;
-    border-right: none;
-    border-bottom-color: #dfdfdf;
-    color: #2D2E46;
-    background: #F9F9FE;
-  }
+  width: 83%;
+  
 
   .form__control__span {
-
     text-align: inherit;
     font-weight: 400;
     font-size: 13px;
@@ -132,28 +124,8 @@ const Form = styled.div`
     display: inline-block;
     width: 100%;
     margin-top: 56px;
-
   }
-
-  .form__control__btn {
-    background: #21268F;
-    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    width: 266px;
-    height: 36px;
-    /*************/
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.01em;
-    color: #ECECF9;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    border: none;
-    cursor: pointer;
-    margin-top: 99px;
-  }
-
+  
   .form__group__description {
     width: 100%;
     font-style: normal;
@@ -164,27 +136,7 @@ const Form = styled.div`
     opacity: 0.5;
     margin-top: 30px;
   }
-
-  .form__group__password {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-    color: #2D2E46;
-    opacity: 0.5;
-    margin-top: 30px;
-  }
-
-  .form__group__login {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-    color: #21268F;
-    margin-top: 11px;
-    text-decoration: none;
-  }
-
+  
   .form__control__icon {
     position: absolute;
     top: 75px;

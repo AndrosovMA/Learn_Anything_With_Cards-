@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {ChangeEvent, useState} from "react";
 import {Link} from "react-router-dom";
 import InputField from "../../UI/InputField";
+import {ButtonField} from "../../UI/Button";
 
 
 export const Login = () => {
@@ -51,7 +52,7 @@ export const Login = () => {
                         <span className="form__control__span">Password</span>
                         <InputField
                             value={valuePass}
-                            onChange={(e: any) => handlePasswordChange(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChange(e)}
                             isVisible={isVisible}
 
                         />
@@ -73,7 +74,7 @@ export const Login = () => {
                             />
                             <Link className="form__control__rememberPassword" to="/password">Forgot Password</Link>
                         </div>
-                        <button type="submit" className="form__control__btn">Login</button>
+                        <ButtonField>Login</ButtonField>
                         <span className="form__control__rememberAccount">Don’t have an account?</span>
                         <Link className="form__control__signUp" to="/register">Sign Up</Link>
                     </Form>
@@ -213,26 +214,7 @@ const Form = styled.div`
     color: cornflowerblue;
     text-decoration: none;
   }
-
-  .form__control__btn {
-    width: 266px;
-    height: 36px;
-    background: #21268F;
-    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    border: none;
-    margin-top: 70px;
-    /************/
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.01em;
-    color: #ECECF9;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-
-  }
+  
 
   .form__control__rememberAccount {
     font-weight: 600;

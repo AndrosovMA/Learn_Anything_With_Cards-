@@ -2,9 +2,30 @@ import {useFormik} from "formik";
 import {AiFillEye} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
+import InputField from "../../UI/InputField";
+import {ChangeEvent, useState} from "react";
 
 
 export const Register = () => {
+
+    const [valuePasswordOne, setValuePassRegOne] = useState("")
+    const [valuePasswordTwo, setValuePassRegTwo] = useState("")
+
+    const [isVisible, setIsVisible] = useState<boolean>(true)
+
+    const handlePasswordChangeOne = (e: ChangeEvent<HTMLInputElement>) => {
+        setValuePassRegOne(e.currentTarget.value)
+
+    }
+    const handlePasswordChangeTwo = (e: ChangeEvent<HTMLInputElement>) => {
+        setValuePassRegTwo(e.currentTarget.value)
+    }
+
+    const toggleShow = () => {
+        console.log(isVisible)
+        setIsVisible(!isVisible);
+    }
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -31,24 +52,26 @@ export const Register = () => {
                                type="email"
                         />
                         <span className="form__control__span">Password</span>
-                        <input
-                            className="form__group__password"
-                            {...formik.getFieldProps('password')}
-                            type="password"
+                        <InputField
+                            value={valuePasswordOne}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChangeOne(e)}
+                            isVisible={isVisible}
                         />
                         <span className="form__control__span">Confirm password</span>
-                        <input
-                            className="form__group__password"
-                            {...formik.getFieldProps('password')}
-                            type="password"
+                        <InputField
+                            value={valuePasswordTwo}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChangeTwo(e)}
+                            isVisible={isVisible}
                         />
                         <div className="form__control__icon">
-                            <AiFillEye style={{cursor: "pointer"}}/>
+                            <AiFillEye
+                                onClick={toggleShow}
+                                style={{cursor: "pointer"}}/>
                         </div>
                         <div className="form__control__iconTwo">
-                            <AiFillEye style={{cursor: "pointer"}}/>
-                        </div>
-                        <div className="form__control__password__wrap">
+                            <AiFillEye
+                                onClick={toggleShow}
+                                style={{cursor: "pointer"}}/>
                         </div>
                         <div className="form__control__btnWrap">
                             <button type="submit" className="form__control__btnCancel">
@@ -140,22 +163,7 @@ const Form = styled.div`
     color: #2D2E46;
     background: #F9F9FE;
   }
-
-  .form__group__password {
-    width: 347px;
-    outline: none;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    border-top: #171718;
-    border-left: none;
-    border-right: none;
-    border-bottom-color: #dfdfdf;
-    background: #F9F9FE;
-  }
-
+  
 
   .form__control__span {
 
@@ -232,7 +240,7 @@ const Form = styled.div`
     height: 36px;
     cursor: pointer;
     border: none;
-    
+
     a {
       font-weight: 500;
       font-size: 16px;
@@ -244,7 +252,7 @@ const Form = styled.div`
       text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
       text-decoration: none;
     }
-    
+
   }
 
   .form__control__btn {

@@ -1,6 +1,7 @@
 import {useFormik} from "formik";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import {ButtonField} from "../../UI/Button";
 
 
 export const ForgotPassword = () => {
@@ -30,7 +31,9 @@ export const ForgotPassword = () => {
                                type="email"
                         />
                         <span className='form__group__description'>Enter your email address and we will send you further instructions </span>
-                        <button type="submit" className="form__control__btn">Send Instructions</button>
+                        <ButtonField>
+                        <Link to="/recovery">Send Instructions</Link>
+                        </ButtonField>
                         <span className="form__group__password">Did you remember your password?</span>
                         <Link className="form__group__login" to="/login">Try logging in</Link>
                     </Form>
@@ -133,24 +136,6 @@ const Form = styled.div`
     
   }
   
-  .form__control__btn {
-    background: #21268F;
-    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    width: 266px;
-    height: 36px;
-    /*************/
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.01em;
-    color: #ECECF9;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    border: none;
-    cursor: pointer;
-    margin-top: 99px;
-  }
   
   .form__group__description {
     width: 100%;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CheckEmail from "../../styles/img/Email_Check.png"
+import {Link} from "react-router-dom";
 
 
 export const SendingSuccessfully = () => {
@@ -15,6 +16,9 @@ export const SendingSuccessfully = () => {
                         <img src={CheckEmail} alt="email"/>
                         <span className="email">Check Email</span>
                         <span className="description">We’ve sent an Email with instructions to example@mail.com</span>
+                        <button type="submit" className="form__control__btnCancel">
+                            <Link to="/login">Cancel</Link>
+                        </button>
                     </Form>
                 </div>
             </div>
@@ -93,6 +97,29 @@ const Form = styled.div`
     color: #2D2E46;
     opacity: 0.7;
     margin-top: 21px;
+  }
+
+  .form__control__btnCancel {
+    background: #D7D8EF;
+    border-radius: 30px;
+    width: 124px;
+    height: 36px;
+    cursor: pointer;
+    border: none;
+    margin-top: 80px;
+
+    a {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+      letter-spacing: 0.01em;
+      color: #21268F;
+      opacity: 0.8;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+      text-decoration: none;
+    }
+
   }
 
 `

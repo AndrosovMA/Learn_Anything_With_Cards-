@@ -24,6 +24,7 @@ const InputField = ({value, onChange, className, type, placeholder, label, isVis
                         className="form__group__password"
                         placeholder={placeholder}
                         onChange={onChange}
+                        {...props}
                     />
                 </Wrap>
             </>
@@ -34,8 +35,8 @@ const InputField = ({value, onChange, className, type, placeholder, label, isVis
 export default InputField;
 
 const Wrap = styled.div`
-  
   .form__group__password {
+    font-family: 'Poppins', sans-serif;
     width: 347px;
     outline: none;
     font-weight: 500;
@@ -49,5 +50,4 @@ const Wrap = styled.div`
     border-bottom-color: #dfdfdf;
     background: #F9F9FE;
   }
-    
 `
