@@ -4,8 +4,8 @@ import {AiFillEye} from "react-icons/ai";
 import styled from "styled-components";
 import {ChangeEvent, useState} from "react";
 import {Link} from "react-router-dom";
-import InputField from "../../UI/InputField";
-import {ButtonField} from "../../UI/Button";
+import InputField from "../../components/InputField";
+import {ButtonField} from "../../components/Button";
 
 
 export const Login = () => {

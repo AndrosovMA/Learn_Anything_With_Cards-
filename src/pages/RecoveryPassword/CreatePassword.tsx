@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import {AiFillEye} from "react-icons/ai";
-import InputField from "../../UI/InputField";
+import InputField from "../../components/InputField";
 import {ChangeEvent, useState} from "react";
-import {ButtonField} from "../../UI/Button";
+import {ButtonField} from "../../components/Button";
 
 
 export const CreatePassword = () => {
@@ -10,16 +10,10 @@ export const CreatePassword = () => {
     const [valuePass, setValuePass] = useState("")
     const [isVisible, setIsVisible] = useState<boolean>(true)
 
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValuePass(e.currentTarget.value)
-    }
-
-
     const toggleShow = () => {
         console.log(isVisible)
         setIsVisible(!isVisible);
     }
-
 
     return <>
         <Wrap>
@@ -33,7 +27,7 @@ export const CreatePassword = () => {
                         <span className="form__control__span">Password</span>
                         <InputField
                             value={valuePass}
-                            onChange={(e: any) => handlePasswordChange(e)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => setValuePass(e.currentTarget.value)}
                             isVisible={isVisible}
                         />
                         <div className="form__control__icon">

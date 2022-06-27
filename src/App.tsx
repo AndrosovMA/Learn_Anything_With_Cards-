@@ -1,12 +1,14 @@
-import {AppBar, Toolbar, Typography} from "@mui/material";
-import {Navigate, NavLink, Route, Routes} from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import {NavLink, Route, Routes} from "react-router-dom";
 import {Register} from "./pages/Register/Register";
 import {Login} from "./pages/Login/Login";
 import styled from "styled-components";
-import { ForgotPassword } from "./components/Password/ForgotPassword";
-import {SendingSuccessfully} from "./components/Recovery/Recovery";
-import {CreatePassword} from "./components/Password/CreatePassword";
-import NotFound from "./pages/404";
+import { ForgotPassword } from "./pages/RecoveryPassword/ForgotPassword";
+import {CheckEmail} from "./pages/CheckEmail/CheckEmail";
+import {CreatePassword} from "./pages/RecoveryPassword/CreatePassword";
+import NotFound from "./pages/404/404";
 
 function App() {
     return (
@@ -19,7 +21,7 @@ function App() {
                             <NavLink to="/register">Register</NavLink>
                             <NavLink to="/password">ForgotPassword</NavLink>
                             <NavLink to="/createPassword">CreatePassword</NavLink>
-                            <NavLink to="/recovery">Recovery</NavLink>
+                            <NavLink to="/checkEmail">CheckEmail</NavLink>
                         </Navigation>
                     </Typography>
                 </Toolbar>
@@ -33,7 +35,7 @@ function App() {
                     <Route path='register' element={<Register/>}/>
                     <Route path='password' element={<ForgotPassword/>}/>
                     <Route path='createPassword' element={<CreatePassword/>}/>
-                    <Route path='recovery' element={<SendingSuccessfully/>}/>
+                    <Route path='checkEmail' element={<CheckEmail/>}/>
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
                     {/*<Route path='*' element={<Navigate to='/404'/>}/>*/}
                     <Route path='*' element={<NotFound />}/>

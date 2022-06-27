@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import CheckEmail from "../../styles/img/Email_Check.png"
+import CheckEmails from "../../styles/img/Email_Check.png"
 import {Link} from "react-router-dom";
 
 
-export const SendingSuccessfully = () => {
+export const CheckEmail = () => {
 
     return <>
         <Wrap>
@@ -13,7 +13,7 @@ export const SendingSuccessfully = () => {
                 </div>
                 <div className="form__control">
                     <Form>
-                        <img src={CheckEmail} alt="email"/>
+                        <img src={CheckEmails} alt="email"/>
                         <span className="email">Check Email</span>
                         <span className="description">We’ve sent an Email with instructions to example@mail.com</span>
                         <button type="submit" className="form__control__btnCancel">

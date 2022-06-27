@@ -2,7 +2,7 @@ import {useFormik} from "formik";
 import {AiFillEye} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import InputField from "../../UI/InputField";
+import InputField from "../../components/InputField";
 import {ChangeEvent, useState} from "react";
 
 

@@ -1,7 +1,7 @@
 import {useFormik} from "formik";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {ButtonField} from "../../UI/Button";
+import {ButtonField} from "../../components/Button";
 
 
 export const ForgotPassword = () => {
