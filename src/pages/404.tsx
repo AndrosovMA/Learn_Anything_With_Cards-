@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
+import {Link} from "react-router-dom";
+import {ButtonField} from "../UI/Button";
 
 
 const NotFound = () => {
@@ -7,10 +9,13 @@ const NotFound = () => {
     return (
         <>
             <Wrap>
-                <div className="numberError">
-                    <h1 className="error" data-text="404">404</h1>
-                </div>
-                <h2 className="notFound">Страница не найдена</h2>
+                    <div className="numberError">
+                        <h1 className="error" data-text="404">404</h1>
+                    </div>
+                    <h2 className="notFound">Страница не найдена</h2>
+                    <ButtonField>
+                        <Link to="/">Back to Home</Link>
+                    </ButtonField>
             </Wrap>
         </>
     );
@@ -19,7 +24,7 @@ const NotFound = () => {
 export default NotFound;
 
 const Wrap = styled.div`
-  
+
   .return {
     position: absolute;
     text-decoration: none;
@@ -32,6 +37,10 @@ const Wrap = styled.div`
     border: 2px solid #000;
     box-shadow: 10px 10px 0 #ee1b52;
     transition: .1s;
+  }
+  
+  button {
+    margin-left: 50px;
   }
 
   .return:hover {
