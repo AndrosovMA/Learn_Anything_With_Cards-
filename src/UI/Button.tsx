@@ -1,4 +1,4 @@
-import React, {ButtonHTMLAttributes, DetailedHTMLProps} from 'react'
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
 import styled from "styled-components";
 
 // тип пропсов обычной кнопки, children в котором храниться название кнопки там уже описан
@@ -43,7 +43,7 @@ const Wrap = styled.div`
     color: #ECECF9;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
     cursor: pointer;
- 
+
     //Если есть
     a {
       font-weight: 500;
@@ -55,4 +55,4 @@ const Wrap = styled.div`
       text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
       cursor: pointer;
       text-decoration: none;
-  }`
+    }`
