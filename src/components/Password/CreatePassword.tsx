@@ -27,7 +27,7 @@ export const CreatePassword = () => {
                         <span className="form__control__span">Password</span>
                         <input className="form__group__email"
                                {...formik.getFieldProps('email')}
-                               type="email"
+                               type="password"
                         />
                         <div className="form__control__icon">
                             <AiFillEye style={{cursor: "pointer"}}/>

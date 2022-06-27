@@ -2,9 +2,26 @@ import {Checkbox, FormControlLabel,} from "@mui/material"
 import {useFormik} from "formik";
 import {AiFillEye} from "react-icons/ai";
 import styled from "styled-components";
+import {ChangeEvent, useState} from "react";
+import {Link} from "react-router-dom";
+import InputField from "../../UI/InputField";
 
 
 export const Login = () => {
+
+    const [valuePass, setValuePass] = useState("")
+    const [isVisible, setIsVisible] = useState<boolean>(true)
+
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setValuePass(e.currentTarget.value)
+    }
+
+    const toggleShow = () => {
+        console.log(isVisible)
+        setIsVisible(!isVisible);
+    }
+
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -32,13 +49,16 @@ export const Login = () => {
                                type="email"
                         />
                         <span className="form__control__span">Password</span>
-                        <input
-                            className="form__group__password"
-                            {...formik.getFieldProps('password')}
-                            type="password"
+                        <InputField
+                            value={valuePass}
+                            onChange={(e: any) => handlePasswordChange(e)}
+                            isVisible={isVisible}
+
                         />
                         <div className="form__control__icon">
-                            <AiFillEye style={{cursor: "pointer"}}/>
+                            <AiFillEye
+                                onClick={toggleShow}
+                                style={{cursor: "pointer"}}/>
                         </div>
                         <div className="form__control__password__wrap">
                             <FormControlLabel
@@ -51,11 +71,11 @@ export const Login = () => {
                                         checked={formik.values.rememberMe}
                                     />}
                             />
-                            <a className="form__control__rememberPassword" href="/">Forgot Password</a>
+                            <Link className="form__control__rememberPassword" to="/password">Forgot Password</Link>
                         </div>
                         <button type="submit" className="form__control__btn">Login</button>
                         <span className="form__control__rememberAccount">Don’t have an account?</span>
-                        <a className="form__control__signUp" href="/">Sign Up</a>
+                        <Link className="form__control__signUp" to="/register">Sign Up</Link>
                     </Form>
                 </div>
             </div>
@@ -141,21 +161,6 @@ const Form = styled.div`
     background: #F9F9FE;
   }
 
-  .form__group__password {
-    width: 347px;
-    outline: none;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    border-top: #171718;
-    border-left: none;
-    border-right: none;
-    border-bottom-color: #dfdfdf;
-    background: #F9F9FE;
-  }
-
   .form__control__span {
 
     text-align: inherit;
@@ -225,6 +230,7 @@ const Form = styled.div`
     letter-spacing: 0.01em;
     color: #ECECF9;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 
   }
 

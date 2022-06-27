@@ -1,4 +1,5 @@
 import {useFormik} from "formik";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -31,7 +32,7 @@ export const ForgotPassword = () => {
                         <span className='form__group__description'>Enter your email address and we will send you further instructions </span>
                         <button type="submit" className="form__control__btn">Send Instructions</button>
                         <span className="form__group__password">Did you remember your password?</span>
-                        <a className="form__group__login" href="/src/pages">Try logging in</a>
+                        <Link className="form__group__login" to="/login">Try logging in</Link>
                     </Form>
                 </div>
             </div>

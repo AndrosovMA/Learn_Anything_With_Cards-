@@ -1,5 +1,6 @@
 import {useFormik} from "formik";
 import {AiFillEye} from "react-icons/ai";
+import {Link} from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -50,7 +51,9 @@ export const Register = () => {
                         <div className="form__control__password__wrap">
                         </div>
                         <div className="form__control__btnWrap">
-                            <button type="submit" className="form__control__btnCancel">Cancel</button>
+                            <button type="submit" className="form__control__btnCancel">
+                                <Link to="/login">Cancel</Link>
+                            </button>
                             <button type="submit" className="form__control__btn">Register</button>
                         </div>
                     </Form>
@@ -153,7 +156,7 @@ const Form = styled.div`
     background: #F9F9FE;
   }
 
-  
+
   .form__control__span {
 
     text-align: inherit;
@@ -227,16 +230,21 @@ const Form = styled.div`
     border-radius: 30px;
     width: 124px;
     height: 36px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.01em;
-    color: #21268F;
-    opacity: 0.8;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    border: none;
     cursor: pointer;
+    border: none;
+    
+    a {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      text-align: center;
+      letter-spacing: 0.01em;
+      color: #21268F;
+      opacity: 0.8;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+      text-decoration: none;
+    }
+    
   }
 
   .form__control__btn {
