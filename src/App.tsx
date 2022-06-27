@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { ForgotPassword } from "./components/Password/ForgotPassword";
 import {SendingSuccessfully} from "./components/Recovery/Recovery";
 import {CreatePassword} from "./components/Password/CreatePassword";
+import NotFound from "./pages/404";
 
 function App() {
     return (
@@ -34,7 +35,8 @@ function App() {
                     <Route path='createPassword' element={<CreatePassword/>}/>
                     <Route path='recovery' element={<SendingSuccessfully/>}/>
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
-                    <Route path='*' element={<Navigate to='/404'/>}/>
+                    {/*<Route path='*' element={<Navigate to='/404'/>}/>*/}
+                    <Route path='*' element={<NotFound />}/>
                 </Routes>
             </WrapContainer>
 
@@ -44,17 +46,13 @@ function App() {
 
 export default App;
 
-
 const Header = styled.div`
 `
-
 const WrapContainer = styled.div`
   height: 100vh;
   background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
 `
-
 const Navigation = styled.nav`
-  
   a {
     text-decoration: none;
     color: white;

@@ -11,19 +11,26 @@ export const Register = () => {
     const [valuePasswordOne, setValuePassRegOne] = useState("")
     const [valuePasswordTwo, setValuePassRegTwo] = useState("")
 
-    const [isVisible, setIsVisible] = useState<boolean>(true)
+    const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
+    const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
 
     const handlePasswordChangeOne = (e: ChangeEvent<HTMLInputElement>) => {
         setValuePassRegOne(e.currentTarget.value)
-
     }
     const handlePasswordChangeTwo = (e: ChangeEvent<HTMLInputElement>) => {
         setValuePassRegTwo(e.currentTarget.value)
     }
 
-    const toggleShow = () => {
-        console.log(isVisible)
-        setIsVisible(!isVisible);
+    const toggleShowOne = () => {
+        valuePasswordOne ?
+            setIsVisibleOne(!isVisibleOne)
+            : setIsVisibleOne(isVisibleOne)
+
+    }
+    const toggleShowTwo = () => {
+        valuePasswordTwo ?
+            setIsVisibleTwo(!isVisibleTwo)
+            : setIsVisibleTwo(isVisibleTwo)
     }
 
     const formik = useFormik({
@@ -55,22 +62,22 @@ export const Register = () => {
                         <InputField
                             value={valuePasswordOne}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChangeOne(e)}
-                            isVisible={isVisible}
+                            isVisible={isVisibleOne}
                         />
                         <span className="form__control__span">Confirm password</span>
                         <InputField
                             value={valuePasswordTwo}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChangeTwo(e)}
-                            isVisible={isVisible}
+                            isVisible={isVisibleTwo}
                         />
                         <div className="form__control__icon">
                             <AiFillEye
-                                onClick={toggleShow}
+                                onClick={toggleShowOne}
                                 style={{cursor: "pointer"}}/>
                         </div>
                         <div className="form__control__iconTwo">
                             <AiFillEye
-                                onClick={toggleShow}
+                                onClick={toggleShowTwo}
                                 style={{cursor: "pointer"}}/>
                         </div>
                         <div className="form__control__btnWrap">
@@ -163,7 +170,7 @@ const Form = styled.div`
     color: #2D2E46;
     background: #F9F9FE;
   }
-  
+
 
   .form__control__span {
 
