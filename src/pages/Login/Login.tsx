@@ -1,27 +1,14 @@
 import {Checkbox, FormControlLabel,} from "@mui/material"
 import {useFormik} from "formik";
-import {AiFillEye} from "react-icons/ai";
 import styled from "styled-components";
-import {ChangeEvent, useState} from "react";
 import {Link} from "react-router-dom";
-import InputField from "../../components/InputField";
 import {ButtonField} from "../../components/Button";
+import {useState} from "react";
+import openShow from "../../styles/assets/img/openShow.svg";
+import closeShow from "../../styles/assets/img/closeShow.svg";
 
 
 export const Login = () => {
-
-    const [valuePass, setValuePass] = useState("")
-    const [isVisible, setIsVisible] = useState<boolean>(true)
-
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValuePass(e.currentTarget.value)
-    }
-
-    const toggleShow = () => {
-        console.log(isVisible)
-        setIsVisible(!isVisible);
-    }
-
 
     const formik = useFormik({
         initialValues: {
@@ -34,6 +21,20 @@ export const Login = () => {
         },
     })
 
+    // const [valuePass, setValuePass] = useState("")
+    const [isVisible, setIsVisible] = useState<boolean>(true)
+    //
+    // const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setValuePass(e.currentTarget.value)
+    // }
+    //
+    const toggleShow = () => {
+        console.log(formik.values.email)
+        setIsVisible(!isVisible);
+    }
+
+
+
     return <>
 
         <Wrap>
@@ -43,41 +44,49 @@ export const Login = () => {
                     <span className="sign">Sign In</span>
                 </div>
                 <div className="form__control">
-                    <Form>
-                        <span className="form__control__span">Email</span>
-                        <input className="form__group__email"
-                               {...formik.getFieldProps('email')}
-                               type="email"
-                        />
-                        <span className="form__control__span">Password</span>
-                        <InputField
-                            value={valuePass}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChange(e)}
-                            isVisible={isVisible}
-
-                        />
-                        <div className="form__control__icon">
-                            <AiFillEye
-                                onClick={toggleShow}
-                                style={{cursor: "pointer"}}/>
-                        </div>
-                        <div className="form__control__password__wrap">
-                            <FormControlLabel
-                                className="form__control__password__label"
-                                label={'Remember me'}
-                                control={
-                                    <Checkbox
-                                        name='rememberMe'
-                                        onChange={formik.handleChange}
-                                        checked={formik.values.rememberMe}
-                                    />}
+                    <form onSubmit={formik.handleSubmit}>
+                        <Form>
+                            <span className="form__control__span">Email</span>
+                            <input className="form__group__email"
+                                   name="email"
+                                   value={formik.values.email}
+                                   onChange={formik.handleChange}
+                                   type="email"
                             />
-                            <Link className="form__control__rememberPassword" to="/password">Forgot Password</Link>
-                        </div>
-                        <ButtonField>Login</ButtonField>
-                        <span className="form__control__rememberAccount">Don’t have an account?</span>
-                        <Link className="form__control__signUp" to="/register">Sign Up</Link>
-                    </Form>
+                            <span className="form__control__span">Password</span>
+                            <input className="form__group__password"
+                                   name="password"
+                                   value={formik.values.password}
+                                   onChange={formik.handleChange}
+
+                                   type={isVisible ? "password" :"text"}
+                            />
+                            <div className="form__control__icon">
+
+                                <img className="form__control__img"
+                                     onClick={toggleShow}
+                                     src={!isVisible ? openShow : closeShow}
+                                     alt="open"/>
+
+                            </div>
+                            <div className="form__control__password__wrap">
+                                <FormControlLabel
+                                    className="form__control__password__label"
+                                    label={'Remember me'}
+                                    control={
+                                        <Checkbox
+                                            name='rememberMe'
+                                            onChange={formik.handleChange}
+                                            checked={formik.values.rememberMe}
+                                        />}
+                                />
+                                <Link className="form__control__rememberPassword" to="/password">Forgot Password</Link>
+                            </div>
+                            <ButtonField>Login</ButtonField>
+                            <span className="form__control__rememberAccount">Don’t have an account?</span>
+                            <Link className="form__control__signUp" to="/register">Sign Up</Link>
+                        </Form>
+                    </form>
                 </div>
             </div>
         </Wrap>
@@ -162,6 +171,23 @@ const Form = styled.div`
     background: #F9F9FE;
   }
 
+
+  .form__group__password {
+    font-family: 'Poppins', sans-serif;
+    width: 347px;
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    border-top: #171718;
+    border-left: none;
+    border-right: none;
+    border-bottom-color: #dfdfdf;
+    background: #F9F9FE;
+  }
+
   .form__control__span {
 
     text-align: inherit;
@@ -201,7 +227,7 @@ const Form = styled.div`
     color: #b0bdd3;
   }
 
-  svg {
+  .form__control__img {
     width: 24px;
     height: 24px;
   }
@@ -214,7 +240,7 @@ const Form = styled.div`
     color: cornflowerblue;
     text-decoration: none;
   }
-  
+
 
   .form__control__rememberAccount {
     font-weight: 600;
