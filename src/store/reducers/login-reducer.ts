@@ -11,6 +11,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: any
 }
 
 // actions creator
+
 const newtest = '123123123';
 
 // thunks
