@@ -1,48 +1,52 @@
 import {useFormik} from "formik";
-import {AiFillEye} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import styled from "styled-components";
-import InputField from "../../components/InputField";
-import {ChangeEvent, useState} from "react";
+import openShow from "../../styles/assets/img/openShow.svg"
+import closeShow from "../../styles/assets/img/closeShow.svg"
 
+import {useState} from "react";
+
+
+
+interface FormValues {
+    email: string;
+    password: string;
+    passwordConfirm: string,
+    rememberMe: boolean
+}
 
 export const Register = () => {
 
-    const [valuePasswordOne, setValuePassRegOne] = useState("")
-    const [valuePasswordTwo, setValuePassRegTwo] = useState("")
-
-    const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
-    const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
-
-    const handlePasswordChangeOne = (e: ChangeEvent<HTMLInputElement>) => {
-        setValuePassRegOne(e.currentTarget.value)
-    }
-    const handlePasswordChangeTwo = (e: ChangeEvent<HTMLInputElement>) => {
-        setValuePassRegTwo(e.currentTarget.value)
-    }
-
-    const toggleShowOne = () => {
-        valuePasswordOne ?
-            setIsVisibleOne(!isVisibleOne)
-            : setIsVisibleOne(isVisibleOne)
-
-    }
-    const toggleShowTwo = () => {
-        valuePasswordTwo ?
-            setIsVisibleTwo(!isVisibleTwo)
-            : setIsVisibleTwo(isVisibleTwo)
-    }
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
+            passwordConfirm: '',
             rememberMe: false
         },
         onSubmit: values => {
             alert(JSON.stringify(values));
         },
     })
+
+    const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
+    const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
+
+    const toggleShowOne = () => {setIsVisibleOne(!isVisibleOne)}
+    const toggleShowTwo = () => {setIsVisibleTwo(!isVisibleTwo)}
+
+
+    const handleSubmit = () => {
+        const {password, passwordConfirm} = formik.values
+        if (password !== passwordConfirm) {
+            console.log("Passwords don't match");
+        } else {
+
+            console.log("Passwords match!!!");
+        }
+    }
+
 
     return <>
         <Wrap>
@@ -52,41 +56,60 @@ export const Register = () => {
                     <span className="sign">Sign Up</span>
                 </div>
                 <div className="form__control">
-                    <Form>
-                        <span className="form__control__span">Email</span>
-                        <input className="form__group__email"
-                               {...formik.getFieldProps('email')}
-                               type="email"
-                        />
-                        <span className="form__control__span">Password</span>
-                        <InputField
-                            value={valuePasswordOne}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChangeOne(e)}
-                            isVisible={isVisibleOne}
-                        />
-                        <span className="form__control__span">Confirm password</span>
-                        <InputField
-                            value={valuePasswordTwo}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => handlePasswordChangeTwo(e)}
-                            isVisible={isVisibleTwo}
-                        />
-                        <div className="form__control__icon">
-                            <AiFillEye
-                                onClick={toggleShowOne}
-                                style={{cursor: "pointer"}}/>
-                        </div>
-                        <div className="form__control__iconTwo">
-                            <AiFillEye
-                                onClick={toggleShowTwo}
-                                style={{cursor: "pointer"}}/>
-                        </div>
-                        <div className="form__control__btnWrap">
-                            <button type="submit" className="form__control__btnCancel">
-                                <Link to="/login">Cancel</Link>
-                            </button>
-                            <button type="submit" className="form__control__btn">Register</button>
-                        </div>
-                    </Form>
+                    <form onSubmit={formik.handleSubmit}>
+                        <Form>
+                            <span className="form__control__span">Email</span>
+                            <input className="form__group__email"
+
+                                   name="email"
+                                   value={formik.values.email}
+                                   onChange={formik.handleChange}
+                                   type="email"
+                            />
+                            <span className="form__control__span">Password</span>
+                            <input className="form__group__password"
+                                   name="password"
+                                   value={formik.values.password}
+                                   onChange={formik.handleChange}
+                                   type={isVisibleOne ? "password" : "text"}
+
+                            />
+                            <span className="form__control__span">Confirm password</span>
+                            <input className="form__group__password"
+                                   name="passwordConfirm"
+                                   value={formik.values.passwordConfirm}
+                                   onChange={formik.handleChange}
+                                   type={isVisibleTwo ? "password" : "text"}
+
+                            />
+                            <div className="form__control__icon">
+                                <img className="form__control__img"
+                                     onClick={toggleShowOne}
+                                     src={!isVisibleOne ? openShow : closeShow}
+                                     alt="open"/>
+                            </div>
+
+                            <div className="form__control__iconTwo">
+                                <img className="form__control__img"
+                                     onClick={toggleShowTwo}
+                                     src={!isVisibleTwo ? openShow : closeShow}
+                                     alt="close"/>
+
+                            </div>
+                            <div className="form__control__btnWrap">
+                                <button
+                                    type="submit"
+                                    className="form__control__btnCancel">
+                                    <Link to="/login">Cancel</Link>
+                                </button>
+                                <button
+                                    onClick={handleSubmit}
+                                    type="submit"
+                                    className="form__control__btn">Register
+                                </button>
+                            </div>
+                        </Form>
+                    </form>
                 </div>
             </div>
         </Wrap>
@@ -171,6 +194,22 @@ const Form = styled.div`
     background: #F9F9FE;
   }
 
+  .form__group__password {
+    font-family: 'Poppins', sans-serif;
+    width: 347px;
+    outline: none;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    border-top: #171718;
+    border-left: none;
+    border-right: none;
+    border-bottom-color: #dfdfdf;
+    background: #F9F9FE;
+  }
+
 
   .form__control__span {
 
@@ -200,6 +239,11 @@ const Form = styled.div`
     left: 320px;
   }
 
+  .form__control__img {
+    width: 24px;
+    height: 24px;
+  }
+
 
   .form__control__password__wrap {
     display: -ms-flexbox;
@@ -217,11 +261,7 @@ const Form = styled.div`
     text-align: center;
     color: #b0bdd3;
   }
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
+  
 
   .form__control__rememberPassword {
     font-weight: 400;
