@@ -11,7 +11,7 @@ export const registerAPI = {
     }
 }
 
-type RegisterParamsType = {
+export type RegisterParamsType = {
     email: string
     password: string
 }
