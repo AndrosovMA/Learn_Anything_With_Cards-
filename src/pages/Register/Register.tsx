@@ -7,13 +7,12 @@ import closeShow from "../../styles/assets/img/closeShow.svg"
 import {useState} from "react";
 
 
-
-interface FormValues {
-    email: string;
-    password: string;
-    passwordConfirm: string,
-    rememberMe: boolean
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
 }
+
 
 export const Register = () => {
 
@@ -24,6 +23,15 @@ export const Register = () => {
             password: '',
             passwordConfirm: '',
             rememberMe: false
+        },
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.email) {
+                errors.email = 'Required to fill';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+            }
+            return errors;
         },
         onSubmit: values => {
             alert(JSON.stringify(values));
@@ -66,6 +74,7 @@ export const Register = () => {
                                    onChange={formik.handleChange}
                                    type="email"
                             />
+                            {formik.errors.email ? <div style={{color: "red"}}>{formik.errors.email}</div> : null}
                             <span className="form__control__span">Password</span>
                             <input className="form__group__password"
                                    name="password"
