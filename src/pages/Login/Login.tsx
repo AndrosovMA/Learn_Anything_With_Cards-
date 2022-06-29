@@ -6,9 +6,13 @@ import {ButtonField} from "../../components/Button";
 import {useState} from "react";
 import openShow from "../../styles/assets/img/openShow.svg";
 import closeShow from "../../styles/assets/img/closeShow.svg";
+import {loginTC} from "../../store/reducers/login-reducer";
+import {DispatchType} from "../../store/store";
+import {useDispatch} from "react-redux";
 
 
 export const Login = () => {
+    const dispatch: DispatchType = useDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -17,6 +21,8 @@ export const Login = () => {
             rememberMe: false
         },
         onSubmit: values => {
+            const thunk = loginTC({email: values.email, password: values.password, rememberMe: values.rememberMe})
+            dispatch(thunk);
             alert(JSON.stringify(values));
         },
     })
@@ -95,6 +101,8 @@ export const Login = () => {
 
 // types
 
+
+//styled
 const Wrap = styled.div`
   display: flex;
   justify-content: center;

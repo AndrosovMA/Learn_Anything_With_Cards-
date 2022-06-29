@@ -1,11 +1,12 @@
 import {useFormik} from "formik";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import styled from "styled-components";
 import openShow from "../../styles/assets/img/openShow.svg"
 import closeShow from "../../styles/assets/img/closeShow.svg"
-
 import {useState} from "react";
-
+import {register} from "../../store/reducers/register-reducer";
+import {DispatchType, useAppDispatch} from "../../store/store";
+import {useDispatch} from "react-redux";
 
 
 interface FormValues {
@@ -16,7 +17,7 @@ interface FormValues {
 }
 
 export const Register = () => {
-
+    const dispatch: DispatchType = useDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -26,6 +27,8 @@ export const Register = () => {
             rememberMe: false
         },
         onSubmit: values => {
+            const thunk = register({email: values.email, password: values.password})
+            dispatch(thunk);
             alert(JSON.stringify(values));
         },
     })
@@ -118,6 +121,7 @@ export const Register = () => {
 
 // types
 
+// styled
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
