@@ -54,6 +54,12 @@ export const Register = () => {
         },
     })
 
+    const isAddDisabled = !formik.values.email.length && !formik.values.password.length ? true : undefined
+    const classForAddButton = !formik.values.email || !formik.values.password ? "form__control__btn__disabled" : "form__control__btn"
+
+    const toggleShowOne = () => {setIsVisibleOne(!isVisibleOne)}
+    const toggleShowTwo = () => {setIsVisibleTwo(!isVisibleTwo)}
+
 
     const handleSubmit = () => {
         const {password, passwordConfirm} = formik.values
@@ -66,12 +72,7 @@ export const Register = () => {
         }
     }
 
-    const toggleShowOne = () => {setIsVisibleOne(!isVisibleOne)}
-    const toggleShowTwo = () => {setIsVisibleTwo(!isVisibleTwo)}
-
-    const isAddDisabled = !formik.values.email.length && !formik.values.password.length ? true : undefined
-    const classForAddButton = !formik.values.email || !formik.values.password ? "form__control__btn__disabled" : "form__control__btn"
-
+    //при удачной регистрации!!!
     if (regDAta) {
         return <Navigate to="/login" />;
     }
