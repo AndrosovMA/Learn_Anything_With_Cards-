@@ -2,7 +2,7 @@ import {loginAPI, LoginParamsType, ResponseType} from "../../api/login-api";
 import {Dispatch} from "redux";
 
 const initialState = {}
-
+//test commit
 export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'LOGIN/SET-IS-LOGGED-IN':
