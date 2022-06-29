@@ -22,7 +22,7 @@ export const Register = () => {
     const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
 
     const dispatch = useAppDispatch()
-    const regDAta = useAppSelector(state => state.registerReducer.isRegisteredIn)
+    const regData = useAppSelector(state => state.registerReducer.isRegisteredIn)
 
 
     const formik = useFormik({
@@ -57,8 +57,12 @@ export const Register = () => {
     const isAddDisabled = !formik.values.email.length && !formik.values.password.length ? true : undefined
     const classForAddButton = !formik.values.email || !formik.values.password ? "form__control__btn__disabled" : "form__control__btn"
 
-    const toggleShowOne = () => {setIsVisibleOne(!isVisibleOne)}
-    const toggleShowTwo = () => {setIsVisibleTwo(!isVisibleTwo)}
+    const toggleShowOne = () => {
+        setIsVisibleOne(!isVisibleOne)
+    }
+    const toggleShowTwo = () => {
+        setIsVisibleTwo(!isVisibleTwo)
+    }
 
 
     const handleSubmit = () => {
@@ -73,8 +77,8 @@ export const Register = () => {
     }
 
     //при удачной регистрации!!!
-    if (regDAta) {
-        return <Navigate to="/login" />;
+    if (regData) {
+        return <Navigate to="/login"/>;
     }
 
 
