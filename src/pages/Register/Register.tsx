@@ -1,10 +1,11 @@
+import {useState} from "react";
 import {useFormik} from "formik";
 import {Link} from "react-router-dom";
+import * as Yup from 'yup';
+
 import styled from "styled-components";
 import openShow from "../../styles/assets/img/openShow.svg"
 import closeShow from "../../styles/assets/img/closeShow.svg"
-
-import {useState} from "react";
 
 
 type FormikErrorType = {
@@ -12,7 +13,6 @@ type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
-
 
 export const Register = () => {
 
@@ -27,12 +27,22 @@ export const Register = () => {
         validate: (values) => {
             const errors: FormikErrorType = {};
             if (!values.email) {
-                errors.email = 'Required to fill';
+                errors.email = 'Field required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
             return errors;
         },
+        validationSchema: Yup.object().shape({
+            // email: Yup.string()
+            //     .email("Invalid email address")
+            //     .required("Please enter email"),
+            password: Yup.string()
+                .required('No password provided.')
+                .min(8, 'Password is too short - should be 8 chars minimum.')
+                .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+
+        }),
         onSubmit: values => {
             alert(JSON.stringify(values));
         },
@@ -41,8 +51,12 @@ export const Register = () => {
     const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
     const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
 
-    const toggleShowOne = () => {setIsVisibleOne(!isVisibleOne)}
-    const toggleShowTwo = () => {setIsVisibleTwo(!isVisibleTwo)}
+    const toggleShowOne = () => {
+        setIsVisibleOne(!isVisibleOne)
+    }
+    const toggleShowTwo = () => {
+        setIsVisibleTwo(!isVisibleTwo)
+    }
 
 
     const handleSubmit = () => {
@@ -50,7 +64,6 @@ export const Register = () => {
         if (password !== passwordConfirm) {
             console.log("Passwords don't match");
         } else {
-
             console.log("Passwords match!!!");
         }
     }
@@ -74,7 +87,11 @@ export const Register = () => {
                                    onChange={formik.handleChange}
                                    type="email"
                             />
-                            {formik.errors.email ? <div style={{color: "red"}}>{formik.errors.email}</div> : null}
+
+                            {formik.touched.email && formik.errors.email ? (
+                                <span className="form__group__email_error">{formik.errors.email}</span>
+                            ) : null}
+
                             <span className="form__control__span">Password</span>
                             <input className="form__group__password"
                                    name="password"
@@ -83,6 +100,11 @@ export const Register = () => {
                                    type={isVisibleOne ? "password" : "text"}
 
                             />
+
+                            {formik.touched.password && formik.errors.password ? (
+                                <span className="form__group__password_error">{formik.errors.password}</span>
+                            ) : null}
+
                             <span className="form__control__span">Confirm password</span>
                             <input className="form__group__password"
                                    name="passwordConfirm"
@@ -91,6 +113,11 @@ export const Register = () => {
                                    type={isVisibleTwo ? "password" : "text"}
 
                             />
+
+                            {formik.touched.password && formik.errors.password ? (
+                                <span className="form__group__password_error">{formik.errors.password}</span>
+                            ) : null}
+
                             <div className="form__control__icon">
                                 <img className="form__control__img"
                                      onClick={toggleShowOne}
@@ -219,6 +246,29 @@ const Form = styled.div`
     background: #F9F9FE;
   }
 
+  .form__group__password_error {
+    text-align: inherit;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #d53030;
+    opacity: 0.5;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .form__group__email_error {
+    text-align: inherit;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #d53030;
+    opacity: 0.5;
+    display: inline-block;
+    width: 100%;
+  }
+  
+
 
   .form__control__span {
 
@@ -270,7 +320,7 @@ const Form = styled.div`
     text-align: center;
     color: #b0bdd3;
   }
-  
+
 
   .form__control__rememberPassword {
     font-weight: 400;
