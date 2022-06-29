@@ -1,7 +1,7 @@
 import {Checkbox, FormControlLabel,} from "@mui/material"
 import {useFormik} from "formik";
 import styled from "styled-components";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {ButtonField} from "../../components/Button";
 import {useState} from "react";
 import openShow from "../../styles/assets/img/openShow.svg";
