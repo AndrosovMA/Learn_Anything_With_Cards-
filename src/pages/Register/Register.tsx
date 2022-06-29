@@ -51,6 +51,18 @@ export const Register = () => {
     const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
     const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
 
+
+    const handleSubmit = () => {
+        const {password, passwordConfirm} = formik.values
+        if (password !== passwordConfirm) {
+            return (
+                alert("Пароли не совпадают")
+            )
+        } else {
+            console.log("Passwords match!!!");
+        }
+    }
+
     const toggleShowOne = () => {
         setIsVisibleOne(!isVisibleOne)
     }
@@ -58,15 +70,8 @@ export const Register = () => {
         setIsVisibleTwo(!isVisibleTwo)
     }
 
-
-    const handleSubmit = () => {
-        const {password, passwordConfirm} = formik.values
-        if (password !== passwordConfirm) {
-            console.log("Passwords don't match");
-        } else {
-            console.log("Passwords match!!!");
-        }
-    }
+    const isAddDisabled = !formik.values.email.length && !formik.values.password.length ? true : undefined
+    const classForAddButton = !formik.values.email || !formik.values.password ? "form__control__btn__disabled" : "form__control__btn"
 
 
     return <>
@@ -141,7 +146,8 @@ export const Register = () => {
                                 <button
                                     onClick={handleSubmit}
                                     type="submit"
-                                    className="form__control__btn">Register
+                                    disabled={isAddDisabled}
+                                    className={classForAddButton}>Register
                                 </button>
                             </div>
                         </Form>
@@ -267,7 +273,6 @@ const Form = styled.div`
     display: inline-block;
     width: 100%;
   }
-  
 
 
   .form__control__span {
@@ -378,6 +383,26 @@ const Form = styled.div`
     border: none;
     cursor: pointer;
   }
+
+  .form__control__btn__disabled {
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    width: 187px;
+    height: 36px;
+    /*************/
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    border: none;
+    cursor: pointer;
+    opacity: 50%;
+  }
+
 
   .form__control__rememberAccount {
     font-weight: 600;
