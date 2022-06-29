@@ -20,7 +20,7 @@ export type DispatchType  = ThunkDispatch<AppStateType, unknown, AnyAction>
 export const useAppDispatch = () => useDispatch<DispatchType>()
 
 // в react 18 используем useAppSelector вместо useSelector
-export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector
+// export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector
 
 //тип всех action-ов приложения
 export type AllActionsAppType = RegisterActionsType

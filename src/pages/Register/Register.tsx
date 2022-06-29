@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 import styled from "styled-components";
 import openShow from "../../styles/assets/img/openShow.svg"
 import closeShow from "../../styles/assets/img/closeShow.svg"
-import {useAppDispatch, useAppSelector} from "../../store/store";
+import {AppStateType, useAppDispatch} from "../../store/store";
 import {register} from "../../store/reducers/register-reducer";
+import {useSelector} from "react-redux";
 
 
 type FormikErrorType = {
@@ -21,8 +22,8 @@ export const Register = () => {
     const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
     const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
 
-    const dispatch = useAppDispatch()
-    const regData = useAppSelector(state => state.registerReducer.isRegisteredIn)
+    const dispatch = useAppDispatch();
+    const regData = useSelector<AppStateType, boolean>(state => state.registerReducer.isRegisteredIn)
 
 
     const formik = useFormik({
