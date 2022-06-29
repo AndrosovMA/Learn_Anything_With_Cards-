@@ -1,11 +1,13 @@
 import {useState} from "react";
 import {useFormik} from "formik";
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import * as Yup from 'yup';
 
 import styled from "styled-components";
 import openShow from "../../styles/assets/img/openShow.svg"
 import closeShow from "../../styles/assets/img/closeShow.svg"
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {register} from "../../store/reducers/register-reducer";
 
 
 type FormikErrorType = {
@@ -15,6 +17,12 @@ type FormikErrorType = {
 }
 
 export const Register = () => {
+
+    const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
+    const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
+
+    const dispatch = useAppDispatch()
+    const regDAta = useAppSelector(state => state.registerReducer.isRegisteredIn)
 
 
     const formik = useFormik({
@@ -34,22 +42,17 @@ export const Register = () => {
             return errors;
         },
         validationSchema: Yup.object().shape({
-            // email: Yup.string()
-            //     .email("Invalid email address")
-            //     .required("Please enter email"),
             password: Yup.string()
                 .required('No password provided.')
                 .min(8, 'Password is too short - should be 8 chars minimum.')
                 .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
 
         }),
-        onSubmit: values => {
-            alert(JSON.stringify(values));
+        onSubmit: data => {
+            dispatch(register(data));
+            formik.resetForm();
         },
     })
-
-    const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
-    const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
 
 
     const handleSubmit = () => {
@@ -63,15 +66,15 @@ export const Register = () => {
         }
     }
 
-    const toggleShowOne = () => {
-        setIsVisibleOne(!isVisibleOne)
-    }
-    const toggleShowTwo = () => {
-        setIsVisibleTwo(!isVisibleTwo)
-    }
+    const toggleShowOne = () => {setIsVisibleOne(!isVisibleOne)}
+    const toggleShowTwo = () => {setIsVisibleTwo(!isVisibleTwo)}
 
     const isAddDisabled = !formik.values.email.length && !formik.values.password.length ? true : undefined
     const classForAddButton = !formik.values.email || !formik.values.password ? "form__control__btn__disabled" : "form__control__btn"
+
+    if (regDAta) {
+        return <Navigate to="/login" />;
+    }
 
 
     return <>
@@ -86,11 +89,13 @@ export const Register = () => {
                         <Form>
                             <span className="form__control__span">Email</span>
                             <input className="form__group__email"
-
-                                   name="email"
-                                   value={formik.values.email}
-                                   onChange={formik.handleChange}
                                    type="email"
+                                // name="email"
+                                // value={formik.values.email}
+                                // onChange={formik.handleChange}
+                                // onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps("email")}
+
                             />
 
                             {formik.touched.email && formik.errors.email ? (
@@ -99,10 +104,12 @@ export const Register = () => {
 
                             <span className="form__control__span">Password</span>
                             <input className="form__group__password"
-                                   name="password"
-                                   value={formik.values.password}
-                                   onChange={formik.handleChange}
                                    type={isVisibleOne ? "password" : "text"}
+                                // name="password"
+                                // value={formik.values.password}
+                                // onChange={formik.handleChange}
+                                // onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps("password")}
 
                             />
 
@@ -112,11 +119,12 @@ export const Register = () => {
 
                             <span className="form__control__span">Confirm password</span>
                             <input className="form__group__password"
-                                   name="passwordConfirm"
-                                   value={formik.values.passwordConfirm}
-                                   onChange={formik.handleChange}
                                    type={isVisibleTwo ? "password" : "text"}
-
+                                // name="passwordConfirm"
+                                // value={formik.values.passwordConfirm}
+                                // onChange={formik.handleChange}
+                                // onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps("passwordConfirm")}
                             />
 
                             {formik.touched.password && formik.errors.password ? (
@@ -158,7 +166,6 @@ export const Register = () => {
     </>
 }
 
-// types
 
 const Wrap = styled.div`
   display: flex;

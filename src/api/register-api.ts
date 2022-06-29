@@ -30,16 +30,3 @@ type RegisterResponseType = {
     }
     error?: string
 }
-
-
-
-// "_id": "62baefc75961e93180e0f96c",
-//     "email": "svyat5555@gmail.com",
-//     "rememberMe": false,
-//     "isAdmin": false,
-//     "name": "svyat5555@gmail.com",
-//     "verified": false,
-//     "publicCardPacksCount": 0,
-//     "created": "2022-06-28T12:10:47.717Z",
-//     "updated": "2022-06-28T12:10:47.717Z",
-//     "__v": 0
