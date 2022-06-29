@@ -19,6 +19,7 @@ export const registerReducer =
 const setIsRegisteredIn = (isRegisteredIn: boolean) =>
     ({type: 'REGISTER/SET-IS-REGISTERED-IN', isRegisteredIn} as const)
 
+
 // thunks
 export const register = (data: RegisterParamsType): AppThunk => (dispatch) => {
     registerAPI.register(data)

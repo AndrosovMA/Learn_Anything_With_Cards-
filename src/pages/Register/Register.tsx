@@ -1,23 +1,29 @@
+import {useState} from "react";
 import {useFormik} from "formik";
-import {Link, useParams} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
+import * as Yup from 'yup';
+
 import styled from "styled-components";
 import openShow from "../../styles/assets/img/openShow.svg"
 import closeShow from "../../styles/assets/img/closeShow.svg"
-import {useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../store/store";
 import {register} from "../../store/reducers/register-reducer";
-import {DispatchType, useAppDispatch} from "../../store/store";
-import {useDispatch} from "react-redux";
 
 
-interface FormValues {
-    email: string;
-    password: string;
-    passwordConfirm: string,
-    rememberMe: boolean
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
 }
-
+//commit
 export const Register = () => {
-    const dispatch: DispatchType = useDispatch();
+
+    const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
+    const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
+
+    const dispatch = useAppDispatch()
+    const regData = useAppSelector(state => state.registerReducer.isRegisteredIn)
+
 
     const formik = useFormik({
         initialValues: {
@@ -26,28 +32,53 @@ export const Register = () => {
             passwordConfirm: '',
             rememberMe: false
         },
-        onSubmit: values => {
-            const thunk = register({email: values.email, password: values.password})
-            dispatch(thunk);
-            alert(JSON.stringify(values));
+        validate: (values) => {
+            const errors: FormikErrorType = {};
+            if (!values.email) {
+                errors.email = 'Field required';
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address';
+            }
+            return errors;
+        },
+        validationSchema: Yup.object().shape({
+            password: Yup.string()
+                .required('No password provided.')
+                .min(8, 'Password is too short - should be 8 chars minimum.')
+                .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.')
+
+        }),
+        onSubmit: data => {
+            dispatch(register(data));
+            formik.resetForm();
         },
     })
 
-    const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
-    const [isVisibleTwo, setIsVisibleTwo] = useState<boolean>(true)
+    const isAddDisabled = !formik.values.email.length && !formik.values.password.length ? true : undefined
+    const classForAddButton = !formik.values.email || !formik.values.password ? "form__control__btn__disabled" : "form__control__btn"
 
-    const toggleShowOne = () => {setIsVisibleOne(!isVisibleOne)}
-    const toggleShowTwo = () => {setIsVisibleTwo(!isVisibleTwo)}
+    const toggleShowOne = () => {
+        setIsVisibleOne(!isVisibleOne)
+    }
+    const toggleShowTwo = () => {
+        setIsVisibleTwo(!isVisibleTwo)
+    }
 
 
     const handleSubmit = () => {
         const {password, passwordConfirm} = formik.values
         if (password !== passwordConfirm) {
-            console.log("Passwords don't match");
+            return (
+                alert("Пароли не совпадают")
+            )
         } else {
-
             console.log("Passwords match!!!");
         }
+    }
+
+    //при удачной регистрации!!!
+    if (regData) {
+        return <Navigate to="/login"/>;
     }
 
 
@@ -63,28 +94,48 @@ export const Register = () => {
                         <Form>
                             <span className="form__control__span">Email</span>
                             <input className="form__group__email"
-
-                                   name="email"
-                                   value={formik.values.email}
-                                   onChange={formik.handleChange}
                                    type="email"
+                                // name="email"
+                                // value={formik.values.email}
+                                // onChange={formik.handleChange}
+                                // onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps("email")}
+
                             />
+
+                            {formik.touched.email && formik.errors.email ? (
+                                <span className="form__group__email_error">{formik.errors.email}</span>
+                            ) : null}
+
                             <span className="form__control__span">Password</span>
                             <input className="form__group__password"
-                                   name="password"
-                                   value={formik.values.password}
-                                   onChange={formik.handleChange}
                                    type={isVisibleOne ? "password" : "text"}
+                                // name="password"
+                                // value={formik.values.password}
+                                // onChange={formik.handleChange}
+                                // onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps("password")}
 
                             />
+
+                            {formik.touched.password && formik.errors.password ? (
+                                <span className="form__group__password_error">{formik.errors.password}</span>
+                            ) : null}
+
                             <span className="form__control__span">Confirm password</span>
                             <input className="form__group__password"
-                                   name="passwordConfirm"
-                                   value={formik.values.passwordConfirm}
-                                   onChange={formik.handleChange}
                                    type={isVisibleTwo ? "password" : "text"}
-
+                                // name="passwordConfirm"
+                                // value={formik.values.passwordConfirm}
+                                // onChange={formik.handleChange}
+                                // onBlur={formik.handleBlur}
+                                   {...formik.getFieldProps("passwordConfirm")}
                             />
+
+                            {formik.touched.password && formik.errors.password ? (
+                                <span className="form__group__password_error">{formik.errors.password}</span>
+                            ) : null}
+
                             <div className="form__control__icon">
                                 <img className="form__control__img"
                                      onClick={toggleShowOne}
@@ -108,7 +159,8 @@ export const Register = () => {
                                 <button
                                     onClick={handleSubmit}
                                     type="submit"
-                                    className="form__control__btn">Register
+                                    disabled={isAddDisabled}
+                                    className={classForAddButton}>Register
                                 </button>
                             </div>
                         </Form>
@@ -119,9 +171,7 @@ export const Register = () => {
     </>
 }
 
-// types
 
-// styled
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
@@ -214,6 +264,28 @@ const Form = styled.div`
     background: #F9F9FE;
   }
 
+  .form__group__password_error {
+    text-align: inherit;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #d53030;
+    opacity: 0.5;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .form__group__email_error {
+    text-align: inherit;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: #d53030;
+    opacity: 0.5;
+    display: inline-block;
+    width: 100%;
+  }
+
 
   .form__control__span {
 
@@ -265,7 +337,7 @@ const Form = styled.div`
     text-align: center;
     color: #b0bdd3;
   }
-  
+
 
   .form__control__rememberPassword {
     font-weight: 400;
@@ -323,6 +395,26 @@ const Form = styled.div`
     border: none;
     cursor: pointer;
   }
+
+  .form__control__btn__disabled {
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    width: 187px;
+    height: 36px;
+    /*************/
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    border: none;
+    cursor: pointer;
+    opacity: 50%;
+  }
+
 
   .form__control__rememberAccount {
     font-weight: 600;
