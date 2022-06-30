@@ -1,18 +1,19 @@
 import {Checkbox, FormControlLabel,} from "@mui/material"
 import {useFormik} from "formik";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {ButtonField} from "../../components/Button";
 import {useState} from "react";
 import openShow from "../../styles/assets/img/openShow.svg";
 import closeShow from "../../styles/assets/img/closeShow.svg";
 import {loginTC} from "../../store/reducers/login-reducer";
-import {DispatchType} from "../../store/store";
-import {useDispatch} from "react-redux";
+import {AppStateType, DispatchType} from "../../store/store";
+import {useDispatch, useSelector} from "react-redux";
 
 
 export const Login = () => {
     const dispatch: DispatchType = useDispatch();
+    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
 
     const formik = useFormik({
         initialValues: {
@@ -39,7 +40,9 @@ export const Login = () => {
         setIsVisible(!isVisible);
     }
 
-
+    if (isLoggedIn) {
+        return <Navigate to={"/home"} />
+    }
 
     return <>
 
