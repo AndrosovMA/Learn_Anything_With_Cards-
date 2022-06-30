@@ -7,7 +7,7 @@ const instance = axios.create({
 
 export const loginAPI = {
     login (data: LoginParamsType) {
-        return instance.post<ResponseType>("auth/login", data);
+        return instance.post<LoginResponseType>("auth/login", data);
     }
 }
 
@@ -19,18 +19,38 @@ export type LoginParamsType = {
     rememberMe: boolean
 }
 
-export type ResponseType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number; // количество колод
+export type LoginResponseType = {
+    // _id: string;
+    // email: string;
+    // name: string;
+    // avatar?: string;
+    // publicCardPacksCount: number; // количество колод
+    //
+    // created: Date;
+    // updated: Date;
+    // isAdmin: boolean;
+    // verified: boolean; // подтвердил ли почту
+    // rememberMe: boolean;
+    //
+    // error?: string;
 
-    created: Date;
-    updated: Date;
-    isAdmin: boolean;
-    verified: boolean; // подтвердил ли почту
-    rememberMe: boolean;
 
-    error?: string;
+
+    _id: string
+    email: string
+    rememberMe: boolean
+    isAdmin: boolean
+    name: string
+
+    avatar?: string
+
+    verified: boolean
+    publicCardPacksCount: number
+    created: string
+    updated: string
+    __v: number,
+    token: string
+    tokenDeathTime: number
+
+    error?: string
 }

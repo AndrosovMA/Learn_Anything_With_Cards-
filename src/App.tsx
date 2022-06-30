@@ -9,6 +9,7 @@ import { ForgotPassword } from "./pages/RecoveryPassword/ForgotPassword";
 import {CheckEmail} from "./pages/CheckEmail/CheckEmail";
 import {CreatePassword} from "./pages/RecoveryPassword/CreatePassword";
 import NotFound from "./pages/404/404";
+import {Home} from "./pages/Home/Home";
 
 function App() {
     return (
@@ -30,7 +31,8 @@ function App() {
 
             <WrapContainer>
                 <Routes>
-                    <Route path='/' element={<Login/>}/>
+                    <Route path='/' element={<Home/>}/>
+                    <Route path='/home' element={<Home/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='password' element={<ForgotPassword/>}/>
