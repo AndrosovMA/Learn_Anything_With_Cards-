@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../store/store";
+import {AppStateType, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
 import Avatar from "../../styles/img/Avatar.png"
@@ -14,6 +14,8 @@ export const Home = () => {
 
     const [value, setValue] = useState<number[]>([20, 80]);
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
+    const userName = useAppSelector(state => state.loginReducer.userName)
+
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -34,7 +36,7 @@ export const Home = () => {
 
                         <ProfileAboveContainer>
                             <img src={Avatar} alt="photo"/>
-                            <span className="profile__above__name">Petr Ivanov</span>
+                            <span className="profile__above__name">{userName}</span>
                             <span className="profile__above__description">Front-end developer</span>
                         </ProfileAboveContainer>
                     </div>

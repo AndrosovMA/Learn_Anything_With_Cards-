@@ -105,7 +105,7 @@ const Form = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 80%;
+  width: 100%;
 
 
   .form__group__email {
@@ -133,14 +133,14 @@ const Form = styled.div`
     color: #24254A;
     opacity: 0.5;
     display: inline-block;
-    width: 100%;
+    width: 80%;
     margin-top: 56px;
     
   }
   
   
   .form__group__description {
-    width: 100%;
+    width: 80%;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
