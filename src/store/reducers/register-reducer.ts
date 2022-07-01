@@ -1,6 +1,7 @@
 import {AppThunk} from "../store";
 import {registerAPI, RegisterParamsType} from "../../api/register-api";
-import {setAppStatusAC, SetAppStatusActionType} from "../app-reducer";
+import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {handleNetworkError} from "../../utils/error- utills";
 
 const initialState = {
     isRegisteredIn: false
@@ -28,6 +29,9 @@ export const register = (data: RegisterParamsType): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(setIsRegisteredIn(true))
         })
+        .catch((eroor) => {
+            handleNetworkError(eroor, dispatch)
+        })
         .finally(() => {
             dispatch(setAppStatusAC("idle"))
         })
@@ -39,3 +43,4 @@ type InitialStateType = typeof initialState
 export type RegisterActionsType =
     ReturnType<typeof setIsRegisteredIn>
     | SetAppStatusActionType
+    | SetAppErrorActionType

@@ -5,7 +5,7 @@ import {RegisterActionsType, registerReducer} from "./reducers/register-reducer"
 import {loginReducer} from "./reducers/login-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import { TypedUseSelectorHook } from "react-redux";
-import { appReducer } from "./app-reducer";
+import { appReducer } from "./reducers/app-reducer";
 
 export const reducers = combineReducers({
     loginReducer,

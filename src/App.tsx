@@ -12,6 +12,7 @@ import NotFound from "./pages/404/404";
 import {Home} from "./pages/Home/Home";
 import {useAppSelector} from "./store/store";
 import {Box, CircularProgress} from "@mui/material";
+import {ErrorSnackbar} from "./components/ErrorSnackbar";
 
 function App() {
     const status = useAppSelector(state => state.appReducer.status)
@@ -35,6 +36,7 @@ function App() {
 
     return (
         <Header>
+            <ErrorSnackbar />
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>

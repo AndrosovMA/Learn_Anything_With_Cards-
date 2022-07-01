@@ -1,6 +1,8 @@
 import {loginAPI, LoginParamsType, LoginResponseType} from "../../api/login-api";
 import {Dispatch} from "redux";
-import {setAppStatusAC, SetAppStatusActionType} from "../app-reducer";
+import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {AxiosError} from "axios";
+import {handleNetworkError} from "../../utils/error- utills";
 
 const initialState = {
     isLoggedIn: false,
@@ -61,6 +63,9 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
             // dispatch(action)
             // console.log(res.data)
         })
+        .catch((eroor) => {
+            handleNetworkError(eroor, dispatch)
+        })
         .finally(() => {
             dispatch(setAppStatusAC("idle"))
         })
@@ -73,3 +78,4 @@ type ActionsType =
     | ReturnType<typeof setUserDataAC>
     | ReturnType<typeof setUserNameAC>
     | SetAppStatusActionType
+    | SetAppErrorActionType
