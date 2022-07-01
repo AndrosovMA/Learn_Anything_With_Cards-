@@ -23,6 +23,7 @@ function App() {
                             <NavLink to="/password">ForgotPassword</NavLink>
                             <NavLink to="/createPassword">CreatePassword</NavLink>
                             <NavLink to="/checkEmail">CheckEmail</NavLink>
+                            <NavLink to="/home">Home</NavLink>
                         </Navigation>
                     </Typography>
                 </Toolbar>
