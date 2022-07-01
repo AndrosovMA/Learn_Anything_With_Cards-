@@ -44,7 +44,7 @@ function App() {
                             <NavLink to="/login">Login</NavLink>
                             <NavLink to="/register">Register</NavLink>
                             <NavLink to="/password">ForgotPassword</NavLink>
-                            <NavLink to="/createPassword">CreatePassword</NavLink>
+                            <NavLink to="/set-new-password">CreatePassword</NavLink>
                             <NavLink to="/checkEmail">CheckEmail</NavLink>
                         </Navigation>
                     </Typography>
@@ -59,11 +59,11 @@ function App() {
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='password' element={<ForgotPassword/>}/>
-                    <Route path='createPassword' element={<CreatePassword/>}/>
+                    <Route path='/set-new-password/:token' element={<CreatePassword/>}/>
                     <Route path='checkEmail' element={<CheckEmail/>}/>
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
                     {/*<Route path='*' element={<Navigate to='/404'/>}/>*/}
-                    <Route path='*' element={<NotFound />}/>
+                    <Route path='*' element={<NotFound/>}/>
                 </Routes>
             </WrapContainer>
 
@@ -83,7 +83,7 @@ const Navigation = styled.nav`
   a {
     text-decoration: none;
     color: white;
-    
+
     :not(:first-child) {
       margin-left: 50px;
     }
