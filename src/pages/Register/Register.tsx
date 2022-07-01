@@ -15,7 +15,7 @@ type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
-//commit
+
 export const Register = () => {
 
     const [isVisibleOne, setIsVisibleOne] = useState<boolean>(true)
