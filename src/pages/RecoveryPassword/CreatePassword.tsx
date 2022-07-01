@@ -3,9 +3,15 @@ import {AiFillEye} from "react-icons/ai";
 import InputField from "../../components/InputField";
 import {ChangeEvent, useState} from "react";
 import {ButtonField} from "../../components/Button";
+import {useParams} from "react-router-dom";
+import {useFormik} from "formik";
+import {setNewPasswordTC} from "../../store/reducers/forgotPassword-reducer";
+import {DispatchType} from "../../store/store";
+import {useDispatch} from "react-redux";
 
 
 export const CreatePassword = () => {
+    const dispatch: DispatchType = useDispatch();
 
     const [valuePass, setValuePass] = useState("")
     const [isVisible, setIsVisible] = useState<boolean>(true)
@@ -14,6 +20,19 @@ export const CreatePassword = () => {
         console.log(isVisible)
         setIsVisible(!isVisible);
     }
+    const {token} = useParams()
+    console.log(token)
+
+    const formik = useFormik({
+        initialValues: {
+            password: ''
+        },
+        onSubmit: values => {
+            const thunk = setNewPasswordTC(valuePass, token ? token: '')
+            dispatch(thunk);
+            alert(JSON.stringify(values));
+        },
+    })
 
     return <>
         <Wrap>
@@ -23,22 +42,24 @@ export const CreatePassword = () => {
                     <span className="sign">Forgot your password?</span>
                 </div>
                 <div className="form__control">
-                    <Form>
-                        <span className="form__control__span">Password</span>
-                        <InputField
-                            value={valuePass}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => setValuePass(e.currentTarget.value)}
-                            isVisible={isVisible}
-                        />
-                        <div className="form__control__icon">
-                            <AiFillEye
-                                onClick={toggleShow}
-                                style={{cursor: "pointer"}}/>
-                        </div>
-                        <span className='form__group__description'>Create new password and we will send you further
+                    <form onSubmit={formik.handleSubmit}>
+                        <Form>
+                            <span className="form__control__span">Password</span>
+                            <InputField
+                                value={valuePass}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => setValuePass(e.currentTarget.value)}
+                                isVisible={isVisible}
+                            />
+                            <div className="form__control__icon">
+                                <AiFillEye
+                                    onClick={toggleShow}
+                                    style={{cursor: "pointer"}}/>
+                            </div>
+                            <span className='form__group__description'>Create new password and we will send you further
                             instructions to email</span>
-                        <ButtonField>Create new password</ButtonField>
-                    </Form>
+                            <ButtonField type="submit">Create new password</ButtonField>
+                        </Form>
+                    </form>
                 </div>
             </div>
         </Wrap>
@@ -105,8 +126,8 @@ const Form = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 83%;
-  
+  width: 100%;
+
 
   .form__control__span {
     text-align: inherit;
@@ -116,12 +137,12 @@ const Form = styled.div`
     color: #24254A;
     opacity: 0.5;
     display: inline-block;
-    width: 100%;
+    width: 80%;
     margin-top: 56px;
   }
-  
+
   .form__group__description {
-    width: 100%;
+    width: 80%;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -130,7 +151,7 @@ const Form = styled.div`
     opacity: 0.5;
     margin-top: 30px;
   }
-  
+
   .form__control__icon {
     position: absolute;
     top: 75px;

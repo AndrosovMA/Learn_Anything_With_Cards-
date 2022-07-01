@@ -1,11 +1,12 @@
 import {Dispatch} from "redux";
 import {forgotPasswordAPI, ForgotPasswordType} from "../../api/forgotPassword-api";
+import {setNewPasswordAPI, SetNewPasswordType} from "../../api/setNewPassword-api";
 
 const initialState = {}
 const linkMessage = {
     message: `<div style="background-color: lime; padding: 15px">
                 password recovery link: 
-                <a href='http://localhost:3000/#/set-new-password/$token$'>
+                <a href='http://localhost:3000/set-new-password/$token$/'>
                 link</a>
                </div>`
 }
@@ -32,6 +33,16 @@ export const forgotPasswordTC = (email: string) => (dispatch: Dispatch<ActionsTy
             dispatch(setForgotPasswordAC())
         })
 }
+
+export const setNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch<ActionsType>) => {
+    const data: SetNewPasswordType = {password: password, resetPasswordToken: token}
+
+    setNewPasswordAPI.setPassword(data)
+        .then((res) => {
+            dispatch(setForgotPasswordAC())
+        })
+}
+
 
 // types
 type InitialStateType = typeof initialState
