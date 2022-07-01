@@ -64,7 +64,7 @@ function App() {
                     <Route path='checkEmail' element={<CheckEmail/>}/>
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
                     {/*<Route path='*' element={<Navigate to='/404'/>}/>*/}
-                    <Route path='*' element={<NotFound/>}/>
+                    {/*<Route path='*' element={<NotFound/>}/>*/}
                 </Routes>
             </WrapContainer>
 
