@@ -46,6 +46,7 @@ function App() {
                             <NavLink to="/password">ForgotPassword</NavLink>
                             <NavLink to="/set-new-password">CreatePassword</NavLink>
                             <NavLink to="/checkEmail">CheckEmail</NavLink>
+                            <NavLink to="/home">Home</NavLink>
                         </Navigation>
                     </Typography>
                 </Toolbar>

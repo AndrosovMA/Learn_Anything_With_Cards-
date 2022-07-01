@@ -1,4 +1,4 @@
-import {Checkbox, FormControlLabel,} from "@mui/material"
+import { Checkbox, FormControlLabel } from "@mui/material"
 import {useFormik} from "formik";
 import styled from "styled-components";
 import {Link, Navigate} from "react-router-dom";

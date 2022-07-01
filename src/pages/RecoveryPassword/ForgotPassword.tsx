@@ -1,22 +1,17 @@
 import {useFormik} from "formik";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {ButtonField} from "../../components/Button";
-import {forgotPasswordTC} from "../../store/reducers/forgotPassword-reducer";
-import {DispatchType} from "../../store/store";
-import {useDispatch} from "react-redux";
 
 
 export const ForgotPassword = () => {
-    const dispatch: DispatchType = useDispatch();
-
     const formik = useFormik({
         initialValues: {
-            email: ''
+            email: '',
+            password: '',
+            rememberMe: false
         },
         onSubmit: values => {
-            const thunk = forgotPasswordTC(values.email)
-            dispatch(thunk);
             alert(JSON.stringify(values));
         },
     })
@@ -37,8 +32,8 @@ export const ForgotPassword = () => {
                                    type="email"
                             />
                             <span className='form__group__description'>Enter your email address and we will send you further instructions </span>
-                            <ButtonField type="submit">
-                                Send Instructions
+                            <ButtonField>
+                                <Link to="/recovery">Send Instructions</Link>
                             </ButtonField>
                             <span className="form__group__password">Did you remember your password?</span>
                             <Link className="form__group__login" to="/login">Try logging in</Link>
@@ -128,7 +123,7 @@ const Form = styled.div`
     color: #2D2E46;
     background: #F9F9FE;
   }
-
+  
   .form__control__span {
 
     text-align: inherit;
@@ -140,10 +135,10 @@ const Form = styled.div`
     display: inline-block;
     width: 80%;
     margin-top: 56px;
-
+    
   }
-
-
+  
+  
   .form__group__description {
     width: 80%;
     font-style: normal;
@@ -154,7 +149,6 @@ const Form = styled.div`
     opacity: 0.5;
     margin-top: 30px;
   }
-
   .form__group__password {
     font-weight: 400;
     font-size: 16px;
