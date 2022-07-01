@@ -1,5 +1,6 @@
 import {AppThunk} from "../store";
 import {registerAPI, RegisterParamsType} from "../../api/register-api";
+import {setAppStatusAC, SetAppStatusActionType} from "../app-reducer";
 
 const initialState = {
     isRegisteredIn: false
@@ -22,13 +23,19 @@ const setIsRegisteredIn = (isRegisteredIn: boolean) =>
 
 // thunks
 export const register = (data: RegisterParamsType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     registerAPI.register(data)
         .then((res) => {
             dispatch(setIsRegisteredIn(true))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
         })
 }
 
 
 // types
 type InitialStateType = typeof initialState
-export type RegisterActionsType = ReturnType<typeof setIsRegisteredIn>
+export type RegisterActionsType =
+    ReturnType<typeof setIsRegisteredIn>
+    | SetAppStatusActionType
