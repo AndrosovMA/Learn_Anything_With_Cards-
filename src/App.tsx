@@ -10,10 +10,33 @@ import {CheckEmail} from "./pages/CheckEmail/CheckEmail";
 import {CreatePassword} from "./pages/RecoveryPassword/CreatePassword";
 import NotFound from "./pages/404/404";
 import {Home} from "./pages/Home/Home";
+import {useAppSelector} from "./store/store";
+import {Box, CircularProgress} from "@mui/material";
+import {ErrorSnackbar} from "./components/ErrorSnackbar";
 
 function App() {
+    const status = useAppSelector(state => state.appReducer.status)
+
+    if (status === "loading") {
+        return <Box
+            sx={{
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                position: 'absolute',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        >
+            <CircularProgress color={"primary"} size={80} thickness={3.6} />
+        </Box>
+    }
+
     return (
         <Header>
+            <ErrorSnackbar />
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
