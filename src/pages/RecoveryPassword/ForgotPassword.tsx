@@ -1,5 +1,5 @@
 import {useFormik} from "formik";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {ButtonField} from "../../components/Button";
 
@@ -105,7 +105,7 @@ const Form = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  width: 100%;
+  width: 80%;
 
 
   .form__group__email {
@@ -123,7 +123,7 @@ const Form = styled.div`
     color: #2D2E46;
     background: #F9F9FE;
   }
-
+  
   .form__control__span {
 
     text-align: inherit;
@@ -133,14 +133,14 @@ const Form = styled.div`
     color: #24254A;
     opacity: 0.5;
     display: inline-block;
-    width: 80%;
+    width: 100%;
     margin-top: 56px;
-
+    
   }
-
-
+  
+  
   .form__group__description {
-    width: 80%;
+    width: 100%;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -149,7 +149,6 @@ const Form = styled.div`
     opacity: 0.5;
     margin-top: 30px;
   }
-
   .form__group__password {
     font-weight: 400;
     font-size: 16px;

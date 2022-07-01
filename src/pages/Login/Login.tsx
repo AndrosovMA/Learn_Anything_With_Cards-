@@ -24,7 +24,7 @@ export const Login = () => {
         onSubmit: values => {
             const thunk = loginTC({email: values.email, password: values.password, rememberMe: values.rememberMe})
             dispatch(thunk);
-            alert(JSON.stringify(values));
+            //alert(JSON.stringify(values));
         },
     })
 

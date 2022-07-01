@@ -5,10 +5,12 @@ import {RegisterActionsType, registerReducer} from "./reducers/register-reducer"
 import {loginReducer} from "./reducers/login-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import { TypedUseSelectorHook } from "react-redux";
+import { appReducer } from "./reducers/app-reducer";
 
 export const reducers = combineReducers({
     loginReducer,
-    registerReducer
+    registerReducer,
+    appReducer
 })
 
 export const store = legacy_createStore(reducers, applyMiddleware(thunk));
