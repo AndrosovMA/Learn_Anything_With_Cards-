@@ -60,11 +60,9 @@ function App() {
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='password' element={<ForgotPassword/>}/>
-                    <Route path='/set-new-password/:token' element={<CreatePassword/>}/>
+                    <Route path='set-new-password/:token' element={<CreatePassword/>}/>
                     <Route path='checkEmail' element={<CheckEmail/>}/>
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
-                    {/*<Route path='*' element={<Navigate to='/404'/>}/>*/}
-                    {/*<Route path='*' element={<NotFound/>}/>*/}
                 </Routes>
             </WrapContainer>
 

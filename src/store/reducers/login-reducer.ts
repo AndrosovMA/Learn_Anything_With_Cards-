@@ -1,4 +1,4 @@
-import {loginAPI, LoginParamsType, LoginResponseType} from "../../api/login-api";
+import {loginAPI, LoginParamsType, LoginResponseType} from "../../api/login/login-api";
 import {Dispatch} from "redux";
 import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {AxiosError} from "axios";
