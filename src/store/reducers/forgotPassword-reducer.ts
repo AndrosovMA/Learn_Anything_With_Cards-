@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {forgotPasswordAPI, ForgotPasswordType} from "../../api/forgotPassword-api";
-import {setNewPasswordAPI, SetNewPasswordType} from "../../api/setNewPassword-api";
+import {forgotPasswordAPI, ForgotPasswordType} from "../../api/login/forgotPassword-api";
+import {setNewPasswordAPI, SetNewPasswordType} from "../../api/login/setNewPassword-api";
 
 const initialState = {}
 const linkMessage = {

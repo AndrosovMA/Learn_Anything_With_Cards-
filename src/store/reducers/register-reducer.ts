@@ -1,5 +1,5 @@
 import {AppThunk} from "../store";
-import {registerAPI, RegisterParamsType} from "../../api/register-api";
+import {registerAPI, RegisterParamsType} from "../../api/login/register-api";
 import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {handleNetworkError} from "../../utils/error- utills";
 
