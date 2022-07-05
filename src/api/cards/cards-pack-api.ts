@@ -1,9 +1,10 @@
 import {instance} from "../config/config";
+import {AxiosResponse} from "axios";
 
 
 export const cardsPackApi = {
     getCardsPacks(cardsPack_id: string | undefined, pageCount: number, page: number) {
-        return instance.get<DomainCardsPackQueryParamsType>(`/cards/pack`, {
+        return instance.get<any, AxiosResponse<DomainCardsPackQueryParamsType>>(`/cards/pack`, {
             params: {
                 cardsPack_id,
                 pageCount,
@@ -34,9 +35,9 @@ export type CardsPostPackType = {
     }
 }
 
-type DomainCardsPackType = {
+export type CardsPackType = {
     _id?: string,
-    user_id: string,
+    user_id?: string,
     user_name?: string,
     private?: boolean,
     name?: string,
@@ -53,8 +54,19 @@ type DomainCardsPackType = {
     __v?: number
 }
 
+export type DomainCardsPackParamsType = {
+    page: number,
+    pageCount: number,
+    cardPacksTotalCount?: number,
+    minCardsCount?: number,
+    maxCardsCount?: number,
+    token?: string,
+    tokenDeathTime?: string
+
+}
+
 export type DomainCardsPackQueryParamsType = {
-    cardPacks: DomainCardsPackType[]
+    cardPacks: CardsPackType[]
     page: number,
     pageCount: number,
     cardPacksTotalCount?: number,
@@ -63,3 +75,4 @@ export type DomainCardsPackQueryParamsType = {
     token?: string,
     tokenDeathTime?: string
 }
+
