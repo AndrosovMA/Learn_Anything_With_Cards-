@@ -1,7 +1,5 @@
 import {loginAPI, LoginParamsType, LoginResponseType} from "../../api/login/login-api";
-import {Dispatch} from "redux";
-import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
-import {AxiosError} from "axios";
+import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {handleNetworkError} from "../../utils/error- utills";
 import {AppThunk} from "../store";
 import {meAPI, UpdateMeModelType} from "../../api/login/me-api";
@@ -22,7 +20,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
         case "LOGIN/SET-USER-DATA":
             return {...state, userData: action.userData}
         case "LOGIN/SET-USER-AVA-NAME":
-            return {...state, userAvaName: {...state.userAvaName, action.model }}
+            return {...state, userAvaName: {...state.userAvaName, ...action.model }}
         default:
             return state
     }
@@ -43,10 +41,14 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setUserDataAC(res.data))
-            dispatch(setUserNameAC(res.data.name))
+            const model: UpdateMeModelType = {
+                name: res.data.name,
+                avatar: res.data.avatar
+            }
+            dispatch(setUserAvaNameAC(model))
         })
-        .catch((eroor) => {
-            handleNetworkError(eroor, dispatch)
+        .catch((error) => {
+            handleNetworkError(error, dispatch)
         })
         .finally(() => {
             dispatch(setAppStatusAC("idle"))
@@ -58,23 +60,25 @@ export const logoutTC = (): AppThunk => (dispatch) => {
         .then((res) => {
             dispatch(setIsLoggedInAC(false))
         })
-        .catch((eroor) => {
-            handleNetworkError(eroor, dispatch)
-        })
+        // .catch((error) => {
+        //     handleNetworkError(error, dispatch)
+        // })
         .finally(() => {
             dispatch(setAppStatusAC("idle"))
         })
 }
-export const updateMeTC = (data: LoginParamsType): AppThunk => (dispatch) => {
+export const updateMeTC = (model: UpdateMeModelType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
-    meAPI.updateMe(data)
+    meAPI.updateMe(model)
         .then((res) => {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setUserDataAC(res.data))
-            dispatch(setUserNameAC(res.data.name))
+            const model: UpdateMeModelType = {
+                name: res.data.name,
+                avatar: res.data.avatar
+            }
+            dispatch(setUserAvaNameAC(model))
         })
-        .catch((eroor) => {
-            handleNetworkError(eroor, dispatch)
+        .catch((error) => {
+            handleNetworkError(error, dispatch)
         })
         .finally(() => {
             dispatch(setAppStatusAC("idle"))

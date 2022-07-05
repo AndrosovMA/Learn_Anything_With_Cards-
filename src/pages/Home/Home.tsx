@@ -1,10 +1,13 @@
 import {useSelector} from "react-redux";
-import {AppStateType, useAppSelector} from "../../store/store";
+import {AppStateType, useAppDispatch, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
 import Avatar from "../../styles/img/Avatar.png"
 import Slider from "@mui/material/Slider/Slider";
 import {useState} from "react";
+import {IconButton} from "@mui/material";
+import {Logout} from "@mui/icons-material";
+import {logoutTC} from "../../store/reducers/login-reducer";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -12,10 +15,15 @@ function valuetext(value: number) {
 
 export const Home = () => {
 
+    const dispatch = useAppDispatch()
+
     const [value, setValue] = useState<number[]>([20, 80]);
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const userName = useAppSelector(state => state.loginReducer.userName)
+    const userAvaName = useAppSelector(state => state.loginReducer.userAvaName)
 
+    const handleClickLogout = () => {
+        dispatch(logoutTC())
+    }
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -35,9 +43,13 @@ export const Home = () => {
                     <div className="profile__above">
 
                         <ProfileAboveContainer>
+                            <img src={userAvaName.avatar} alt="photo"/>
                             <img src={Avatar} alt="photo"/>
-                            <span className="profile__above__name">{userName}</span>
+                            <span className="profile__above__name">{userAvaName.name}</span>
                             <span className="profile__above__description">Front-end developer</span>
+                            <IconButton onClick={handleClickLogout}>
+                                <Logout />
+                            </IconButton>
                         </ProfileAboveContainer>
                     </div>
 
