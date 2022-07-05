@@ -6,11 +6,14 @@ import {loginReducer} from "./reducers/login-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import { TypedUseSelectorHook } from "react-redux";
 import { appReducer } from "./reducers/app-reducer";
+import {CardsPacksActionsType, cardsPacksReducer} from "./reducers/cards-packs-reducer";
+import {DomainCardsPackQueryParamsType} from "../api/cards/cards-pack-api";
 
 export const reducers = combineReducers({
     loginReducer,
     registerReducer,
-    appReducer
+    appReducer,
+    cardsPacksReducer
 })
 
 export const store = legacy_createStore(reducers, applyMiddleware(thunk));
@@ -25,7 +28,7 @@ export const useAppDispatch = () => useDispatch<DispatchType>()
 export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector
 
 //тип всех action-ов приложения
-export type AllActionsAppType = RegisterActionsType
+export type AllActionsAppType = RegisterActionsType | CardsPacksActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AllActionsAppType>
 

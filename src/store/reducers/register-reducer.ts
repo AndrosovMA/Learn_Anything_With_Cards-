@@ -44,3 +44,6 @@ export type RegisterActionsType =
     ReturnType<typeof setIsRegisteredIn>
     | SetAppStatusActionType
     | SetAppErrorActionType
+
+
+
