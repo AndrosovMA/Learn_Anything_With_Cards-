@@ -1,4 +1,4 @@
-import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {
     cardsPackApi,
     CardsPackType,
