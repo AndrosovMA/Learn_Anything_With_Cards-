@@ -8,16 +8,24 @@ import styled from "styled-components";
 import { ForgotPassword } from "./pages/RecoveryPassword/ForgotPassword";
 import {CheckEmail} from "./pages/CheckEmail/CheckEmail";
 import {CreatePassword} from "./pages/RecoveryPassword/CreatePassword";
-import NotFound from "./pages/404/404";
 import {Home} from "./pages/Home/Home";
-import {useAppSelector} from "./store/store";
+import {useAppDispatch, useAppSelector} from "./store/store";
 import {Box, CircularProgress} from "@mui/material";
 import {ErrorSnackbar} from "./components/ErrorSnackbar";
+import {useEffect} from "react";
+import {initializeAppTC} from "./store/reducers/app-reducer";
 
 function App() {
-    const status = useAppSelector(state => state.appReducer.status)
+    const dispatch = useAppDispatch()
 
-    if (status === "loading") {
+    const status = useAppSelector(state => state.appReducer.status)
+    const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
+
+    useEffect(() => {
+       dispatch(initializeAppTC())
+    }, [])
+
+    if (!isInitialized || status === "loading") {
         return <Box
             sx={{
                 top: 0,
