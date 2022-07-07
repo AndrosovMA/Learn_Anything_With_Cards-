@@ -8,6 +8,9 @@ import {useState} from "react";
 import {IconButton} from "@mui/material";
 import {Logout} from "@mui/icons-material";
 import {logoutTC} from "../../store/reducers/login-reducer";
+import {AiOutlineSearch} from "react-icons/ai";
+import Pack from "./Pack";
+import Paginator from "./Paginator";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -48,7 +51,7 @@ export const Home = () => {
                             <span className="profile__above__name">{userAvaName.name}</span>
                             <span className="profile__above__description">Front-end developer</span>
                             <IconButton onClick={handleClickLogout}>
-                                <Logout />
+                                <Logout/>
                             </IconButton>
                         </ProfileAboveContainer>
                     </div>
@@ -65,9 +68,40 @@ export const Home = () => {
                             />
                         </ProfileBelowContainer>
                     </div>
+                    <div className="pack">
+                        <PackList>
+                            <h1 className="packList__title">Pack List</h1>
+                            <div className="packList__headerBlock">
+                                <div className="packList__headerBlock__inputWrap">
+                                    <input className="packList__headerBlock__Search" type="text"
+                                           placeholder="Search..."/>
+                                    <AiOutlineSearch/>
+                                </div>
+                                <button className="packList__headerBlock__btn">Add new Pack</button>
+                            </div>
+                        </PackList>
 
+                        <TableContainers>
 
-                    <div className="card"></div>
+                            <div className='packsBoxRight'>
+                                <div className='packsBoxSearch'>
+                                </div>
+
+                                <ul className='packsList'>
+                                    <li className='packsItem'>Name</li>
+                                    <li className='packsItem'>
+                                        Cards
+                                    </li>
+                                    <li className="packsItem">Last Updated</li>
+                                    <li className="packsItem">Actions</li>
+                                </ul>
+                                <Pack/>
+                                <Paginator/>
+                            </div>
+
+                        </TableContainers>
+
+                    </div>
 
                 </div>
             </Block>
@@ -100,7 +134,7 @@ const Block = styled.div`
   }
 
 
-  .card {
+  .pack {
     background: #FEFEFF;
     grid-area: 1 / 2 / 3 / 3;
     margin-left: -25rem;
@@ -168,6 +202,135 @@ const ProfileBelowContainer = styled.div`
 
 `
 
+const PackList = styled.div`
+
+  .packList__title {
+    margin-top: 24px;
+    margin-left: 110px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    color: #2D2E46;
+
+  }
+
+  .packList__headerBlock {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .packList__headerBlock__Search {
+    background: #ECECF9;
+    opacity: 0.5;
+    border: 1px solid #635D80;
+    border-radius: 2px;
+    width: 461px;
+    height: 36px;
+    padding-left: 45px;
+    text-decoration: none;
+    /************/
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #2D2E46;
+  }
+
+  .packList__headerBlock__inputWrap {
+    display: inline-block;
+    position: relative;
+  }
+
+  svg {
+    position: absolute;
+    left: 1rem;
+    width: 25px;
+    height: 60px;
+    opacity: 30%;
+    top: -11px;
+    bottom: 0;
+  }
+
+
+  .packList__headerBlock__btn {
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    /*********/
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    width: 184px;
+    height: 36px;
+    text-decoration: none;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+  }
+
+`
+
+const TableContainers = styled.div`
+  margin-top: 24px;
+
+  li {
+    outline: none;
+    text-decoration: none;
+    list-style-type: none
+  }
+
+  .packsBoxRight {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 25px 45px;
+  }
+
+  .packsBoxRightTitle {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 33px;
+    margin-bottom: 15px;
+  }
+
+  .packsBoxSearch {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  
+  /*//packsList*/
+  .packsList {
+    display: flex;
+    padding: 16px 24px;
+    background: #ECECF9;
+  }
+
+  .packsItem {
+    flex: 1 1 25%;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 16px;
+    color: #000;
+  }
+
+  .loader2 {
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+`
 
 
 
