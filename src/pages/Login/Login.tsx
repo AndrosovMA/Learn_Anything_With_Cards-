@@ -36,7 +36,6 @@ export const Login = () => {
     // }
     //
     const toggleShow = () => {
-        console.log(formik.values.email)
         setIsVisible(!isVisible);
     }
 

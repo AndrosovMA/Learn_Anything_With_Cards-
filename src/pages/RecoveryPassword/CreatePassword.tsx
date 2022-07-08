@@ -17,11 +17,9 @@ export const CreatePassword = () => {
     const [isVisible, setIsVisible] = useState<boolean>(true)
 
     const toggleShow = () => {
-        console.log(isVisible)
         setIsVisible(!isVisible);
     }
     const {token} = useParams()
-    console.log(token)
 
     const formik = useFormik({
         initialValues: {

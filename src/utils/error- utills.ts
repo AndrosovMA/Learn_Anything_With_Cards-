@@ -7,7 +7,6 @@ export const handleNetworkError = (error: Error | AxiosError, dispatch: Dispatch
         ? (error.response?.data as { error: string }).error
         : error.message + ', more details in the console'
 
-    console.log(errorMessage)
 
     dispatch(setAppErrorAC(errorMessage))
 }

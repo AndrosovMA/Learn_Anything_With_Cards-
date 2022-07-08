@@ -54,12 +54,10 @@ export const Home = () => {
 
     const handleClickMyPacks = (userId: string) => {
         dispatch(getCardsPacsTC({user_id: userId}))
-        console.log(userId)
     }
 
     const handleClickAllPacks = () => {
         dispatch(getCardsPacsTC())
-        console.log(userId)
     }
 
 
@@ -69,7 +67,6 @@ export const Home = () => {
 
 
     useEffect(() => {
-        console.log('useEffect')
         dispatch(getCardsPacsTC())
 
     }, []);
@@ -90,8 +87,6 @@ export const Home = () => {
                             <Logout/>
                         </IconButton>
                         <ProfileAboveContainer>
-                            {/*<img src={userAvaName.avatar} alt="photo"/>*/}
-
                             <img src={Avatar} alt="photo"/>
                             <span className="profile__above__name">{userAvaName.name}</span>
                             <span className="profile__above__description">Front-end developer</span>
@@ -189,14 +184,14 @@ const Block = styled.div`
     grid-area: 1 / 1 / 2 / 2;
     margin-right: 25rem;
     min-width: 250px;
-    height: 300px;
+    height: 330px;
   }
 
   .btn_logOut {
     text-align: right !important;
     display: block !important;
     width: 100% !important;
-    
+
     :hover {
       background: none !important;
     }
@@ -296,7 +291,7 @@ const PackList = styled.div`
     background: #ECECF9;
     opacity: 0.5;
     border: 1px solid #635D80;
-    border-radius: 2px;
+    border-radius: 6px;
     width: 461px;
     height: 36px;
     padding-left: 45px;

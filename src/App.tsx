@@ -5,7 +5,7 @@ import {NavLink, Route, Routes} from "react-router-dom";
 import {Register} from "./pages/Register/Register";
 import {Login} from "./pages/Login/Login";
 import styled from "styled-components";
-import { ForgotPassword } from "./pages/RecoveryPassword/ForgotPassword";
+import {ForgotPassword} from "./pages/RecoveryPassword/ForgotPassword";
 import {CheckEmail} from "./pages/CheckEmail/CheckEmail";
 import {CreatePassword} from "./pages/RecoveryPassword/CreatePassword";
 import {Home} from "./pages/Home/Home";
@@ -14,6 +14,7 @@ import {Box, CircularProgress} from "@mui/material";
 import {ErrorSnackbar} from "./components/ErrorSnackbar";
 import {useEffect} from "react";
 import {initializeAppTC} from "./store/reducers/app-reducer";
+import Card from "./pages/Card/Card";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -21,8 +22,10 @@ function App() {
     const status = useAppSelector(state => state.appReducer.status)
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
 
+
     useEffect(() => {
-       dispatch(initializeAppTC())
+
+        dispatch(initializeAppTC())
     }, [])
 
     if (!isInitialized || status === "loading") {
@@ -38,13 +41,13 @@ function App() {
                 justifyContent: 'center',
             }}
         >
-            <CircularProgress color={"primary"} size={80} thickness={3.6} />
+            <CircularProgress color={"primary"} size={80} thickness={3.6}/>
         </Box>
     }
 
     return (
         <Header>
-            <ErrorSnackbar />
+            <ErrorSnackbar/>
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
@@ -55,6 +58,7 @@ function App() {
                             <NavLink to="/set-new-password">CreatePassword</NavLink>
                             <NavLink to="/checkEmail">CheckEmail</NavLink>
                             <NavLink to="/home">Home</NavLink>
+                            <NavLink to="/card">Card</NavLink>
                         </Navigation>
                     </Typography>
                 </Toolbar>
@@ -63,15 +67,16 @@ function App() {
 
             <WrapContainer>
                 <Routes>
-                    {/*{console.log('routes')}*/}
                     <Route path='/' element={<Login/>}/>
                     <Route path='home' element={<Home/>}/>
+                    <Route path='/card' element={<Card/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='password' element={<ForgotPassword/>}/>
                     <Route path='set-new-password/:token' element={<CreatePassword/>}/>
                     <Route path='checkEmail' element={<CheckEmail/>}/>
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
+
                 </Routes>
             </WrapContainer>
 

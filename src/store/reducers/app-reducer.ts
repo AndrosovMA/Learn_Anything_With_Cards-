@@ -1,5 +1,4 @@
 import { meAPI } from "../../api/login/me-api"
-import {handleNetworkError} from "../../utils/error- utills";
 import {setIsLoggedInAC} from "./login-reducer";
 import {AppThunk} from "../store";
 
