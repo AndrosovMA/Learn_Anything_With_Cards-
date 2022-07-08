@@ -1,42 +1,64 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 
+import {CardsPackType} from "../../api/cards/cards-pack-api";
+import {IconButton, TableCell, TableRow} from "@mui/material";
+import moment from "moment";
 import {BsPencil, BsTrash} from "react-icons/bs";
 import {GiBlackBook} from "react-icons/gi";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {deleteCardsPackTC, updateCardsPackTC} from "../../store/reducers/cards-packs-reducer";
 
 
-function Pack() {
+function Pack({pack}: { pack: CardsPackType }) {
+    const userId = useAppSelector(state => state.loginReducer.userData._id)
+
+
+    const dispatch = useAppDispatch()
+
+    const handleClickDeletePack = (id: string) => {
+        dispatch(deleteCardsPackTC(id))
+    }
+
+    const handleClickUpdatePack = (id: string) => {
+        dispatch(updateCardsPackTC(id))
+    }
+
     return (
-        <Containers>
-            <div className="nthChildOdd">
-                <div>
-                    <ul className={'packBox'}>
-                        <li className={'packItem'}>
-                            <NavLink to={'/'} className={'packName'}>
-                                Svyatoslav
-                            </NavLink>
-                        </li>
-                        <li className={'packItem'}>
-                            <p style={{marginLeft: "32px"}}>24</p>
-                        </li>
-                        <li className={'packItem'}>
-                            <p style={{marginLeft: "45px"}}>06/07/2022</p>
-                        </li>
-                        <li className={'packItem'}>
-                            <p style={{marginLeft: "53px"}}>Author</p>
-                        </li>
-                        <li>
-                            <div className="boxBtn">
+        <>
+            <TableRow
+                key={pack.name}
+                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+            >
+                <TableCell component="th" scope="row">
+                    {pack.name.slice(0,20)}
+                </TableCell>
+                <TableCell align="right">{pack.cardsCount}</TableCell>
+                <TableCell align="right">{moment(pack.updated).format("MMM DD, YYYY")}</TableCell>
+                <TableCell align="right">{pack.user_name}</TableCell>
+                <TableCell align="right">
+                    {userId === pack.user_id && (
+                        <>
+                            <IconButton
+                                onClick={() => handleClickDeletePack(pack._id)}
+                                color={"error"}>
                                 <BsTrash className="btnUpdate"/>
-                                <BsPencil className="learningIcons"/>
-                                <GiBlackBook className="btnDelete"/>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </Containers>
+                            </IconButton>
+                            <IconButton
+                                onClick={() => handleClickUpdatePack(pack._id)}
+                                color={"warning"}>
+                                <BsPencil
+                                    className="learningIcons"/>
+                            </IconButton>
+                        </>
+                    )
+                    }
+
+                    <IconButton disabled color={"success"}>
+                        <GiBlackBook className="btnDelete"/></IconButton>
+                </TableCell>
+            </TableRow>
+        </>
     );
 }
 
@@ -69,6 +91,7 @@ const Containers = styled.div`
   }
 
   .btnUpdate {
+
     height: 25px;
     width: 25px;
     position: absolute;

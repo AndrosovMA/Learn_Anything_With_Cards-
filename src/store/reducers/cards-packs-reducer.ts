@@ -50,8 +50,8 @@ export const setMaxCardsCountAC = (maxCardsCount: number) =>
     ({type: 'CARDS/SET-MAX-CARDS-COUNT', maxCardsCount} as const);
 
 
-const getCardsPackTC = (params?: DomainCardsPackParamsType): AppThunk => (dispatch) => {
-    dispatch(setAppStatusAC("loading"))
+export const getCardsPacsTC =  (params?: DomainCardsPackParamsType): AppThunk => (dispatch) => {
+    // dispatch(setAppStatusAC("loading"))
     cardsPackAPI.getCardsPacks(params)
         .then((res) => {
             dispatch(setCardsPacksAC(res.data.cardPacks));
@@ -66,13 +66,13 @@ const getCardsPackTC = (params?: DomainCardsPackParamsType): AppThunk => (dispat
             dispatch(setAppStatusAC("idle"))
         })
 }
-const createCardsPackTC = (): AppThunk => (dispatch) => {
+export const createCardsPackTC = (): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     // hardcode payload
     const hardcodePayload = {cardsPack: {name: "HARDCODEPACKNAME"}}
     cardsPackAPI.createCardsPack(hardcodePayload)
         .then((res) => {
-            dispatch(getCardsPackTC())
+            dispatch(getCardsPacsTC())
         })
         .catch((error) => {
         handleNetworkError(error, dispatch)
@@ -81,13 +81,13 @@ const createCardsPackTC = (): AppThunk => (dispatch) => {
             dispatch(setAppStatusAC("idle"))
         })
 }
-const updateCardsPackTC = (id: string): AppThunk => (dispatch) => {
+export const updateCardsPackTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     // hardcode payload
     const hardcodePayload = {_id: id, name: "UPDATEDPACKNAME"}
     cardsPackAPI.updateCardsPack(hardcodePayload)
         .then(() => {
-            dispatch(getCardsPackTC())
+            dispatch(getCardsPacsTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)
@@ -96,11 +96,11 @@ const updateCardsPackTC = (id: string): AppThunk => (dispatch) => {
             dispatch(setAppStatusAC("idle"))
         })
 }
-const deleteCardsPackTC = (id: string): AppThunk => (dispatch) => {
+export const deleteCardsPackTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.deleteCardsPack(id)
         .then(() => {
-            dispatch(getCardsPackTC())
+            dispatch(getCardsPacsTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)

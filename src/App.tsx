@@ -63,7 +63,8 @@ function App() {
 
             <WrapContainer>
                 <Routes>
-                    <Route path='/' element={<Home/>}/>
+                    {/*{console.log('routes')}*/}
+                    <Route path='/' element={<Login/>}/>
                     <Route path='home' element={<Home/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>

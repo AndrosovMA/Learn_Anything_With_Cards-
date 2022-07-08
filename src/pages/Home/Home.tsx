@@ -4,21 +4,43 @@ import {Navigate} from "react-router-dom";
 import styled from "styled-components";
 import Avatar from "../../styles/img/Avatar.png"
 import Slider from "@mui/material/Slider/Slider";
-import {useState} from "react";
-import {IconButton} from "@mui/material";
+import React, {useEffect, useState} from "react";
 import {Logout} from "@mui/icons-material";
 import {logoutTC} from "../../store/reducers/login-reducer";
 import {AiOutlineSearch} from "react-icons/ai";
+
+import {
+    createCardsPackTC,
+    deleteCardsPackTC,
+    getCardsPacsTC,
+    updateCardsPackTC
+} from "../../store/reducers/cards-packs-reducer";
+import {
+    Button,
+    IconButton,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@mui/material";
 import Pack from "./Pack";
-import Paginator from "./Paginator";
+
 
 function valuetext(value: number) {
     return `${value}°C`;
 }
 
+
 export const Home = () => {
 
+
     const dispatch = useAppDispatch()
+    const packs = useAppSelector(state => state.cardsPacksReducer.cardsPacks)
+    const userId = useAppSelector(state => state.loginReducer.userData._id)
+
 
     const [value, setValue] = useState<number[]>([20, 80]);
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
@@ -32,11 +54,34 @@ export const Home = () => {
         setValue(newValue as number[]);
     };
 
+    const handleClickMyPacks = (userId: string) => {
+        dispatch(getCardsPacsTC({user_id: userId}))
+        console.log(userId)
+    }
+
+    const handleClickAllPacks = () => {
+        dispatch(getCardsPacsTC())
+        console.log(userId)
+    }
+
+
+    const handleClickAddPack = () => {
+        dispatch(createCardsPackTC())
+    }
+
+
+
+
+    useEffect(() => {
+        console.log('useEffect')
+        dispatch(getCardsPacsTC())
+
+    }, []);
+
 
     if (!isLoggedIn) {
         return <Navigate to="/login"/>
     }
-
 
     return (
         <>
@@ -53,6 +98,19 @@ export const Home = () => {
                             <IconButton onClick={handleClickLogout}>
                                 <Logout/>
                             </IconButton>
+                            <div style={{display: "flex", justifyContent: "center"}}>
+
+                                <Button
+                                    color={"secondary"}
+                                    onClick={() => handleClickMyPacks(userId)}
+                                    variant={"contained"}>My
+                                </Button>
+
+                                <Button
+                                    color={"error"}
+                                    onClick={() => handleClickAllPacks()}
+                                    variant={"contained"}>All</Button>
+                            </div>
                         </ProfileAboveContainer>
                     </div>
 
@@ -77,39 +135,36 @@ export const Home = () => {
                                            placeholder="Search..."/>
                                     <AiOutlineSearch/>
                                 </div>
-                                <button className="packList__headerBlock__btn">Add new Pack</button>
+                                <button
+                                    onClick={handleClickAddPack}
+                                    className="packList__headerBlock__btn">Add new Pack</button>
                             </div>
                         </PackList>
-
-                        <TableContainers>
-
-                            <div className='packsBoxRight'>
-                                <div className='packsBoxSearch'>
-                                </div>
-
-                                <ul className='packsList'>
-                                    <li className='packsItem'>Name</li>
-                                    <li className='packsItem'>
-                                        Cards
-                                    </li>
-                                    <li className="packsItem">Last Updated</li>
-                                    <li className="packsItem">Actions</li>
-                                </ul>
-                                <Pack/>
-                                <Paginator/>
-                            </div>
-
-                        </TableContainers>
-
+                        <TableContainer component={Paper}>
+                            <Table sx={{minWidth: 650}} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell align="right">Card Count</TableCell>
+                                        <TableCell align="right">Update</TableCell>
+                                        <TableCell align="right">Author name</TableCell>
+                                        <TableCell align="right">Actions</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {packs.map((pack) => (
+                                        <Pack pack={pack}/>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </div>
-
                 </div>
             </Block>
         </>
     )
 }
 
-// types
 
 const Block = styled.div`
   border-radius: 10px;
@@ -130,7 +185,7 @@ const Block = styled.div`
     grid-area: 1 / 1 / 2 / 2;
     margin-right: 25rem;
     min-width: 250px;
-    height: 243px;
+    height: 300px;
   }
 
 
@@ -276,64 +331,34 @@ const PackList = styled.div`
     cursor: pointer;
   }
 
-`
+  //button
 
-const TableContainers = styled.div`
-  margin-top: 24px;
 
-  li {
-    outline: none;
-    text-decoration: none;
-    list-style-type: none
-  }
+  .btnUpdate {
 
-  .packsBoxRight {
-    background-color: #ffffff;
-    width: 100%;
-    padding: 25px 45px;
-  }
-
-  .packsBoxRightTitle {
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 33px;
-    margin-bottom: 15px;
-  }
-
-  .packsBoxSearch {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    position: relative;
-  }
-  
-  /*//packsList*/
-  .packsList {
-    display: flex;
-    padding: 16px 24px;
-    background: #ECECF9;
-  }
-
-  .packsItem {
-    flex: 1 1 25%;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 16px;
-    color: #000;
-  }
-
-  .loader2 {
+    height: 25px;
+    width: 25px;
     position: absolute;
-    z-index: 999;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    cursor: pointer;
+    color: yellow !important;
+  }
+
+  .learningIcons {
+    height: 22px;
+    width: 22px;
+    position: absolute;
+    margin-left: 29px;
+    cursor: pointer;
+    color: green !important;
+  }
+
+  .btnDelete {
+    position: absolute;
+    height: 25px;
+    margin-left: 20px;
+    width: 100px;
+    cursor: pointer;
+    color: red !important;
   }
 
 `
-
-
-
-
-
-
