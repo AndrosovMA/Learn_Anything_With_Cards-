@@ -10,7 +10,7 @@ import {CheckEmail} from "./pages/CheckEmail/CheckEmail";
 import {CreatePassword} from "./pages/RecoveryPassword/CreatePassword";
 import {Home} from "./pages/Home/Home";
 import {useAppDispatch, useAppSelector} from "./store/store";
-import {Box, CircularProgress} from "@mui/material";
+import {Box, CircularProgress, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "./components/ErrorSnackbar";
 import {useEffect} from "react";
 import {initializeAppTC} from "./store/reducers/app-reducer";
@@ -28,7 +28,7 @@ function App() {
         dispatch(initializeAppTC())
     }, [])
 
-    if (!isInitialized || status === "loading") {
+    if (!isInitialized) {
         return <Box
             sx={{
                 top: 0,
@@ -64,6 +64,8 @@ function App() {
                 </Toolbar>
 
             </AppBar>
+            {status === "loading" && <LinearProgress color={"error"}/>}
+
 
             <div>
                 <Routes>

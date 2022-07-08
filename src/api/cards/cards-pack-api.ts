@@ -17,7 +17,7 @@ export const cardsPackAPI = {
     },
 
     deleteCardsPack(id: string) {
-        return instance.delete(`cards/card?id=${id}`);
+        return instance.delete(`cards/pack?id=${id}`);
     }
 }
 
