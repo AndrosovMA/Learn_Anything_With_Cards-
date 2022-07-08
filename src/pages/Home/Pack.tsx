@@ -31,7 +31,7 @@ function Pack({pack}: { pack: CardsPackType }) {
                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
             >
                 <TableCell component="th" scope="row">
-                    {pack.name.slice(0,20)}
+                    {pack.name.slice(0, 20)}
                 </TableCell>
                 <TableCell align="right">{pack.cardsCount}</TableCell>
                 <TableCell align="right">{moment(pack.updated).format("MMM DD, YYYY")}</TableCell>
@@ -126,5 +126,7 @@ const Containers = styled.div`
     text-decoration: none;
     list-style-type: none
   }
+
+  
 
 `
