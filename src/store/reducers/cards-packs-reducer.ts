@@ -1,4 +1,4 @@
-import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {
     cardsPackAPI,
     CardsPackType,
@@ -25,19 +25,19 @@ export const initialState = {
 
 export const cardsPacksReducer =
     (state: InitialStateType = initialState, action: CardsPacksActionsType): InitialStateType => {
-    switch (action.type) {
-        case 'CARDS/SET-CARDS-PACKS':
-            return {...state, cardsPacks: action.cardsPacks};
-        case "CARDS/SET-CARDS-PACKS-TOTAL-COUNT":
-            return {...state, cardPacksTotalCount: action.cardPacksTotalCount};
-        case "CARDS/SET-MIN-CARDS-COUNT":
-            return {...state, minCardsCount: action.minCardsCount};
-        case "CARDS/SET-MAX-CARDS-COUNT":
-            return {...state, maxCardsCount: action.maxCardsCount};
-        default:
-            return state
+        switch (action.type) {
+            case 'CARDS/SET-CARDS-PACKS':
+                return {...state, cardsPacks: action.cardsPacks};
+            case "CARDS/SET-CARDS-PACKS-TOTAL-COUNT":
+                return {...state, cardPacksTotalCount: action.cardPacksTotalCount};
+            case "CARDS/SET-MIN-CARDS-COUNT":
+                return {...state, minCardsCount: action.minCardsCount};
+            case "CARDS/SET-MAX-CARDS-COUNT":
+                return {...state, maxCardsCount: action.maxCardsCount};
+            default:
+                return state
+        }
     }
-}
 
 // actions
 export const setCardsPacksAC = (cardsPacks: CardsPackType[]) =>
@@ -50,8 +50,8 @@ export const setMaxCardsCountAC = (maxCardsCount: number) =>
     ({type: 'CARDS/SET-MAX-CARDS-COUNT', maxCardsCount} as const);
 
 
-export const getCardsPacsTC =  (params?: DomainCardsPackParamsType): AppThunk => (dispatch) => {
-    // dispatch(setAppStatusAC("loading"))
+export const getCardsPacsTC = (params?: DomainCardsPackParamsType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC("loading"))
     cardsPackAPI.getCardsPacks(params)
         .then((res) => {
             dispatch(setCardsPacksAC(res.data.cardPacks));
@@ -71,23 +71,20 @@ export const createCardsPackTC = (): AppThunk => (dispatch) => {
     // hardcode payload
     const hardcodePayload = {cardsPack: {name: "HARDCODEPACKNAME"}}
     cardsPackAPI.createCardsPack(hardcodePayload)
-        .then((res) => {
-            dispatch(getCardsPacsTC())
-        })
         .catch((error) => {
-        handleNetworkError(error, dispatch)
-    })
+            handleNetworkError(error, dispatch)
+        })
         .finally(() => {
             dispatch(setAppStatusAC("idle"))
         })
 }
-export const updateCardsPackTC = (id: string): AppThunk => (dispatch) => {
+export const updateCardsPackTC = (id: string, userId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     // hardcode payload
     const hardcodePayload = {_id: id, name: "UPDATEDPACKNAME"}
     cardsPackAPI.updateCardsPack(hardcodePayload)
         .then(() => {
-            dispatch(getCardsPacsTC())
+            dispatch(getCardsPacsTC({user_id: userId}))
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)
@@ -96,11 +93,11 @@ export const updateCardsPackTC = (id: string): AppThunk => (dispatch) => {
             dispatch(setAppStatusAC("idle"))
         })
 }
-export const deleteCardsPackTC = (id: string): AppThunk => (dispatch) => {
+export const deleteCardsPackTC = (id: string, userId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.deleteCardsPack(id)
         .then(() => {
-            dispatch(getCardsPacsTC())
+            dispatch(getCardsPacsTC({user_id: userId}))
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)

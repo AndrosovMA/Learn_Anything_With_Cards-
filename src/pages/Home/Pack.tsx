@@ -18,12 +18,12 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
 
     const dispatch = useAppDispatch()
 
-    const handleClickDeletePack = (id: string) => {
-        dispatch(deleteCardsPackTC(id))
+    const handleClickDeletePack = (id: string, userId:string) => {
+        dispatch(deleteCardsPackTC(id, userId))
     }
 
-    const handleClickUpdatePack = (id: string) => {
-        dispatch(updateCardsPackTC(id))
+    const handleClickUpdatePack = (id: string, userId:string) => {
+        dispatch(updateCardsPackTC(id, userId))
     }
 
     return (
@@ -49,12 +49,12 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
                     {userId === pack.user_id && (
                         <>
                             <IconButton
-                                onClick={() => handleClickDeletePack(pack._id)}
+                                onClick={() => handleClickDeletePack(pack._id, pack.user_id)}
                                 color={"error"}>
                                 <BsTrash className="btnUpdate"/>
                             </IconButton>
                             <IconButton
-                                onClick={() => handleClickUpdatePack(pack._id)}
+                                onClick={() => handleClickUpdatePack(pack._id, pack.user_id)}
                                 color={"warning"}>
                                 <BsPencil
                                     className="learningIcons"/>

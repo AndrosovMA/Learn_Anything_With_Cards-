@@ -68,7 +68,6 @@ export const Home = () => {
 
     useEffect(() => {
         dispatch(getCardsPacsTC())
-
     }, []);
 
 
