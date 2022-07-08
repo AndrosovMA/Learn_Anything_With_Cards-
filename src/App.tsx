@@ -65,7 +65,7 @@ function App() {
 
             </AppBar>
 
-            <WrapContainer>
+            <div>
                 <Routes>
                     <Route path='/' element={<Login/>}/>
                     <Route path='home' element={<Home/>}/>
@@ -78,7 +78,7 @@ function App() {
                     <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
 
                 </Routes>
-            </WrapContainer>
+            </div>
 
         </Header>
     );
@@ -88,10 +88,10 @@ export default App;
 
 const Header = styled.div`
 `
-const WrapContainer = styled.div`
-  height: 100vh;
-  background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
-`
+// const WrapContainer = styled.div`
+//   height: 100vh;
+//   background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
+// `
 const Navigation = styled.nav`
   a {
     text-decoration: none;
