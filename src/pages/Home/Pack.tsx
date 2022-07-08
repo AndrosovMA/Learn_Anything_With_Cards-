@@ -8,9 +8,11 @@ import {BsPencil, BsTrash} from "react-icons/bs";
 import {GiBlackBook} from "react-icons/gi";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {deleteCardsPackTC, updateCardsPackTC} from "../../store/reducers/cards-packs-reducer";
+import {NavLink} from 'react-router-dom';
+import {CardsType} from '../../api/cards/cards';
 
 
-function Pack({pack}: { pack: CardsPackType }) {
+function Pack({pack}: { pack: CardsPackType & CardsType }) {
     const userId = useAppSelector(state => state.loginReducer.userData._id)
 
 
@@ -31,7 +33,14 @@ function Pack({pack}: { pack: CardsPackType }) {
                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
             >
                 <TableCell component="th" scope="row">
-                    {pack.name.slice(0, 20)}
+                    <NavLink
+                        style={{
+                            textDecoration: "none",
+                            color: "black", fontWeight: '600'
+                        }}
+                        to={`/cards/${pack.cardsPack_id}`}>
+                        {pack.name.slice(0, 20)}
+                    </NavLink>
                 </TableCell>
                 <TableCell align="right">{pack.cardsCount}</TableCell>
                 <TableCell align="right">{moment(pack.updated).format("MMM DD, YYYY")}</TableCell>
@@ -68,6 +77,11 @@ const Containers = styled.div`
 
   .nthChildOdd:nth-child(odd) {
     background: #F8F7FD;
+  }
+
+  a {
+    text-decoration: none !important;
+    outline: none !important;
   }
 
   .packBox {
@@ -127,6 +141,9 @@ const Containers = styled.div`
     list-style-type: none
   }
 
-  
+  . .pack__name {
+    text-decoration: none !important;
+    outline: none !important;
+  }
 
 `

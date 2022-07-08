@@ -58,7 +58,7 @@ function App() {
                             <NavLink to="/set-new-password">CreatePassword</NavLink>
                             <NavLink to="/checkEmail">CheckEmail</NavLink>
                             <NavLink to="/home">Home</NavLink>
-                            <NavLink to="/card">Card</NavLink>
+                            <NavLink to="/cards">Card</NavLink>
                         </Navigation>
                     </Typography>
                 </Toolbar>
@@ -69,7 +69,7 @@ function App() {
                 <Routes>
                     <Route path='/' element={<Login/>}/>
                     <Route path='home' element={<Home/>}/>
-                    <Route path='/card' element={<Card/>}/>
+                    <Route path='/cards/:packId' element={<Card/>}/>
                     <Route path='login' element={<Login/>}/>
                     <Route path='register' element={<Register/>}/>
                     <Route path='password' element={<ForgotPassword/>}/>
@@ -102,4 +102,3 @@ const Navigation = styled.nav`
     }
   }
 `
-

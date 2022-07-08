@@ -374,7 +374,15 @@ const PackList = styled.div`
 
   @media only screen and (max-width: 1279px) {
 
-    .pack {
+    .packList__headerBlock__btn {
+      margin-top: 20px;
+    }
+
+
+  }  
+  @media only screen and (max-width: 1279px) {
+
+    .packList__headerBlock {
       display: flex;
       flex-direction: column;
     }

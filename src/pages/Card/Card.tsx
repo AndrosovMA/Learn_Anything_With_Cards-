@@ -1,10 +1,21 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 import {AiFillStar, AiOutlineSearch, AiOutlineStar} from "react-icons/ai";
-import {IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {
+    IconButton,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow
+} from "@mui/material";
 import {BsPencil, BsTrash} from "react-icons/bs";
-import {GiBlackBook} from "react-icons/gi";
 import back from "../../styles/assets/icon/back.svg";
+import {CardsType} from "../../api/cards/cards";
+
 
 
 function Card() {
@@ -13,7 +24,9 @@ function Card() {
             <div className="card__wrap">
                 <div className="pack">
                     <div className="card__block__header">
-                        <img className="card__block__header__img" src={back} alt="back"/>
+                        <NavLink to="/home">
+                            <img className="card__block__header__img" src={back} alt="back"/>
+                        </NavLink>
                         <h1 className="packList__title">Do`not remove</h1>
                         <div className="packList__headerBlock">
                             <div className="packList__headerBlock__inputWrap">
@@ -21,6 +34,7 @@ function Card() {
                                        placeholder="Search..."/>
                                 <AiOutlineSearch className="packList__headerBlock__glass"/>
                             </div>
+                            <button className="packList__headerBlock__btn">Add new Card</button>
                         </div>
                     </div>
                     <TableContainer component={Paper}>
@@ -39,17 +53,17 @@ function Card() {
                                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                 >
                                     <TableCell component="th" scope="row">
-                                        8 вопрос
+                                        8 ответ
                                     </TableCell>
                                     <TableCell align="right">8 ответ</TableCell>
                                     <TableCell align="right">30.06.22</TableCell>
                                     <TableCell align="right">
                                         <IconButton>
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiFillStar />
-                                            <AiOutlineStar />
-                                            <AiOutlineStar />
+                                            <AiFillStar/>
+                                            <AiFillStar/>
+                                            <AiFillStar/>
+                                            <AiOutlineStar/>
+                                            <AiOutlineStar/>
                                         </IconButton>
                                     </TableCell>
                                     <TableCell align="right">
@@ -121,9 +135,12 @@ const Cards = styled.div`
   .packList__headerBlock {
     margin-top: 20px;
     margin-bottom: 28px;
+    display: flex;
+    align-items: center;
 
     .packList__headerBlock__inputWrap {
       position: relative;
+      flex: 1;
     }
 
     .packList__headerBlock__glass {
@@ -136,7 +153,7 @@ const Cards = styled.div`
     }
 
     .packList__headerBlock__Search {
-      width: 100%;
+      width: 80%;
       height: 36px;
       background: #ECECF9;
       border: 1px solid #635D80;
@@ -151,12 +168,34 @@ const Cards = styled.div`
       opacity: 0.5;
       padding-left: 3rem;
       text-decoration: none;
-      
+
       :focus {
         border: 1px solid #635D80;
       }
     }
+  }
+
+  .packList__headerBlock__btn {
+    background: #21268F;
+    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    /*********/
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #ECECF9;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    min-width: 184px;
+    height: 36px;
+    text-decoration: none;
+    outline: none;
+    border: 0;
+    cursor: pointer;
 
   }
+
+
 
 `
