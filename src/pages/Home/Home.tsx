@@ -11,9 +11,7 @@ import {AiOutlineSearch} from "react-icons/ai";
 
 import {
     createCardsPackTC,
-    deleteCardsPackTC,
     getCardsPacsTC,
-    updateCardsPackTC
 } from "../../store/reducers/cards-packs-reducer";
 import {
     Button,
@@ -70,8 +68,6 @@ export const Home = () => {
     }
 
 
-
-
     useEffect(() => {
         console.log('useEffect')
         dispatch(getCardsPacsTC())
@@ -83,22 +79,29 @@ export const Home = () => {
         return <Navigate to="/login"/>
     }
 
+
     return (
         <>
             <Block className="block">
                 <div className="header">
 
                     <div className="profile__above">
-
+                        <IconButton className="btn_logOut" onClick={handleClickLogout}>
+                            <Logout/>
+                        </IconButton>
                         <ProfileAboveContainer>
-                            <img src={userAvaName.avatar} alt="photo"/>
+                            {/*<img src={userAvaName.avatar} alt="photo"/>*/}
+
                             <img src={Avatar} alt="photo"/>
                             <span className="profile__above__name">{userAvaName.name}</span>
                             <span className="profile__above__description">Front-end developer</span>
-                            <IconButton onClick={handleClickLogout}>
-                                <Logout/>
-                            </IconButton>
-                            <div style={{display: "flex", justifyContent: "center"}}>
+
+                            <div style={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                                marginTop: "18px",
+                                width: "50%"
+                            }}>
 
                                 <Button
                                     color={"secondary"}
@@ -137,7 +140,8 @@ export const Home = () => {
                                 </div>
                                 <button
                                     onClick={handleClickAddPack}
-                                    className="packList__headerBlock__btn">Add new Pack</button>
+                                    className="packList__headerBlock__btn">Add new Pack
+                                </button>
                             </div>
                         </PackList>
                         <TableContainer component={Paper}>
@@ -186,6 +190,16 @@ const Block = styled.div`
     margin-right: 25rem;
     min-width: 250px;
     height: 300px;
+  }
+
+  .btn_logOut {
+    text-align: right !important;
+    display: block !important;
+    width: 100% !important;
+    
+    :hover {
+      background: none !important;
+    }
   }
 
 
@@ -275,6 +289,7 @@ const PackList = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;
+    margin-bottom: 28px;
   }
 
   .packList__headerBlock__Search {
@@ -323,12 +338,13 @@ const PackList = styled.div`
     letter-spacing: 0.01em;
     color: #ECECF9;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    width: 184px;
+    min-width: 184px;
     height: 36px;
     text-decoration: none;
     outline: none;
     border: 0;
     cursor: pointer;
+
   }
 
   //button
@@ -360,5 +376,16 @@ const PackList = styled.div`
     cursor: pointer;
     color: red !important;
   }
+
+  @media only screen and (max-width: 1279px) {
+
+    .pack {
+      display: flex;
+      flex-direction: column;
+    }
+
+
+  }
+
 
 `
