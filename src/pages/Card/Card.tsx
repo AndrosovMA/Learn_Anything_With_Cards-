@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 import {AiFillStar, AiOutlineSearch, AiOutlineStar} from "react-icons/ai";
@@ -13,26 +13,40 @@ import {
     TableRow
 } from "@mui/material";
 import {BsPencil, BsTrash} from "react-icons/bs";
-import back from "../../styles/assets/icon/back.svg";
-import {CardsType} from "../../api/cards/cards";
-
+import UseAnimation from "react-useanimations";
+import home from "react-useanimations/lib/home";
+import searchToX from "react-useanimations/lib/searchToX";
 
 
 function Card() {
+
     return (
         <Cards>
             <div className="card__wrap">
                 <div className="pack">
                     <div className="card__block__header">
-                        <NavLink to="/home">
-                            <img className="card__block__header__img" src={back} alt="back"/>
-                        </NavLink>
-                        <h1 className="packList__title">Do`not remove</h1>
+                        <div className="card__block__header__home">
+                            <NavLink to="/home">
+                                <UseAnimation
+                                    size={40}
+                                    wrapperStyle={{position: "absolute", top: "14px", opacity: "75%"}}
+                                    animation={home}
+                                    strokeColor="blue"
+                                    fillColor="#21268F"
+                                />
+                            </NavLink>
+                            <h1 className="packList__title">Do`not remove</h1>
+                        </div>
                         <div className="packList__headerBlock">
                             <div className="packList__headerBlock__inputWrap">
                                 <input className="packList__headerBlock__Search" type="text"
                                        placeholder="Search..."/>
-                                <AiOutlineSearch className="packList__headerBlock__glass"/>
+                                <UseAnimation
+                                    size={32}
+                                    wrapperStyle={{position: "absolute", top: "2px", opacity: "60%"}}
+                                    animation={searchToX}
+                                    fillColor="#21268F"
+                                />
                             </div>
                             <button className="packList__headerBlock__btn">Add new Card</button>
                         </div>
@@ -78,7 +92,6 @@ function Card() {
                                             <BsPencil
                                                 className="learningIcons"/>
                                         </IconButton>
-
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
@@ -113,23 +126,22 @@ const Cards = styled.div`
   .card__block__header {
     position: relative;
 
-    .card__block__header__img {
-      position: absolute;
-      top: 12px;
-      left: 34px;
-      opacity: 80%;
-      cursor: pointer;
-      width: 18px;
+
+    .card__block__header__home {
+      display: flex;
+      align-items: center;
     }
+
   }
 
   .packList__title {
     margin-top: 19px;
-    margin-left: 58px;
+    margin-left: 42px;
     font-weight: 600;
     font-size: 22px;
     line-height: 33px;
     color: #2D2E46;
+    opacity: 0.9;
   }
 
   .packList__headerBlock {
@@ -166,7 +178,7 @@ const Cards = styled.div`
       align-items: center;
       color: #2D2E46;
       opacity: 0.5;
-      padding-left: 3rem;
+      padding-left: 2rem;
       text-decoration: none;
 
       :focus {
@@ -195,7 +207,5 @@ const Cards = styled.div`
     cursor: pointer;
 
   }
-
-
 
 `

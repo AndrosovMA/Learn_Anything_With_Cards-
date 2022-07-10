@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from "@mui/material"
+import {Avatar, Checkbox, FormControlLabel} from "@mui/material"
 import {useFormik} from "formik";
 import styled from "styled-components";
 import {Link, Navigate} from "react-router-dom";
@@ -9,6 +9,8 @@ import closeShow from "../../styles/assets/img/closeShow.svg";
 import {loginTC} from "../../store/reducers/login-reducer";
 import {AppStateType, DispatchType} from "../../store/store";
 import {useDispatch, useSelector} from "react-redux";
+import logo from "../../styles/assets/icon/logo.svg"
+
 
 
 export const Login = () => {
@@ -24,88 +26,140 @@ export const Login = () => {
         onSubmit: values => {
             const thunk = loginTC({email: values.email, password: values.password, rememberMe: values.rememberMe})
             dispatch(thunk);
-            //alert(JSON.stringify(values));
         },
     })
 
-    // const [valuePass, setValuePass] = useState("")
     const [isVisible, setIsVisible] = useState<boolean>(true)
-    //
-    // const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setValuePass(e.currentTarget.value)
-    // }
-    //
+
     const toggleShow = () => {
         setIsVisible(!isVisible);
     }
 
     if (isLoggedIn) {
-        return <Navigate to={"/home"} />
+        return <Navigate to={"/home"}/>
     }
 
     return <>
-
         <Wrap>
-            <div className="form__wrapper">
-                <div className="form__text">
-                    <span className="contents">It-incubator</span>
-                    <span className="sign">Sign In</span>
+            <BlockLeft>
+                <div className="block__left__wrap">
+                    <h1>Card training</h1>
+                    <span>We will train you and support you every day until you personally find</span>
+                    <div id="axis">
+                        <img className="object rocket move-up"
+                             src="https://minimal-assets-api.vercel.app/assets/images/home/rocket.png"
+                             alt="rocket"/>
+                    </div>
                 </div>
-                <div className="form__control">
-                    <form onSubmit={formik.handleSubmit}>
-                        <Form>
-                            <span className="form__control__span">Email</span>
-                            <input className="form__group__email"
-                                   name="email"
-                                   value={formik.values.email}
-                                   onChange={formik.handleChange}
-                                   type="email"
-                            />
-                            <span className="form__control__span">Password</span>
-                            <input className="form__group__password"
-                                   name="password"
-                                   value={formik.values.password}
-                                   onChange={formik.handleChange}
 
-                                   type={isVisible ? "password" :"text"}
-                            />
-                            <div className="form__control__icon">
+            </BlockLeft>
 
-                                <img className="form__control__img"
-                                     onClick={toggleShow}
-                                     src={!isVisible ? openShow : closeShow}
-                                     alt="open"/>
+            <BlockRight>
 
-                            </div>
-                            <div className="form__control__password__wrap">
-                                <FormControlLabel
-                                    className="form__control__password__label"
-                                    label={'Remember me'}
-                                    control={
-                                        <Checkbox
-                                            name='rememberMe'
-                                            onChange={formik.handleChange}
-                                            checked={formik.values.rememberMe}
-                                        />}
-                                />
-                                <Link className="form__control__rememberPassword" to="/password">Forgot Password</Link>
-                            </div>
-                            <ButtonField>Login</ButtonField>
-                            <span className="form__control__rememberAccount">Don’t have an account?</span>
-                            <Link className="form__control__signUp" to="/register">Sign Up</Link>
-                        </Form>
-                    </form>
-                </div>
-            </div>
+                <WrapForm>
+                    <div className="form__wrapper">
+                        <div className="form__text">
+                            <img src={logo} alt="logo"/>
+                            <span className="sign">Sign In</span>
+                        </div>
+                        <div className="form__control">
+                            <form onSubmit={formik.handleSubmit}>
+                                <Form>
+                                    <span className="form__control__span">Email</span>
+                                    <input className="form__group__email"
+                                           name="email"
+                                           value={formik.values.email}
+                                           onChange={formik.handleChange}
+                                           type="email"
+                                    />
+                                    <span className="form__control__span">Password</span>
+                                    <input className="form__group__password"
+                                           name="password"
+                                           value={formik.values.password}
+                                           onChange={formik.handleChange}
+
+                                           type={isVisible ? "password" : "text"}
+                                    />
+                                    <div className="form__control__icon">
+
+                                        <img className="form__control__img"
+                                             onClick={toggleShow}
+                                             src={!isVisible ? openShow : closeShow}
+                                             alt="open"/>
+
+                                    </div>
+                                    <div className="form__control__password__wrap">
+                                        <FormControlLabel
+                                            className="form__control__password__label"
+                                            label={'Remember me'}
+                                            control={
+                                                <Checkbox
+                                                    name='rememberMe'
+                                                    onChange={formik.handleChange}
+                                                    checked={formik.values.rememberMe}
+                                                />}
+                                        />
+                                        <Link className="form__control__rememberPassword" to="/password">Forgot
+                                            Password</Link>
+                                    </div>
+                                    <ButtonField>Login</ButtonField>
+                                    <span className="form__control__rememberAccount">Don’t have an account?</span>
+                                    <Link className="form__control__signUp" to="/register">Sign Up</Link>
+                                </Form>
+                            </form>
+                        </div>
+                    </div>
+                </WrapForm>
+            </BlockRight>
+
         </Wrap>
     </>
 }
 
-// types
+
+const Wrap = styled.div`
+  display: grid;
+  grid-template-columns: 35rem repeat(auto-fill, 50rem);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0;
+  grid-row-gap: 0;
+  margin: 0 20rem;
+`
+const BlockLeft = styled.div`
+  grid-area: 1 / 1 / 2 / 2;
+
+  .block__left__wrap {
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    height: 100%;
+    margin-top: 18%;
+    text-align: center;
+
+  }
+
+  h1 {
+    font-family: 'Work Sans', sans-serif;
+    margin-top: 5%;
+    font-size: 70px;
+    color: #007fef;
+    font-weight: 900;
+  }
+
+  span {
+    font-size: 40px;
+    letter-spacing: 1px;
+    font-weight: 100;
+    opacity: 0.7;
+  }
+`
+
+const BlockRight = styled.div`
+  grid-area: 1 / 2 / 2 / 3;
+`
 
 
 //styled
-const Wrap = styled.div`
+const WrapForm = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

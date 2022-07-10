@@ -2,20 +2,15 @@ import {useSelector} from "react-redux";
 import {AppStateType, useAppDispatch, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
-import Avatar from "../../styles/img/Avatar.png"
+import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useEffect, useState} from "react";
-import {Logout} from "@mui/icons-material";
-import {logoutTC} from "../../store/reducers/login-reducer";
-import {AiOutlineSearch} from "react-icons/ai";
-
 import {
     createCardsPackTC,
     getCardsPacsTC,
 } from "../../store/reducers/cards-packs-reducer";
 import {
     Button,
-    IconButton,
     Paper,
     Table,
     TableBody,
@@ -25,6 +20,12 @@ import {
     TableRow
 } from "@mui/material";
 import Pack from "./Pack";
+
+import Paginations from "./Paginations";
+import ModuleFormEditProfile from "./ModuleFormEditProfile";
+import ModuleAddNewPack from "./ModuleAddNewPack";
+import UseAnimation from "react-useanimations";
+import searchToX from "react-useanimations/lib/searchToX";
 
 
 function valuetext(value: number) {
@@ -44,9 +45,6 @@ export const Home = () => {
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const userAvaName = useAppSelector(state => state.loginReducer.userAvaName)
 
-    const handleClickLogout = () => {
-        dispatch(logoutTC())
-    }
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
@@ -80,29 +78,26 @@ export const Home = () => {
         <>
             <Block className="block">
                 <div className="header">
-
                     <div className="profile__above">
-                        <IconButton className="btn_logOut" onClick={handleClickLogout}>
-                            <Logout/>
-                        </IconButton>
+                        <ModuleFormEditProfile
+                        />
                         <ProfileAboveContainer>
-                            <img src={Avatar} alt="photo"/>
+                            <img className="profile__above__avatar" src={Avatar} alt="photo"/>
                             <span className="profile__above__name">{userAvaName.name}</span>
                             <span className="profile__above__description">Front-end developer</span>
-
                             <div style={{
                                 display: "flex",
                                 justifyContent: "space-around",
                                 marginTop: "18px",
-                                width: "50%"
+                                width: "70%",
+                                padding: "3px",
                             }}>
-
                                 <Button
                                     color={"secondary"}
                                     onClick={() => handleClickMyPacks(userId)}
-                                    variant={"contained"}>My
+                                    variant={"contained"}
+                                    style={{marginLeft: "7px !important"}}>My
                                 </Button>
-
                                 <Button
                                     color={"error"}
                                     onClick={() => handleClickAllPacks()}
@@ -111,7 +106,7 @@ export const Home = () => {
                         </ProfileAboveContainer>
                     </div>
 
-                    <div className="profile__below">
+                    <ProfileBelow>
                         <ProfileBelowContainer>
                             <span className="profile__below__description">Number of cards</span>
                             <Slider
@@ -122,7 +117,7 @@ export const Home = () => {
                                 getAriaValueText={valuetext}
                             />
                         </ProfileBelowContainer>
-                    </div>
+                    </ProfileBelow>
                     <div className="pack">
                         <PackList>
                             <h1 className="packList__title">Pack List</h1>
@@ -130,12 +125,19 @@ export const Home = () => {
                                 <div className="packList__headerBlock__inputWrap">
                                     <input className="packList__headerBlock__Search" type="text"
                                            placeholder="Search..."/>
-                                    <AiOutlineSearch/>
+                                    <UseAnimation
+                                        size={32}
+                                        wrapperStyle={{
+                                            position: "absolute", top: "12px",
+                                            overflow: "inherit",
+                                            left: '-13px',
+                                            opacity: "60%"
+                                        }}
+                                        animation={searchToX}
+                                        fillColor="#21268F"
+                                    />
                                 </div>
-                                <button
-                                    onClick={handleClickAddPack}
-                                    className="packList__headerBlock__btn">Add new Pack
-                                </button>
+                                <ModuleAddNewPack/>
                             </div>
                         </PackList>
                         <TableContainer component={Paper}>
@@ -151,11 +153,12 @@ export const Home = () => {
                                 </TableHead>
                                 <TableBody>
                                     {packs.map((pack) => (
-                                        <Pack pack={pack}/>
+                                        <Pack pack={pack} key={pack._id}/>
                                     ))}
                                 </TableBody>
                             </Table>
                         </TableContainer>
+                        <Paginations/>
                     </div>
                 </div>
             </Block>
@@ -170,20 +173,46 @@ const Block = styled.div`
 
   .header {
     display: grid;
-    margin: 0 11rem 0 11rem;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 2fr 3fr;
-    height: 80vh;
-    border-radius: 8px;
+    grid-template-columns: 238px repeat(auto-fill, 58rem);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    margin: 0 25rem;
+
   }
+
 
   .profile__above {
     border-top-left-radius: 25px;
     background: #D9D9F1;
     grid-area: 1 / 1 / 2 / 2;
-    margin-right: 25rem;
-    min-width: 250px;
-    height: 330px;
+    width: 100%;
+    min-height: 400px;
+
+  }
+
+  .profile__above_settings_wrap {
+    margin-top: 7px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+
+    svg {
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+      transition-duration: 200ms;
+
+      :hover {
+        --tw-hue-rotate: hue-rotate(180deg);
+        width: 20px;
+      }
+
+      :active {
+        --tw-scale-x: 1.25;
+      }
+    }
   }
 
   .btn_logOut {
@@ -200,12 +229,10 @@ const Block = styled.div`
   .pack {
     background: #FEFEFF;
     grid-area: 1 / 2 / 3 / 3;
-    margin-left: -25rem;
-    min-width: 500px;
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
-    margin-bottom: 67px;
-
+    padding: 30px;
+    height: 800px;
   }
 `
 
@@ -213,11 +240,15 @@ const ProfileAboveContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15%;
+  margin-top: 24%;
 
-  img {
-
+  .profile__above__avatar {
+    max-width: 223px;
+    max-height: 218px;
+    border-radius: 5%;
+    object-fit: cover;
   }
+
 
   .profile__above__name {
     font-weight: 600;
@@ -239,15 +270,23 @@ const ProfileAboveContainer = styled.div`
 
 `
 
+const ProfileBelow = styled.div`
+  grid-area: 2 / 1 / 3 / 2;
+  height: 100%;
+
+`
+
+
 const ProfileBelowContainer = styled.div`
   padding-top: 17px;
   background: #ECECF9;
-  grid-area: 2 / 1 / 3 / 2;
-  margin-right: 25rem;
-  min-width: 250px;
+  //height: 339px;
+  height: 100%;
+
+
   border-bottom-left-radius: 25px;
-  height: 465px;
-  margin-bottom: 67px;
+  width: 100%;
+
 
   .profile__below__description {
     margin-left: 25px;
@@ -259,8 +298,8 @@ const ProfileBelowContainer = styled.div`
 
   .css-187mznn-MuiSlider-root {
     margin-left: 25px;
-    width: 80% !important;
-    margin-top: 54px;
+    width: 55% !important;
+    margin-top: 28px;
   }
 
 `
@@ -268,8 +307,7 @@ const ProfileBelowContainer = styled.div`
 const PackList = styled.div`
 
   .packList__title {
-    margin-top: 24px;
-    margin-left: 110px;
+    font-family: 'Work Sans', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 22px;
@@ -281,7 +319,7 @@ const PackList = styled.div`
   .packList__headerBlock {
     margin-top: 15px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 28px;
   }
@@ -293,7 +331,7 @@ const PackList = styled.div`
     border-radius: 6px;
     width: 461px;
     height: 36px;
-    padding-left: 45px;
+    padding-left: 36px;
     text-decoration: none;
     /************/
     font-weight: 400;
@@ -318,31 +356,6 @@ const PackList = styled.div`
     top: -11px;
     bottom: 0;
   }
-
-
-  .packList__headerBlock__btn {
-    background: #21268F;
-    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    /*********/
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.01em;
-    color: #ECECF9;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    min-width: 184px;
-    height: 36px;
-    text-decoration: none;
-    outline: none;
-    border: 0;
-    cursor: pointer;
-
-  }
-
-  //button
-
 
   .btnUpdate {
 
@@ -378,16 +391,13 @@ const PackList = styled.div`
     }
 
 
-  }  
+  }
   @media only screen and (max-width: 1279px) {
 
     .packList__headerBlock {
       display: flex;
       flex-direction: column;
     }
-
-
   }
-
 
 `
