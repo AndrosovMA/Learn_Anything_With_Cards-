@@ -12,7 +12,6 @@ import {useDispatch, useSelector} from "react-redux";
 import logo from "../../styles/assets/icon/logo.svg"
 
 
-
 export const Login = () => {
     const dispatch: DispatchType = useDispatch();
     const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
@@ -119,21 +118,20 @@ export const Login = () => {
 
 const Wrap = styled.div`
   display: grid;
-  grid-template-columns: 35rem repeat(auto-fill, 50rem);
   grid-template-rows: 1fr;
-  grid-column-gap: 0;
-  grid-row-gap: 0;
-  margin: 0 20rem;
+  width: 80%;
+  margin-left: 10%;
 `
 const BlockLeft = styled.div`
   grid-area: 1 / 1 / 2 / 2;
+  position: relative;
 
   .block__left__wrap {
     -webkit-align-items: center;
     -ms-flex-align: center;
     height: 100%;
-    margin-top: 18%;
     text-align: center;
+    margin-top: 11%;
 
   }
 
@@ -150,6 +148,10 @@ const BlockLeft = styled.div`
     letter-spacing: 1px;
     font-weight: 100;
     opacity: 0.7;
+    /********/
+
+    display: inline-block;
+    max-width: 55rem;
   }
 `
 
@@ -175,8 +177,8 @@ const WrapForm = styled.div`
     min-width: 413px;
     background: #F9F9FE;
     border-radius: 8px;
-    margin-top: 5%;
-
+    //margin-top: 5%;
+    margin-top: 13%;
   }
 
   .form__control {
