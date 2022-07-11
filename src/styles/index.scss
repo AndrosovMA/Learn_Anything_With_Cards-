@@ -11,3 +11,27 @@ body {
   background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
 
 }
+
+
+
+
+.rocket {
+  top: 30%;
+  left: 19%;
+}
+
+.object {
+  position: absolute;
+  transition: all 2s ease-in-out;
+  -webkit-transition: all 2s ease-in-out; /** Chrome & Safari **/
+  -moz-transition: all 2s ease-in-out; /** Firefox **/
+  -o-transition: all 2s ease-in-out; /** Opera **/
+  transform: rotate(360deg);
+}
+
+.move-up:hover {
+  transform: translate(0, -220px);
+  -webkit-transform: translate(0, -220px);
+  -o-transform: translate(0, -220px);
+  -moz-transform: translate(0, -220px);
+}

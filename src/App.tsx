@@ -9,16 +9,21 @@ import {ForgotPassword} from "./pages/RecoveryPassword/ForgotPassword";
 import {CheckEmail} from "./pages/CheckEmail/CheckEmail";
 import {CreatePassword} from "./pages/RecoveryPassword/CreatePassword";
 import {Home} from "./pages/Home/Home";
-import {useAppDispatch, useAppSelector} from "./store/store";
+import {AppStateType, useAppDispatch, useAppSelector} from "./store/store";
 import {Box, CircularProgress, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "./components/ErrorSnackbar";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {initializeAppTC} from "./store/reducers/app-reducer";
 import Card from "./pages/Card/Card";
+
+import UseAnimations from "react-useanimations";
+import github from "react-useanimations/lib/github";
+import {useSelector} from "react-redux";
 
 function App() {
     const dispatch = useAppDispatch()
 
+    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const status = useAppSelector(state => state.appReducer.status)
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
 
@@ -46,54 +51,81 @@ function App() {
     }
 
     return (
-        <Header>
-            <ErrorSnackbar/>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                        <Navigation>
-                            <NavLink to="/login">Login</NavLink>
-                            <NavLink to="/register">Register</NavLink>
-                            <NavLink to="/password">ForgotPassword</NavLink>
-                            <NavLink to="/set-new-password">CreatePassword</NavLink>
-                            <NavLink to="/checkEmail">CheckEmail</NavLink>
-                            <NavLink to="/home">Home</NavLink>
-                            <NavLink to="/cards">Card</NavLink>
-                        </Navigation>
-                    </Typography>
-                </Toolbar>
-
-            </AppBar>
-            {status === "loading" && <LinearProgress color={"error"}/>}
-
-
+        <>
             <div>
-                <Routes>
-                    <Route path='/' element={<Login/>}/>
-                    <Route path='home' element={<Home/>}/>
-                    <Route path='/cards/:packId' element={<Card/>}/>
-                    <Route path='login' element={<Login/>}/>
-                    <Route path='register' element={<Register/>}/>
-                    <Route path='password' element={<ForgotPassword/>}/>
-                    <Route path='set-new-password/:token' element={<CreatePassword/>}/>
-                    <Route path='checkEmail' element={<CheckEmail/>}/>
-                    <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
 
-                </Routes>
+                <ErrorSnackbar/>
+                {/*<AppBar position="static">*/}
+                {/*    <Toolbar>*/}
+                {/*        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>*/}
+                {/*            <Navigation>*/}
+                {/*                <NavLink to="/login">Login</NavLink>*/}
+                {/*                <NavLink to="/register">Register</NavLink>*/}
+                {/*                <NavLink to="/password">ForgotPassword</NavLink>*/}
+                {/*                <NavLink to="/set-new-password">CreatePassword</NavLink>*/}
+                {/*                <NavLink to="/checkEmail">CheckEmail</NavLink>*/}
+                {/*                <NavLink to="/home">Home</NavLink>*/}
+                {/*            </Navigation>*/}
+                {/*        </Typography>*/}
+                {/*    </Toolbar>*/}
+
+                {/*</AppBar>*/}
+
+                {status === "loading" && <LinearProgress color={"error"}/>}
+
+
+                <div>
+                    <Routes>
+                        <Route path='/' element={<Login/>}/>
+                        <Route path='home' element={<Home/>}/>
+                        <Route path='/cards/:packId' element={<Card/>}/>
+                        <Route path='login' element={<Login/>}/>
+                        <Route path='register' element={<Register/>}/>
+                        <Route path='password' element={<ForgotPassword/>}/>
+                        <Route path='set-new-password/:token' element={<CreatePassword/>}/>
+                        <Route path='checkEmail' element={<CheckEmail/>}/>
+                        <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
+
+                    </Routes>
+                </div>
+
+                {!isLoggedIn &&
+                    <Social>
+                        <h2>Github</h2>
+                        <a href="https://github.com/AndrosovMA/learn_anything_with_cards"
+                           target="_blank"
+                        >
+                            <UseAnimations
+                                size={40}
+                                animation={github}
+                                wrapperStyle={{
+                                    opacity: 0.7,
+                                    cursor: "pointer"
+                                }}
+                            />
+                        </a>
+                    </Social>
+                }
+
             </div>
-
-        </Header>
+        </>
     );
 }
 
 export default App;
 
-const Header = styled.div`
+const Social = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h2 {
+    opacity: 0.7;
+  }
+
 `
-// const WrapContainer = styled.div`
-//   height: 100vh;
-//   background: linear-gradient(180deg, #E6D4DE 0%, #9890C7 100%);
-// `
+
 const Navigation = styled.nav`
   a {
     text-decoration: none;
