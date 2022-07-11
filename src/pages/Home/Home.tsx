@@ -173,11 +173,11 @@ const Block = styled.div`
 
   .header {
     display: grid;
-    grid-template-columns: 238px repeat(auto-fill, 58rem);
+    grid-template-columns: 238px repeat(auto-fill, 92%);
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 0;
     grid-row-gap: 0;
-    margin: 0 25rem;
+    margin: 0 20%;
 
   }
 
@@ -274,6 +274,7 @@ const ProfileBelow = styled.div`
   grid-area: 2 / 1 / 3 / 2;
   height: 100%;
 
+
 `
 
 
@@ -340,6 +341,16 @@ const PackList = styled.div`
     display: flex;
     align-items: center;
     color: #2D2E46;
+
+    @media only screen and (max-width: 920px) {
+      width: 361px;
+    }
+
+    @media only screen and (max-width: 840px) {
+      width: 261px;
+    }
+
+
   }
 
   .packList__headerBlock__inputWrap {
