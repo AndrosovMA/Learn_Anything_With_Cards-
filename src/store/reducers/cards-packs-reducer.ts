@@ -2,7 +2,7 @@ import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./a
 import {
     cardsPackAPI,
     CardsPackType,
-    DomainCardsPackParamsType
+    DomainCardsPackParamsType, UpdateCardsPackPayloadType
 } from "../../api/cards/cards-pack-api";
 import {AppThunk} from "../store";
 import {handleNetworkError} from "../../utils/error- utills";
@@ -66,11 +66,14 @@ export const getCardsPacsTC = (params?: DomainCardsPackParamsType): AppThunk => 
             dispatch(setAppStatusAC("idle"))
         })
 }
-export const createCardsPackTC = (): AppThunk => (dispatch) => {
+export const createCardsPackTC = (userId: string, title: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     // hardcode payload
-    const hardcodePayload = {cardsPack: {name: "HARDCODEPACKNAME"}}
-    cardsPackAPI.createCardsPack(hardcodePayload)
+    //const hardcodePayload = {cardsPack: {name: "HARDCODEPACKNAME"}}
+    cardsPackAPI.createCardsPack({cardsPack: {name: title}})
+        .then(() => {
+            dispatch(getCardsPacsTC({user_id: userId}))
+        })
         .catch((error) => {
             handleNetworkError(error, dispatch)
         })
@@ -81,7 +84,10 @@ export const createCardsPackTC = (): AppThunk => (dispatch) => {
 export const updateCardsPackTC = (id: string, userId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     // hardcode payload
-    const hardcodePayload = {_id: id, name: "UPDATEDPACKNAME"}
+    const hardcodePayload: UpdateCardsPackPayloadType = {cardsPack: {
+            _id: id,
+            name: "UPDATED"
+        }}
     cardsPackAPI.updateCardsPack(hardcodePayload)
         .then(() => {
             dispatch(getCardsPacsTC({user_id: userId}))
