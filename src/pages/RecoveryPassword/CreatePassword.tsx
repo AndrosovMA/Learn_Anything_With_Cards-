@@ -3,15 +3,17 @@ import {AiFillEye} from "react-icons/ai";
 import InputField from "../../components/InputField";
 import {ChangeEvent, useState} from "react";
 import {ButtonField} from "../../components/Button";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {setNewPasswordTC} from "../../store/reducers/forgotPassword-reducer";
 import {DispatchType} from "../../store/store";
 import {useDispatch} from "react-redux";
+import {PATH} from "../../enum/path";
 
 
 export const CreatePassword = () => {
     const dispatch: DispatchType = useDispatch();
+    const navigate = useNavigate();
 
     const [valuePass, setValuePass] = useState("")
     const [isVisible, setIsVisible] = useState<boolean>(true)
@@ -28,7 +30,7 @@ export const CreatePassword = () => {
         onSubmit: values => {
             const thunk = setNewPasswordTC(valuePass, token ? token: '')
             dispatch(thunk);
-            alert(JSON.stringify(values));
+            navigate(PATH.LOGIN)
         },
     })
 

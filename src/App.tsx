@@ -1,7 +1,4 @@
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import {NavLink, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {Register} from "./pages/Register/Register";
 import {Login} from "./pages/Login/Login";
 import styled from "styled-components";
@@ -12,13 +9,15 @@ import {Home} from "./pages/Home/Home";
 import {AppStateType, useAppDispatch, useAppSelector} from "./store/store";
 import {Box, CircularProgress, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "./components/ErrorSnackbar";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {initializeAppTC} from "./store/reducers/app-reducer";
 import Card from "./pages/Card/Card";
 
 import UseAnimations from "react-useanimations";
 import github from "react-useanimations/lib/github";
 import {useSelector} from "react-redux";
+import {Page404} from "./pages/404/Page404";
+import {PATH} from "./enum/path";
 
 function App() {
     const dispatch = useAppDispatch()
@@ -55,37 +54,31 @@ function App() {
             <div>
 
                 <ErrorSnackbar/>
-                {/*<AppBar position="static">*/}
-                {/*    <Toolbar>*/}
-                {/*        <Typography variant="h6" component="div" sx={{flexGrow: 1}}>*/}
-                {/*            <Navigation>*/}
-                {/*                <NavLink to="/login">Login</NavLink>*/}
-                {/*                <NavLink to="/register">Register</NavLink>*/}
-                {/*                <NavLink to="/password">ForgotPassword</NavLink>*/}
-                {/*                <NavLink to="/set-new-password">CreatePassword</NavLink>*/}
-                {/*                <NavLink to="/checkEmail">CheckEmail</NavLink>*/}
-                {/*                <NavLink to="/home">Home</NavLink>*/}
-                {/*            </Navigation>*/}
-                {/*        </Typography>*/}
-                {/*    </Toolbar>*/}
-
-                {/*</AppBar>*/}
 
                 {status === "loading" && <LinearProgress color={"error"}/>}
 
-
                 <div>
                     <Routes>
-                        <Route path='/' element={<Login/>}/>
-                        <Route path='home' element={<Home/>}/>
-                        <Route path='/cards/:packId' element={<Card/>}/>
-                        <Route path='login' element={<Login/>}/>
-                        <Route path='register' element={<Register/>}/>
-                        <Route path='password' element={<ForgotPassword/>}/>
-                        <Route path='set-new-password/:token' element={<CreatePassword/>}/>
-                        <Route path='checkEmail' element={<CheckEmail/>}/>
-                        <Route path='/404' element={<h1>404 PAGE NOT FOUND</h1>}/>
-
+                        <Route path={'/*'} element={<Page404 />} />
+                        <Route path="/" element={<Navigate to={PATH.HOME} />} />
+                        <Route path={PATH.LOGIN} element={<Login />} />
+                        <Route
+                            path={PATH.HOME}
+                            element={isLoggedIn ? <Home /> : <Navigate to={PATH.LOGIN} />}
+                        />
+                        <Route path={PATH.REGISTRATION} element={<Register />} />
+                        <Route path={PATH.NEW_PASSWORD} element={<CreatePassword />}>
+                            <Route path={PATH.TOKEN} element={<CreatePassword />} />
+                        </Route>
+                        <Route path={PATH.PAGE404} element={<Page404 />} />
+                        <Route path={PATH.FORGOT_PASSWORD} element={<ForgotPassword />} />
+                        <Route path={PATH.CHECK_EMAIL} element={<CheckEmail />} />
+                        <Route
+                            path={PATH.CARDS}
+                            element={isLoggedIn ? <Card /> : <Navigate to={PATH.LOGIN} />}
+                        >
+                            <Route path={PATH.PACK_ID} element={<Card />} />
+                        </Route>
                     </Routes>
                 </div>
 

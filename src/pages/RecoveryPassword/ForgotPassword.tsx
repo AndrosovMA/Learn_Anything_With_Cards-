@@ -1,14 +1,16 @@
 import {useFormik} from "formik";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {ButtonField} from "../../components/Button";
 import {forgotPasswordTC} from "../../store/reducers/forgotPassword-reducer";
 import {DispatchType} from "../../store/store";
 import {useDispatch} from "react-redux";
+import { PATH } from "../../enum/path";
 
 
 export const ForgotPassword = () => {
     const dispatch: DispatchType = useDispatch();
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -19,7 +21,7 @@ export const ForgotPassword = () => {
         onSubmit: values => {
             const thunk = forgotPasswordTC(values.email)
             dispatch(thunk);
-            alert(JSON.stringify(values));
+            navigate(PATH.CHECK_EMAIL)
         },
     })
 
