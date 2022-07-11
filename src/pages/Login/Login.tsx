@@ -99,12 +99,12 @@ export const Login = () => {
                                                     checked={formik.values.rememberMe}
                                                 />}
                                         />
-                                        <Link className="form__control__rememberPassword" to="/password">Forgot
+                                        <Link className="form__control__rememberPassword" to="/forgot-password">Forgot
                                             Password</Link>
                                     </div>
                                     <ButtonField>Login</ButtonField>
                                     <span className="form__control__rememberAccount">Don’t have an account?</span>
-                                    <Link className="form__control__signUp" to="/register">Sign Up</Link>
+                                    <Link className="form__control__signUp" to="/registration">Sign Up</Link>
                                 </Form>
                             </form>
                         </div>

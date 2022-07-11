@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import {ButtonField} from "../../components/Button";
 
 
-const NotFound = () => {
+export const Page404 = () => {
 
     return (
         <>
@@ -20,8 +20,6 @@ const NotFound = () => {
         </>
     );
 }
-
-export default NotFound;
 
 const Wrap = styled.div`
 

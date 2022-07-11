@@ -6,7 +6,7 @@ const initialState = {}
 const linkMessage = {
     message: `<div style="background-color: lime; padding: 15px">
                 password recovery link: 
-                <a href='http://localhost:3000/set-new-password/$token$/'>
+                <a href='http://localhost:3000/#/set-new-password/$token$/'>
                 link</a>
                </div>`
 }
@@ -27,6 +27,7 @@ export const setForgotPasswordAC = () =>
 // thunks
 export const forgotPasswordTC = (email: string) => (dispatch: Dispatch<ActionsType>) => {
     const data: ForgotPasswordType = {email, ...linkMessage}
+    localStorage.setItem('statusForgotPassword', 'true');
 
     forgotPasswordAPI.forgot(data)
         .then((res) => {
