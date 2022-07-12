@@ -40,7 +40,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     loginAPI.login(data)
         .then((res) => {
-            dispatch(setQueryParams({user_id: res.data._id}))
+            // dispatch(setQueryParams({user_id: res.data._id}))
             dispatch(setIsLoggedInAC(true))
             dispatch(setUserDataAC(res.data))
             const model: UpdateMeModelType = {
@@ -73,9 +73,10 @@ export const updateMeTC = (model: UpdateMeModelType): AppThunk => (dispatch) => 
     dispatch(setAppStatusAC("loading"))
     meAPI.updateMe(model)
         .then((res) => {
+            console.log(res.data.updatedUser)
             const model: UpdateMeModelType = {
-                name: res.data.name,
-                avatar: res.data.avatar
+                name: res.data.updatedUser.name,
+                avatar: res.data.updatedUser.avatar
             }
             dispatch(setUserAvaNameAC(model))
         })

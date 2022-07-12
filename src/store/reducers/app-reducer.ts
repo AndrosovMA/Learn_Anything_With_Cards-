@@ -1,5 +1,5 @@
-import { meAPI } from "../../api/login/me-api"
-import {setIsLoggedInAC} from "./login-reducer";
+import {meAPI, UpdateMeModelType} from "../../api/login/me-api"
+import {setIsLoggedInAC, setUserAvaNameAC, setUserDataAC} from "./login-reducer";
 import {AppThunk} from "../store";
 import {setQueryParams} from "./cards-packs-reducer";
 
@@ -34,8 +34,14 @@ export const setAppIsInitialized = (isInitialized: boolean) =>
 export const initializeAppTC = (): AppThunk => (dispatch) => {
     meAPI.me()
         .then(res => {
-            dispatch(setQueryParams({user_id: res.data._id}))
+            // dispatch(setQueryParams({user_id: res.data._id}))
             dispatch(setIsLoggedInAC(true))
+            dispatch(setUserDataAC(res.data))
+            const model: UpdateMeModelType = {
+                name: res.data.name,
+                avatar: res.data.avatar
+            }
+            dispatch(setUserAvaNameAC(model))
         })
         // .catch(error => {
         //     handleNetworkError(error, dispatch)

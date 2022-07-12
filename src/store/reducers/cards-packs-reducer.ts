@@ -2,7 +2,8 @@ import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./a
 import {
     cardsPackAPI,
     CardsPackType,
-    DomainCardsPackParamsType, UpdateCardsPackPayloadType
+    DomainCardsPackParamsType,
+    CreateCardsPackPayloadType,UpdateCardsPackPayloadType
 } from "../../api/cards/cards-pack-api";
 import {AppThunk} from "../store";
 import {handleNetworkError} from "../../utils/error- utills";
@@ -85,11 +86,12 @@ export const getCardsPacsTC = (user_id?: any): AppThunk => (dispatch, getState) 
         })
 }
 
-export const createCardsPackTC = (): AppThunk => (dispatch) => {
+export const createCardsPackTC = (payload: CreateCardsPackPayloadType, userId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
-    // hardcode payload
-    const hardcodePayload = {cardsPack: {name: "HARDCODEPACKNAME"}}
-    cardsPackAPI.createCardsPack(hardcodePayload)
+    cardsPackAPI.createCardsPack(payload)
+        .then(() => {
+            dispatch(getCardsPacsTC({user_id: userId}))
+        })
         .catch((error) => {
             handleNetworkError(error, dispatch)
         })
@@ -97,26 +99,8 @@ export const createCardsPackTC = (): AppThunk => (dispatch) => {
             dispatch(setAppStatusAC("idle"))
         })
 }
-// export const updateCardsPackTC = (id: string): AppThunk => (dispatch) => {
-//     dispatch(setAppStatusAC("loading"))
-//     // hardcode payload
-//     const hardcodePayload = {_id: id, name: "UPDATEDPACKNAME"}
-//     cardsPackAPI.updateCardsPack(hardcodePayload)
-//         .then(() => {
-//             dispatch(getCardsPacsTC())
-//             // dispatch(getCardsPacsTC({user_id: userId}))
-//         })
-//         .catch((error) => {
-//             handleNetworkError(error, dispatch)
-//         })
-//         .finally(() => {
-//             dispatch(setAppStatusAC("idle"))
-//         })
-// }
-
-export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType, userId: string): AppThunk => (dispatch,getState) => {
+export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType, userId: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
-    // const userId = getState().cardsPacksReducer.query_params.user_id
     cardsPackAPI.updateCardsPack(payload)
         .then(() => {
             dispatch(getCardsPacsTC({user_id: userId}))

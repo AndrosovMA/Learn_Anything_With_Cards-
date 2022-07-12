@@ -18,12 +18,12 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
 
     const dispatch = useAppDispatch()
 
-    const handleClickDeletePack = (id: string, userId:string) => {
+    const handleClickDeletePack = (id: string, userId: string) => {
         dispatch(deleteCardsPackTC(id, userId))
     }
 
-    const handleClickUpdatePack = (id: string, userId:string) => {
-        dispatch(updateCardsPackTC({_id: id, name: 'UPDATED'}, userId))
+    const handleClickUpdatePack = (id: string, userId: string) => {
+        dispatch(updateCardsPackTC({cardsPack: {_id: id, name: 'UPDATED'}}, userId))
     }
 
     return (
