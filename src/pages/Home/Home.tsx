@@ -7,7 +7,7 @@ import Slider from "@mui/material/Slider/Slider";
 import React, {useEffect, useState} from "react";
 import {
     createCardsPackTC,
-    getCardsPacsTC, setUserId,
+    getCardsPacsTC, setQueryParams, setUserId,
 } from "../../store/reducers/cards-packs-reducer";
 import {
     Button,
@@ -36,8 +36,6 @@ function valuetext(value: number) {
 
 
 export const Home = () => {
-
-
     const dispatch = useAppDispatch()
     const packs = useAppSelector(state => state.cardsPacksReducer.cardsPacks)
     const userId = useAppSelector(state => state.loginReducer.userData._id)
@@ -54,11 +52,12 @@ export const Home = () => {
     };
 
     const handleClickMyPacks = (userId: string) => {
-        dispatch(getCardsPacsTC(userId))
+        dispatch(getCardsPacsTC())
     }
 
     const handleClickAllPacks = () => {
-        dispatch(getCardsPacsTC(""))
+        dispatch(setQueryParams({user_id: ""}))
+        dispatch(getCardsPacsTC())
     }
 
 

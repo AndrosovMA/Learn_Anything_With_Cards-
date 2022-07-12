@@ -2,6 +2,7 @@ import {meAPI, UpdateMeModelType} from "../../api/login/me-api"
 import {setIsLoggedInAC, setUserAvaNameAC, setUserDataAC} from "./login-reducer";
 import {AppThunk} from "../store";
 import {setQueryParams} from "./cards-packs-reducer";
+import {handleNetworkError} from "../../utils/error- utills";
 
 const initialState = {
     status: "idle" as RequestStatusType,
@@ -34,7 +35,7 @@ export const setAppIsInitialized = (isInitialized: boolean) =>
 export const initializeAppTC = (): AppThunk => (dispatch) => {
     meAPI.me()
         .then(res => {
-            // dispatch(setQueryParams({user_id: res.data._id}))
+             dispatch(setQueryParams({user_id: res.data._id}))
             dispatch(setIsLoggedInAC(true))
             dispatch(setUserDataAC(res.data))
             const model: UpdateMeModelType = {
@@ -43,9 +44,9 @@ export const initializeAppTC = (): AppThunk => (dispatch) => {
             }
             dispatch(setUserAvaNameAC(model))
         })
-        // .catch(error => {
-        //     handleNetworkError(error, dispatch)
-        // })
+        .catch(error => {
+            handleNetworkError(error, dispatch)
+        })
         .finally(() => {
             dispatch(setAppIsInitialized(true))
         })
