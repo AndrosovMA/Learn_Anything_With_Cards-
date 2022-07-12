@@ -73,9 +73,10 @@ export const updateMeTC = (model: UpdateMeModelType): AppThunk => (dispatch) => 
     dispatch(setAppStatusAC("loading"))
     meAPI.updateMe(model)
         .then((res) => {
+            console.log(res.data.updatedUser)
             const model: UpdateMeModelType = {
-                name: res.data.name,
-                avatar: res.data.avatar
+                name: res.data.updatedUser.name,
+                avatar: res.data.updatedUser.avatar
             }
             dispatch(setUserAvaNameAC(model))
         })

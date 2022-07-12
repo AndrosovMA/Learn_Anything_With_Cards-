@@ -6,7 +6,7 @@ import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useEffect, useState} from "react";
 import {
-    // createCardsPackTC,
+    createCardsPackTC,
     getCardsPacsTC, setUserId,
 } from "../../store/reducers/cards-packs-reducer";
 import {
@@ -23,8 +23,11 @@ import Pack from "./Pack";
 
 import Paginations from "./Paginations";
 import ModuleFormEditProfile from "./ModuleFormEditProfile";
-import ModuleAddNewPack from "./ModuleAddNewPack";
+// import ModuleAddNewPack from "./ModuleAddNewPack";
 import Search from "./Search";
+import ModuleAddNewItem from "../../components/ModuleAddNewItem";
+import UseAnimation from "react-useanimations";
+import searchToX from "react-useanimations/lib/searchToX";
 
 
 function valuetext(value: number) {
@@ -59,9 +62,9 @@ export const Home = () => {
     }
 
 
-    // const handleClickAddPack = () => {
-    //     dispatch(createCardsPackTC())
-    // }
+    const addItemCallback = (title: string) => {
+        dispatch(createCardsPackTC( {cardsPack: {name: title}}, userId))
+    }
 
 
     useEffect(() => {
@@ -123,7 +126,8 @@ export const Home = () => {
                             <h1 className="packList__title">Pack List</h1>
                             <div className="packList__headerBlock">
                                 <Search/>
-                                <ModuleAddNewPack/>
+                                <ModuleAddNewItem addItem={addItemCallback}
+                                />
                             </div>
                         </PackList>
                         <TableContainer component={Paper}>
