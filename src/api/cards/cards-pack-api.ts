@@ -30,8 +30,10 @@ export type CreateCardsPackPayloadType = {
     }
 }
 export type UpdateCardsPackPayloadType = {
-    _id: string
-    name: string
+    cardsPack: {
+        _id: string
+        name: string
+    }
 }
 
 export type CardsPackType = {

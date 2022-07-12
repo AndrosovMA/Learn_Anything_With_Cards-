@@ -23,7 +23,7 @@ import Pack from "./Pack";
 
 import Paginations from "./Paginations";
 import ModuleFormEditProfile from "./ModuleFormEditProfile";
-import ModuleAddNewPack from "./ModuleAddNewPack";
+import ModuleAddNewItem from "../../components/ModuleAddNewItem";
 import UseAnimation from "react-useanimations";
 import searchToX from "react-useanimations/lib/searchToX";
 
@@ -59,8 +59,8 @@ export const Home = () => {
     }
 
 
-    const handleClickAddPack = () => {
-        dispatch(createCardsPackTC())
+    const addItemCallback = (title: string) => {
+        dispatch(createCardsPackTC( {cardsPack: {name: title}}, userId))
     }
 
 
@@ -137,7 +137,7 @@ export const Home = () => {
                                         fillColor="#21268F"
                                     />
                                 </div>
-                                <ModuleAddNewPack/>
+                                <ModuleAddNewItem addItem={addItemCallback} />
                             </div>
                         </PackList>
                         <TableContainer component={Paper}>

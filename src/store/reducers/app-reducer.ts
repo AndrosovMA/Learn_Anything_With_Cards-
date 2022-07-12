@@ -1,5 +1,5 @@
-import { meAPI } from "../../api/login/me-api"
-import {setIsLoggedInAC} from "./login-reducer";
+import {meAPI, UpdateMeModelType} from "../../api/login/me-api"
+import {setIsLoggedInAC, setUserAvaNameAC, setUserDataAC} from "./login-reducer";
 import {AppThunk} from "../store";
 
 const initialState = {
@@ -34,6 +34,12 @@ export const initializeAppTC = (): AppThunk => (dispatch) => {
     meAPI.me()
         .then(res => {
             dispatch(setIsLoggedInAC(true))
+            dispatch(setUserDataAC(res.data))
+            const model: UpdateMeModelType = {
+                name: res.data.name,
+                avatar: res.data.avatar
+            }
+            dispatch(setUserAvaNameAC(model))
         })
         // .catch(error => {
         //     handleNetworkError(error, dispatch)

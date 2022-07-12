@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {KeyboardEvent, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,17 +7,44 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import styled from "styled-components";
+import {ChangeEvent} from "react";
 
-export default function FormDialog() {
-    const [open, setOpen] = React.useState(false);
+export default function FormDialog({addItem}: {addItem: (tittle: string) => void}) {
+    const [open, setOpen] = useState(false);
+    const [title, setTitle] = useState("");
+    const [error, setError] = useState<string | null>(null)
 
     const handleClickOpen = () => {
+        if (error !== null) {
+            setError(null)
+        }
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleClickSave = () => {
+        if (title.trim() !== "") {
+            addItem(title.trim())
+            setTitle("")
+            setOpen(false)
+        } else {
+            setError("Title is required")
+        }
+    }
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+
+    const onEnterPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleClickSave()
+            setOpen(false)
+        }
+    }
 
     return (
         <div>
@@ -33,13 +60,18 @@ export default function FormDialog() {
                     </DialogContentText>
                     <TextField
                         autoFocus
+                        value={title}
+                        onChange={handleChange}
+                        onKeyPress={onEnterPress}
                         margin="dense"
                         id="name"
-                        label="Name Pack"
+                        label="Pack Title"
                         type="text"
                         fullWidth
                         variant="standard"
+                        error={!!error}
                     />
+                    {error && <span style={{color: "red"}}>{error}</span>}
                 </DialogContent>
                 <DialogActions>
                     <Button
@@ -49,7 +81,7 @@ export default function FormDialog() {
                     <Button
                         variant='contained'
                         color="success"
-                        onClick={handleClose}>Save</Button>
+                        onClick={handleClickSave}>Save</Button>
                 </DialogActions>
             </Dialog>
         </div>
