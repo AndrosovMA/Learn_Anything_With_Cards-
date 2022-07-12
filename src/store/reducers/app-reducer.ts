@@ -1,6 +1,7 @@
 import { meAPI } from "../../api/login/me-api"
 import {setIsLoggedInAC} from "./login-reducer";
 import {AppThunk} from "../store";
+import {setQueryParams} from "./cards-packs-reducer";
 
 const initialState = {
     status: "idle" as RequestStatusType,
@@ -33,6 +34,7 @@ export const setAppIsInitialized = (isInitialized: boolean) =>
 export const initializeAppTC = (): AppThunk => (dispatch) => {
     meAPI.me()
         .then(res => {
+            dispatch(setQueryParams({user_id: res.data._id}))
             dispatch(setIsLoggedInAC(true))
         })
         // .catch(error => {

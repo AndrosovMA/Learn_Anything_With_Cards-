@@ -6,8 +6,8 @@ import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useEffect, useState} from "react";
 import {
-    createCardsPackTC,
-    getCardsPacsTC,
+    // createCardsPackTC,
+    getCardsPacsTC, setUserId,
 } from "../../store/reducers/cards-packs-reducer";
 import {
     Button,
@@ -24,8 +24,7 @@ import Pack from "./Pack";
 import Paginations from "./Paginations";
 import ModuleFormEditProfile from "./ModuleFormEditProfile";
 import ModuleAddNewPack from "./ModuleAddNewPack";
-import UseAnimation from "react-useanimations";
-import searchToX from "react-useanimations/lib/searchToX";
+import Search from "./Search";
 
 
 function valuetext(value: number) {
@@ -39,6 +38,7 @@ export const Home = () => {
     const dispatch = useAppDispatch()
     const packs = useAppSelector(state => state.cardsPacksReducer.cardsPacks)
     const userId = useAppSelector(state => state.loginReducer.userData._id)
+    // const myId = useAppSelector(state => state.cardsPacksReducer.params.user_id)
 
 
     const [value, setValue] = useState<number[]>([20, 80]);
@@ -51,17 +51,17 @@ export const Home = () => {
     };
 
     const handleClickMyPacks = (userId: string) => {
-        dispatch(getCardsPacsTC({user_id: userId}))
+        dispatch(getCardsPacsTC(userId))
     }
 
     const handleClickAllPacks = () => {
-        dispatch(getCardsPacsTC())
+        dispatch(getCardsPacsTC(""))
     }
 
 
-    const handleClickAddPack = () => {
-        dispatch(createCardsPackTC())
-    }
+    // const handleClickAddPack = () => {
+    //     dispatch(createCardsPackTC())
+    // }
 
 
     useEffect(() => {
@@ -94,7 +94,7 @@ export const Home = () => {
                             }}>
                                 <Button
                                     color={"secondary"}
-                                    onClick={() => handleClickMyPacks(userId)}
+                                    onClick={()=> handleClickMyPacks(userId)}
                                     variant={"contained"}
                                     style={{marginLeft: "7px !important"}}>My
                                 </Button>
@@ -122,21 +122,7 @@ export const Home = () => {
                         <PackList>
                             <h1 className="packList__title">Pack List</h1>
                             <div className="packList__headerBlock">
-                                <div className="packList__headerBlock__inputWrap">
-                                    <input className="packList__headerBlock__Search" type="text"
-                                           placeholder="Search..."/>
-                                    <UseAnimation
-                                        size={32}
-                                        wrapperStyle={{
-                                            position: "absolute", top: "12px",
-                                            overflow: "inherit",
-                                            left: '-13px',
-                                            opacity: "60%"
-                                        }}
-                                        animation={searchToX}
-                                        fillColor="#21268F"
-                                    />
-                                </div>
+                                <Search/>
                                 <ModuleAddNewPack/>
                             </div>
                         </PackList>
@@ -323,49 +309,6 @@ const PackList = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 28px;
-  }
-
-  .packList__headerBlock__Search {
-    background: #ECECF9;
-    opacity: 0.5;
-    border: 1px solid #635D80;
-    border-radius: 6px;
-    width: 461px;
-    height: 36px;
-    padding-left: 36px;
-    text-decoration: none;
-    /************/
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    color: #2D2E46;
-
-    @media only screen and (max-width: 920px) {
-      width: 361px;
-    }
-
-    @media only screen and (max-width: 840px) {
-      width: 261px;
-    }
-
-
-  }
-
-  .packList__headerBlock__inputWrap {
-    display: inline-block;
-    position: relative;
-  }
-
-  svg {
-    position: absolute;
-    left: 1rem;
-    width: 25px;
-    height: 60px;
-    opacity: 30%;
-    top: -11px;
-    bottom: 0;
   }
 
   .btnUpdate {

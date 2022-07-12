@@ -58,7 +58,7 @@ export type DomainCardsPackParamsType = {
     min?: number
     max?: number
     sortPacks?: string
-    user_id?: string
+    user_id?: string | null
     page?: number
     pageCount?: number
 }

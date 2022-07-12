@@ -186,7 +186,7 @@ const Wrap = styled.div`
   .form__wrapper {
     min-height: 600px;
     min-width: 413px;
-    background: #F9F9FE;
+    background: #f3eeff;
     border-radius: 8px;
     margin-top: 5%;
 
@@ -245,7 +245,7 @@ const Form = styled.div`
     border-right: none;
     border-bottom-color: #dfdfdf;
     color: #2D2E46;
-    background: #F9F9FE;
+    background: #f3eeff;
   }
 
   .form__group__password {
@@ -261,7 +261,7 @@ const Form = styled.div`
     border-left: none;
     border-right: none;
     border-bottom-color: #dfdfdf;
-    background: #F9F9FE;
+    background: #f3eeff;
   }
 
   .form__group__password_error {

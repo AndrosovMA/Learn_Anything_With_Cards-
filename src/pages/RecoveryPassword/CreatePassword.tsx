@@ -82,7 +82,7 @@ const Wrap = styled.div`
   .form__wrapper {
     min-height: 600px;
     max-width: 413px;
-    background: #F9F9FE;
+    background: #f3eeff;
     border-radius: 8px;
     margin-top: 5%;
 

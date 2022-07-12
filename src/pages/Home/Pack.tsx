@@ -23,7 +23,7 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
     }
 
     const handleClickUpdatePack = (id: string, userId:string) => {
-        dispatch(updateCardsPackTC(id, userId))
+        dispatch(updateCardsPackTC({_id: id, name: 'UPDATED'}, userId))
     }
 
     return (
