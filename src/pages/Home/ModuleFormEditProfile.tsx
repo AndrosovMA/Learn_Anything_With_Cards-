@@ -9,28 +9,46 @@ import {IconButton} from "@mui/material";
 import UseAnimations from "react-useanimations";
 import settings from "react-useanimations/lib/settings";
 import {Logout} from "@mui/icons-material";
-import {logoutTC} from "../../store/reducers/login-reducer";
-import {useAppDispatch} from "../../store/store";
+import {logoutTC, updateMeTC} from "../../store/reducers/login-reducer";
+import {AppStateType, useAppDispatch} from "../../store/store";
 import Avatar from "../../styles/img/Avatar.png";
 import {BsPencil} from "react-icons/bs";
 import styled from "styled-components";
 import DialogContentText from "@mui/material/DialogContentText";
+import {ChangeEvent, useState} from "react";
+import {useSelector} from "react-redux";
 
 export default function ModuleFormEditProfile() {
+    const avatar = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.avatar)
+
     const [open, setOpen] = React.useState(false);
+    const [editAvatar, setEditAvatar] = useState(false);
+    const [newAvatarURL, setNewAvatarURL] = useState('')
+    const [newName, setNewName] = useState('')
 
     const dispatch = useAppDispatch()
 
     const handleClickLogout = () => {
         dispatch(logoutTC())
     }
-
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClose = (status: boolean) => {
+        setOpen(status);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const changeStatusEditAvatar = (status: boolean): void => {
+        setEditAvatar(status)
+    }
+    const changeAvatarURL = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewAvatarURL(e.currentTarget.value)
+    }
+
+    const handleUpdateMeOnClick = (): void => {
+        const model = {
+            name: newName,
+            avatar: newAvatarURL
+        }
+        dispatch(updateMeTC(model));
+        setEditAvatar(false);
     };
 
     return (
@@ -38,7 +56,7 @@ export default function ModuleFormEditProfile() {
             <div className="profile__above_settings_wrap">
                 <Button>
                     <UseAnimations
-                        onClick={handleClickOpen}
+                        onClick={()=>{handleClose(true)}}
                         animation={settings}
                         size={32}
                         wrapperStyle={{opacity: 0.6, color: "green"}}/>
@@ -48,19 +66,40 @@ export default function ModuleFormEditProfile() {
                 </Button>
 
             </div>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Edit Profile</DialogTitle>
+            <Dialog open={open} onClose={()=>{handleClose(false)}}>
+                <DialogTitle>Personal information</DialogTitle>
                 <DialogContentText>
                     Make changes to your profile, they can be changed again!
                 </DialogContentText>
+
+
                 <DialogContent>
                     <ImgWrap>
-                        <img src={Avatar} alt="photo"/>
+                        <img src={avatar} alt="photo" width='100' height='100' />
                         <IconButton
                             className="learningIcons"
                             color={"warning"}>
-                            <BsPencil/>
+                            <BsPencil onClick={() => {
+                                changeStatusEditAvatar(true)
+                            }}/>
                         </IconButton></ImgWrap>
+
+                    {
+                        editAvatar
+                            ? <TextField
+                                autoFocus
+                                margin="dense"
+                                id="avatar"
+                                label="avatar"
+                                placeholder="Please insert URL your new avatar "
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={changeAvatarURL}
+                            />
+                            : null
+                    }
+
                     <TextField
                         autoFocus
                         margin="dense"
@@ -71,15 +110,25 @@ export default function ModuleFormEditProfile() {
                         variant="standard"
                     />
                 </DialogContent>
+
+
                 <DialogActions>
                     <Button
                         variant='contained'
                         color="error"
-                        onClick={handleClose}>Cancel</Button>
+                        onClick={() =>
+                        {
+                            handleClose(false)
+                            changeStatusEditAvatar(false)
+                        }
+                            }>Cancel</Button>
                     <Button
                         variant='contained'
                         color="success"
-                        onClick={handleClose}>Save</Button>
+                        onClick={() => {
+                            handleClose(false)
+                            handleUpdateMeOnClick()
+                        }}>Save</Button>
                 </DialogActions>
             </Dialog>
         </div>
