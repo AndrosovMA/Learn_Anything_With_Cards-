@@ -3,7 +3,7 @@ import {
     cardsPackAPI,
     CardsPackType,
     DomainCardsPackParamsType,
-    CreateCardsPackPayloadType,UpdateCardsPackPayloadType
+    CreateCardsPackPayloadType, UpdateCardsPackPayloadType
 } from "../../api/cards/cards-pack-api";
 import {AppThunk} from "../store";
 import {handleNetworkError} from "../../utils/error- utills";
@@ -67,8 +67,7 @@ export const setUserId = (value: string | null) =>
 export const setQueryParams = (newParams: DomainCardsPackParamsType,) =>
     ({type: 'CARDS/SET-QUERY-PARAMS', newParams} as const);
 
-
-export const getCardsPacsTC = (user_id?: any): AppThunk => (dispatch, getState) => {
+export const getCardsPacsTC = (): AppThunk => (dispatch, getState) => {
     dispatch(setAppStatusAC("loading"))
     const params = getState().cardsPacksReducer.query_params
     cardsPackAPI.getCardsPacks(params)
@@ -90,7 +89,7 @@ export const createCardsPackTC = (payload: CreateCardsPackPayloadType, userId: s
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.createCardsPack(payload)
         .then(() => {
-            dispatch(getCardsPacsTC({user_id: userId}))
+            dispatch(getCardsPacsTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)
@@ -103,7 +102,7 @@ export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType, userId: s
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.updateCardsPack(payload)
         .then(() => {
-            dispatch(getCardsPacsTC({user_id: userId}))
+            dispatch(getCardsPacsTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)
@@ -114,16 +113,11 @@ export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType, userId: s
 }
 
 
-
 export const deleteCardsPackTC = (id: string, userId: string): AppThunk => (dispatch, getState) => {
-
-
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.deleteCardsPack(id)
         .then(() => {
-            // dispatch(getCardsPacsTC())
-            dispatch(getCardsPacsTC({user_id: userId}))
-
+            dispatch(getCardsPacsTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)

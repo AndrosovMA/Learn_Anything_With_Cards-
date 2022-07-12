@@ -19,7 +19,7 @@ function Search() {
     };
 
     useEffect(() => {
-        dispatch(getCardsPacsTC());
+        //dispatch(getCardsPacsTC());
     }, [packName]);
 
 
