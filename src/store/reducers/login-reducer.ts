@@ -3,6 +3,7 @@ import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./
 import {handleNetworkError} from "../../utils/error- utills";
 import {AppThunk} from "../store";
 import {meAPI, UpdateMeModelType} from "../../api/login/me-api";
+import {setQueryParams} from "./cards-packs-reducer";
 
 const initialState = {
     isLoggedIn: false,
@@ -39,6 +40,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     loginAPI.login(data)
         .then((res) => {
+            // dispatch(setQueryParams({user_id: res.data._id}))
             dispatch(setIsLoggedInAC(true))
             dispatch(setUserDataAC(res.data))
             const model: UpdateMeModelType = {

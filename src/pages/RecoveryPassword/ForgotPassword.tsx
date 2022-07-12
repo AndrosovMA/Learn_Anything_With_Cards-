@@ -70,7 +70,7 @@ const Wrap = styled.div`
   .form__wrapper {
     min-height: 600px;
     max-width: 413px;
-    background: #F9F9FE;
+    background: #f3eeff;
     border-radius: 8px;
     margin-top: 5%;
 
@@ -130,7 +130,7 @@ const Form = styled.div`
     border-right: none;
     border-bottom-color: #dfdfdf;
     color: #2D2E46;
-    background: #F9F9FE;
+    background: #f3eeff;
   }
 
   .form__control__span {

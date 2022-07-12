@@ -139,7 +139,7 @@ const BlockLeft = styled.div`
     font-family: 'Work Sans', sans-serif;
     margin-top: 5%;
     font-size: 70px;
-    color: #007fef;
+    color: #ffffff;
     font-weight: 900;
   }
 
@@ -174,11 +174,40 @@ const WrapForm = styled.div`
 
   .form__wrapper {
     min-height: 600px;
-    min-width: 413px;
-    background: #F9F9FE;
+    min-width: 513px;
+    background: #f3eeff;
     border-radius: 8px;
     //margin-top: 5%;
     margin-top: 13%;
+    border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 16px 50px 24px rgba(0, 0, 0, 0.2);
+    border-right: 4px solid #e8d9f7;
+    animation: anim-form__wrapper 10s infinite;
+
+    /***********/
+
+
+  }
+
+  @keyframes anim-form__wrapper {
+    0% {
+      border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+      box-shadow: 15px 15px 50px rgba(0, 0, 0, 0.2);
+    }
+    25% {
+      border-radius: 58% 42% 75% 35%/76% 46% 54% 24%;
+    }
+    50% {
+      border-radius: 50% 50% 33% 67%/55% 27% 73% 45%;
+      box-shadow: -10px -5px 50px rgba(0, 0, 0, 0.2);
+    }
+    75% {
+      border-radius: 33% 67% 58% 55%/63% 68% 32% 37%;
+    }
+    100% {
+      border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+      box-shadow: 15px 15px 50px rgba(0, 0, 0, 0.2);
+    }
   }
 
   .form__control {
@@ -234,7 +263,7 @@ const Form = styled.div`
     border-right: none;
     border-bottom-color: #dfdfdf;
     color: #2D2E46;
-    background: #F9F9FE;
+    background: #f3eeff;
   }
 
 
@@ -251,7 +280,7 @@ const Form = styled.div`
     border-left: none;
     border-right: none;
     border-bottom-color: #dfdfdf;
-    background: #F9F9FE;
+    background: #f3eeff;
   }
 
   .form__control__span {

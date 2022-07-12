@@ -48,6 +48,6 @@ const Wrap = styled.div`
     border-left: none;
     border-right: none;
     border-bottom-color: #dfdfdf;
-    background: #F9F9FE;
+    background: #f3eeff;
   }
 `
