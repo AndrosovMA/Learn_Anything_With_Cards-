@@ -9,6 +9,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import styled from "styled-components";
 import {ChangeEvent} from "react";
 
+
+
+
+
 export default function FormDialog({addItem}: {addItem: (tittle: string) => void}) {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState("");
@@ -48,6 +52,7 @@ export default function FormDialog({addItem}: {addItem: (tittle: string) => void
 
     return (
         <div>
+
             <ButtonCustom
                 onClick={handleClickOpen}
                 className="packList__headerBlock__btn">Add new Pack

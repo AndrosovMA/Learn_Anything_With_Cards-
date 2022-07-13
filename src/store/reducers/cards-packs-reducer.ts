@@ -45,7 +45,6 @@ export const cardsPacksReducer =
             case 'CARDS/SET-QUERY-PARAMS':
                 return {...state, query_params: {...state.query_params, ...action.newParams}};
 
-
             default:
                 return state
         }

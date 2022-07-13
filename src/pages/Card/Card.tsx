@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
-import {AiFillStar, AiOutlineSearch, AiOutlineStar} from "react-icons/ai";
+import {AiFillStar,AiOutlineStar} from "react-icons/ai";
 import {
     IconButton,
     Paper,
@@ -82,12 +82,10 @@ function Card() {
                                     </TableCell>
                                     <TableCell align="right">
                                         <IconButton
-
                                             color={"error"}>
                                             <BsTrash className="btnUpdate"/>
                                         </IconButton>
                                         <IconButton
-
                                             color={"warning"}>
                                             <BsPencil
                                                 className="learningIcons"/>

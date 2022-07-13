@@ -9,8 +9,8 @@ import {IconButton} from "@mui/material";
 import UseAnimations from "react-useanimations";
 import settings from "react-useanimations/lib/settings";
 import {Logout} from "@mui/icons-material";
-import {logoutTC, updateMeTC} from "../../store/reducers/login-reducer";
-import {AppStateType, useAppDispatch} from "../../store/store";
+import {logoutTC, updateMeTC} from "../../../store/reducers/login-reducer";
+import {AppStateType, useAppDispatch} from "../../../store/store";
 import styled from "styled-components";
 import DialogContentText from "@mui/material/DialogContentText";
 import {ChangeEvent, useState} from "react";
@@ -80,13 +80,13 @@ export default function ModuleFormEditProfile() {
                         <img
                             style={{borderRadius: "50%", objectFit: "cover"}}
                             src={avatar} alt="photo" width='100' height='100'/>
-                        <IconButton
+                        <Button
                             className="learningIcons"
                             color={"warning"}>
                             <MdAddAPhoto onClick={() => {
                                 changeStatusEditAvatar(true)
                             }}/>
-                        </IconButton></ImgWrap>
+                        </Button></ImgWrap>
 
                     {
                         editAvatar
