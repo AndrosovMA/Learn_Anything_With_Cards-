@@ -16,11 +16,11 @@ export const initialState = {
     query_params: {
         user_id: "",
         page: 1,
-        pageCount: 0,
-        max: 0,
+        pageCount: 5,
+        max:103,
         min: 0,
         packName: "",
-        sortPacks: ""
+        sortPacks: "0updated"
     } as DomainCardsPackParamsType
 };
 
@@ -45,6 +45,9 @@ export const cardsPacksReducer =
             case 'CARDS/SET-QUERY-PARAMS':
                 return {...state, query_params: {...state.query_params, ...action.newParams}};
 
+            case 'CARDS/SORT-PACKS-PACK':
+                return { ...state, query_params: { ...state.query_params, sortPacks: action.sortPacks } };
+
             default:
                 return state
         }
@@ -65,6 +68,10 @@ export const setUserId = (value: string | null) =>
     ({type: 'CARDS/SET-USER-ID', value} as const);
 export const setQueryParams = (newParams: DomainCardsPackParamsType,) =>
     ({type: 'CARDS/SET-QUERY-PARAMS', newParams} as const);
+export const setSortAC = (sortPacks: string) =>
+    ({type: 'CARDS/SORT-PACKS-PACK', sortPacks} as const);
+
+
 
 export const getCardsPacsTC = (): AppThunk => (dispatch, getState) => {
     dispatch(setAppStatusAC("loading"))
@@ -137,5 +144,6 @@ export type CardsPacksActionsType =
     | ReturnType<typeof setSearchAC>
     | ReturnType<typeof setUserId>
     | ReturnType<typeof setQueryParams>
+    | ReturnType<typeof setSortAC>
     | SetAppStatusActionType
     | SetAppErrorActionType

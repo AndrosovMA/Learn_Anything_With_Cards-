@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 import Slider from "@mui/material/Slider/Slider";
 import React, {useState} from "react";
-import {createCardsPackTC, setQueryParams,} from "../../store/reducers/cards-packs-reducer";
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {createCardsPackTC, } from "../../store/reducers/cards-packs-reducer";
+import {Paper, Table, TableBody,TableContainer} from "@mui/material";
 
 
 import Search from "./Search";
@@ -13,6 +13,9 @@ import ModuleAddNewItem from "../../components/ModuleAddNewItem";
 import Paginations from "./Paginations";
 import { PackList } from "./PackList/PackList";
 import Profile from "./Profile/Profile";
+import SortPack from "./SortPack";
+
+
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -68,20 +71,14 @@ export const Home = () => {
                             </div>
                         </PackListStyledComponent>
                         <TableContainer component={Paper}>
+                            {/*<div className="packList__table_wrap">*/}
                             <Table sx={{minWidth: 650}} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell align="right">Card Count</TableCell>
-                                        <TableCell align="right">Update</TableCell>
-                                        <TableCell align="right">Author name</TableCell>
-                                        <TableCell align="right">Actions</TableCell>
-                                    </TableRow>
-                                </TableHead>
+                                <SortPack />
                                 <TableBody>
                                     <PackList/>
                                 </TableBody>
                             </Table>
+                            {/*</div>*/}
                         </TableContainer>
                         <Paginations/>
                     </div>
@@ -157,6 +154,12 @@ const Block = styled.div`
     border-top-right-radius: 25px;
     padding: 30px;
     height: 800px;
+
+
+    .packList__table_wrap {
+      position: relative;
+    }
+    
   }
 `
 
