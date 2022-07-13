@@ -1,74 +1,51 @@
-import {useSelector} from "react-redux";
-import {AppStateType, useAppDispatch, useAppSelector} from "../../store/store";
+import {useAppDispatch, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
 import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
-import React, {useEffect, useState} from "react";
-import {
-    createCardsPackTC,
-    getCardsPacsTC, setQueryParams, setUserId,
-} from "../../store/reducers/cards-packs-reducer";
-import {
-    Button,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow
-} from "@mui/material";
-import Pack from "./Pack";
+import React, {useState} from "react";
+import {createCardsPackTC, setQueryParams,} from "../../store/reducers/cards-packs-reducer";
+import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 
-import Paginations from "./Paginations";
 import ModuleFormEditProfile from "./ModuleFormEditProfile";
-// import ModuleAddNewPack from "./ModuleAddNewPack";
 import Search from "./Search";
 import ModuleAddNewItem from "../../components/ModuleAddNewItem";
-import UseAnimation from "react-useanimations";
-import searchToX from "react-useanimations/lib/searchToX";
-
+import Paginations from "./Paginations";
+import { PackList } from "./PackList/PackList";
 
 function valuetext(value: number) {
     return `${value}°C`;
 }
 
-
 export const Home = () => {
     const dispatch = useAppDispatch()
-    const packs = useAppSelector(state => state.cardsPacksReducer.cardsPacks)
+
+    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     const userId = useAppSelector(state => state.loginReducer.userData._id)
-    // const myId = useAppSelector(state => state.cardsPacksReducer.params.user_id)
-
-
-    const [value, setValue] = useState<number[]>([20, 80]);
-    const isLoggedIn = useSelector<AppStateType, boolean>(state => state.loginReducer.isLoggedIn)
     const userAvaName = useAppSelector(state => state.loginReducer.userAvaName)
 
+    const [value, setValue] = useState<number[]>([20, 80]);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
 
-    const handleClickMyPacks = (userId: string) => {
-        dispatch(getCardsPacsTC())
+    const handleClickMyPacks = () => {
+        if (userId) {
+            dispatch(setQueryParams({user_id: userId}))
+        }
     }
 
     const handleClickAllPacks = () => {
-        dispatch(setQueryParams({user_id: ""}))
-        dispatch(getCardsPacsTC())
+        if (userId) {
+            dispatch(setQueryParams({user_id: ""}))
+        }
     }
 
 
     const addItemCallback = (title: string) => {
-        dispatch(createCardsPackTC( {cardsPack: {name: title}}, userId))
+        dispatch(createCardsPackTC({cardsPack: {name: title}}))
     }
-
-
-    useEffect(() => {
-        dispatch(getCardsPacsTC())
-    }, []);
 
 
     if (!isLoggedIn) {
@@ -96,7 +73,7 @@ export const Home = () => {
                             }}>
                                 <Button
                                     color={"secondary"}
-                                    onClick={()=> handleClickMyPacks(userId)}
+                                    onClick={() => handleClickMyPacks()}
                                     variant={"contained"}
                                     style={{marginLeft: "7px !important"}}>My
                                 </Button>
@@ -121,14 +98,14 @@ export const Home = () => {
                         </ProfileBelowContainer>
                     </ProfileBelow>
                     <div className="pack">
-                        <PackList>
+                        <PackListStyledComponent>
                             <h1 className="packList__title">Pack List</h1>
                             <div className="packList__headerBlock">
                                 <Search/>
                                 <ModuleAddNewItem addItem={addItemCallback}
                                 />
                             </div>
-                        </PackList>
+                        </PackListStyledComponent>
                         <TableContainer component={Paper}>
                             <Table sx={{minWidth: 650}} aria-label="simple table">
                                 <TableHead>
@@ -141,9 +118,7 @@ export const Home = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {packs.map((pack) => (
-                                        <Pack pack={pack} key={pack._id}/>
-                                    ))}
+                                    <PackList/>
                                 </TableBody>
                             </Table>
                         </TableContainer>
@@ -294,7 +269,7 @@ const ProfileBelowContainer = styled.div`
 
 `
 
-const PackList = styled.div`
+const PackListStyledComponent = styled.div`
 
   .packList__title {
     font-family: 'Work Sans', sans-serif;

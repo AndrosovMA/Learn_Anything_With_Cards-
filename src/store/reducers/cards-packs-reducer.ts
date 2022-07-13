@@ -85,7 +85,7 @@ export const getCardsPacsTC = (): AppThunk => (dispatch, getState) => {
         })
 }
 
-export const createCardsPackTC = (payload: CreateCardsPackPayloadType, userId: string): AppThunk => (dispatch) => {
+export const createCardsPackTC = (payload: CreateCardsPackPayloadType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.createCardsPack(payload)
         .then(() => {
@@ -98,7 +98,7 @@ export const createCardsPackTC = (payload: CreateCardsPackPayloadType, userId: s
             dispatch(setAppStatusAC("idle"))
         })
 }
-export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType, userId: string): AppThunk => (dispatch) => {
+export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.updateCardsPack(payload)
         .then(() => {
@@ -112,8 +112,7 @@ export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType, userId: s
         })
 }
 
-
-export const deleteCardsPackTC = (id: string, userId: string): AppThunk => (dispatch, getState) => {
+export const deleteCardsPackTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.deleteCardsPack(id)
         .then(() => {
