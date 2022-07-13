@@ -1,30 +1,22 @@
 import React from 'react';
 import styled from "styled-components";
 
-import {CardsPackType} from "../../api/cards/cards-pack-api";
+import {CardsPackType} from "../../../api/cards/cards-pack-api";
 import {IconButton, TableCell, TableRow} from "@mui/material";
 import moment from "moment";
-import {BsPencil, BsTrash} from "react-icons/bs";
 import {GiBlackBook} from "react-icons/gi";
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {deleteCardsPackTC, updateCardsPackTC} from "../../store/reducers/cards-packs-reducer";
+import {useAppSelector} from "../../../store/store";
+
 import {NavLink} from 'react-router-dom';
-import {CardsType} from '../../api/cards/cards';
+import {CardsType} from '../../../api/cards/cards';
+
+import ModuleFormDelete from "./ModuleFormDelete";
+import ModuleFormUpdate from "./ModuleFormUpdate";
 
 
 function Pack({pack}: { pack: CardsPackType & CardsType }) {
     const userId = useAppSelector(state => state.loginReducer.userData._id)
 
-
-    const dispatch = useAppDispatch()
-
-    const handleClickDeletePack = (id: string, userId: string) => {
-        dispatch(deleteCardsPackTC(id))
-    }
-
-    const handleClickUpdatePack = (id: string, userId: string) => {
-        dispatch(updateCardsPackTC({cardsPack: {_id: id, name: 'UPDATED'}}))
-    }
 
     return (
         <>
@@ -46,25 +38,22 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
                 <TableCell align="right">{moment(pack.updated).format("MMM DD, YYYY")}</TableCell>
                 <TableCell align="right">{pack.user_name}</TableCell>
                 <TableCell align="right">
-                    {userId === pack.user_id && (
-                        <>
-                            <IconButton
-                                onClick={() => handleClickDeletePack(pack._id, pack.user_id)}
-                                color={"error"}>
-                                <BsTrash className="btnUpdate"/>
-                            </IconButton>
-                            <IconButton
-                                onClick={() => handleClickUpdatePack(pack._id, pack.user_id)}
-                                color={"warning"}>
-                                <BsPencil
-                                    className="learningIcons"/>
-                            </IconButton>
-                        </>
-                    )
-                    }
-
-                    <IconButton disabled color={"success"}>
-                        <GiBlackBook className="btnDelete"/></IconButton>
+                    <WrapIcon>
+                        {userId === pack.user_id && (
+                            <>
+                                <ModuleFormDelete
+                                    _id={pack._id}
+                                    user_id={pack.user_id}
+                                />
+                                <ModuleFormUpdate
+                                    _id={pack._id}
+                                    user_id={pack.user_id}/>
+                            </>
+                        )
+                        }
+                        <IconButton disabled color={"success"}>
+                            <GiBlackBook className="btnDelete"/></IconButton>
+                    </WrapIcon>
                 </TableCell>
             </TableRow>
         </>
@@ -146,4 +135,10 @@ const Containers = styled.div`
     outline: none !important;
   }
 
+`
+
+const WrapIcon = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
 `

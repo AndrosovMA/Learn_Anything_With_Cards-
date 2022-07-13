@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import React, {useEffect} from "react";
 import {getCardsPacsTC} from "../../../store/reducers/cards-packs-reducer";
-import Pack from "../Pack";
+import Pack from "../Pack/Pack";
 
 export const PackList = () => {
     const dispatch = useAppDispatch()
