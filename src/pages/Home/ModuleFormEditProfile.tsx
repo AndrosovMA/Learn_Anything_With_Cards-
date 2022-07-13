@@ -11,12 +11,11 @@ import settings from "react-useanimations/lib/settings";
 import {Logout} from "@mui/icons-material";
 import {logoutTC, updateMeTC} from "../../store/reducers/login-reducer";
 import {AppStateType, useAppDispatch} from "../../store/store";
-import Avatar from "../../styles/img/Avatar.png";
-import {BsPencil} from "react-icons/bs";
 import styled from "styled-components";
 import DialogContentText from "@mui/material/DialogContentText";
 import {ChangeEvent, useState} from "react";
 import {useSelector} from "react-redux";
+import {MdAddAPhoto} from "react-icons/md";
 
 export default function ModuleFormEditProfile() {
     const avatar = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.avatar)
@@ -56,7 +55,9 @@ export default function ModuleFormEditProfile() {
             <div className="profile__above_settings_wrap">
                 <Button>
                     <UseAnimations
-                        onClick={()=>{handleClose(true)}}
+                        onClick={() => {
+                            handleClose(true)
+                        }}
                         animation={settings}
                         size={32}
                         wrapperStyle={{opacity: 0.6, color: "green"}}/>
@@ -66,20 +67,23 @@ export default function ModuleFormEditProfile() {
                 </Button>
 
             </div>
-            <Dialog open={open} onClose={()=>{handleClose(false)}}>
+            <Dialog open={open} onClose={() => {
+                handleClose(false)
+            }}>
                 <DialogTitle>Personal information</DialogTitle>
-                <DialogContentText>
+                <DialogContentText style={{padding: "10px"}}>
                     Make changes to your profile, they can be changed again!
                 </DialogContentText>
 
-
                 <DialogContent>
                     <ImgWrap>
-                        <img src={avatar} alt="photo" width='100' height='100' />
+                        <img
+                            style={{borderRadius: "50%", objectFit: "cover"}}
+                            src={avatar} alt="photo" width='100' height='100'/>
                         <IconButton
                             className="learningIcons"
                             color={"warning"}>
-                            <BsPencil onClick={() => {
+                            <MdAddAPhoto onClick={() => {
                                 changeStatusEditAvatar(true)
                             }}/>
                         </IconButton></ImgWrap>
@@ -99,36 +103,37 @@ export default function ModuleFormEditProfile() {
                             />
                             : null
                     }
-
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="nick name"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
+                    <EditConfig>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="nick name"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <Button variant="contained">Edit</Button>
+                    </EditConfig>
                 </DialogContent>
 
 
                 <DialogActions>
-                    <Button
-                        variant='contained'
-                        color="error"
-                        onClick={() =>
-                        {
+                    <ButtonCustomOne
+
+                        onClick={() => {
                             handleClose(false)
                             changeStatusEditAvatar(false)
                         }
-                            }>Cancel</Button>
-                    <Button
-                        variant='contained'
-                        color="success"
+                        }>Cancel
+                    </ButtonCustomOne>
+                    <ButtonCustomTwo
+
                         onClick={() => {
                             handleClose(false)
                             handleUpdateMeOnClick()
-                        }}>Save</Button>
+                        }}>Save</ButtonCustomTwo>
+
                 </DialogActions>
             </Dialog>
         </div>
@@ -147,10 +152,48 @@ const ImgWrap = styled.div`
   }
 
   svg {
-    width: 20px;
+    background: #abaaaa;
+    width: 42px;
+    height: 42px;
     display: inline-block;
-    margin-left: -11px;
+    margin-left: -34px;
+    color: #262626;
+    border: 2px solid black;
+    border-radius: 50%;
+    padding: 4px;
   }
 
+`
+const EditConfig = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+`
 
+const ButtonCustomOne = styled.button`
+  background: #D7D8EF;
+  box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  /*********/
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: #21268F;
+  opacity: 0.8;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  min-width: 100px;
+  height: 36px;
+  text-decoration: none;
+  outline: none;
+  border: 0;
+  cursor: pointer;
+
+`
+const ButtonCustomTwo = styled(ButtonCustomOne)`
+  background: #21268F;
+  color: #ECECF9;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 `
