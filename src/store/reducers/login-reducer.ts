@@ -1,5 +1,5 @@
 import {loginAPI, LoginParamsType, LoginResponseType} from "../../api/login/login-api";
-import { SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
 import {handleNetworkError} from "../../utils/error- utills";
 import {AppThunk} from "../store";
 import {meAPI, UpdateMeModelType} from "../../api/login/me-api";
@@ -21,7 +21,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
         case "LOGIN/SET-USER-DATA":
             return {...state, userData: action.userData}
         case "LOGIN/SET-USER-AVA-NAME":
-            return {...state, userAvaName: {...state.userAvaName, ...action.model }}
+            return {...state, userAvaName: {...state.userAvaName, ...action.model}}
         default:
             return state
     }
@@ -40,7 +40,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     loginAPI.login(data)
         .then((res) => {
-             dispatch(setQueryParams({user_id: res.data._id}))
+            dispatch(setQueryParams({user_id: res.data._id}))
             dispatch(setIsLoggedInAC(true))
             dispatch(setUserDataAC(res.data))
             const model: UpdateMeModelType = {
@@ -87,8 +87,6 @@ export const updateMeTC = (model: UpdateMeModelType): AppThunk => (dispatch) => 
             dispatch(setAppStatusAC("idle"))
         })
 }
-
-
 
 
 // types
