@@ -9,7 +9,7 @@ import {GiBlackBook} from "react-icons/gi";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {deleteCardsPackTC, updateCardsPackTC} from "../../store/reducers/cards-packs-reducer";
 import {NavLink} from 'react-router-dom';
-import {CardsType} from '../../api/cards/cards';
+import {CardsType} from '../../api/cards/cards-api';
 
 
 function Pack({pack}: { pack: CardsPackType & CardsType }) {
