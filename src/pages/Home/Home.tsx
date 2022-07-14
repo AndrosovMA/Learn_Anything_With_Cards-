@@ -153,7 +153,7 @@ const Block = styled.div`
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
     padding: 30px;
-    height: 800px;
+    height: 100%;
 
 
     .packList__table_wrap {
