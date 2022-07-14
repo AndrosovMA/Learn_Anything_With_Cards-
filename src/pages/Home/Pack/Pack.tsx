@@ -5,22 +5,33 @@ import {CardsPackType} from "../../../api/cards/cards-pack-api";
 import {IconButton, TableCell, TableRow} from "@mui/material";
 import moment from "moment";
 import {GiBlackBook} from "react-icons/gi";
-import {useAppSelector} from "../../../store/store";
+// import {useAppDispatch, useAppSelector} from "../../../store/store";
 
 import {NavLink} from 'react-router-dom';
-import {CardsType} from '../../../api/cards/cards';
 
 import ModuleFormDelete from "./ModuleFormDelete";
 import ModuleFormUpdate from "./ModuleFormUpdate";
+// import { deleteCardsPackTC } from '../../../store/reducers/cards-packs-reducer';
+import {useAppSelector} from "../../../store/store";
 
 
-function Pack({pack}: { pack: CardsPackType & CardsType }) {
+function Pack({pack}: { pack: CardsPackType }) {
     const userId = useAppSelector(state => state.loginReducer.userData._id)
 
 
+    // const dispatch = useAppDispatch()
+
+    // const handleClickDeletePack = (id: string, userId: string) => {
+    //     dispatch(deleteCardsPackTC(id))
+    // }
+    //
+    // const handleClickUpdatePack = (id: string, userId: string) => {
+    //     dispatch(updateCardsPackTC({cardsPack: {_id: id, name: 'UPDATED'}}))
+    // }
+
     return (
         <>
-                <TableRow
+            <TableRow
                 key={pack._id}
                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
             >
@@ -30,7 +41,7 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
                             textDecoration: "none",
                             color: "black", fontWeight: '600'
                         }}
-                        to={`/cards/${pack.cardsPack_id}`}>
+                        to={`/cards/${pack._id}`}>
                         {pack.name.slice(0, 20)}
                     </NavLink>
                 </TableCell>

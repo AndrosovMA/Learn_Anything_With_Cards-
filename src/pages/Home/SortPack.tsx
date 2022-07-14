@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../store/store";
-import {getCardsPacsTC, setSortAC} from "../../store/reducers/cards-packs-reducer";
+import {getCardsPacksTC, setSortAC} from "../../store/reducers/cards-packs-reducer";
 import {TableCell, TableHead, TableRow} from "@mui/material";
 
 import UseAnimation from "react-useanimations";
@@ -25,7 +25,7 @@ function SortPack() {
     };
 
     useEffect(() => {
-        dispatch(getCardsPacsTC());
+        dispatch(getCardsPacksTC());
     }, [sortPacks]);
 
 

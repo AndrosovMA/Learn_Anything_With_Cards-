@@ -3,9 +3,9 @@ import UseAnimation from "react-useanimations";
 import searchToX from "react-useanimations/lib/searchToX";
 import styled from "styled-components";
 import {useAppDispatch, useAppSelector} from "../../store/store";
-import {getCardsPacsTC, setSearchAC} from "../../store/reducers/cards-packs-reducer";
 import useDebounce from "../../hooks/useDebounce";
 import {GoX} from "react-icons/go";
+import {getCardsPacksTC, setSearchAC} from "../../store/reducers/cards-packs-reducer";
 
 
 function Search() {
@@ -35,7 +35,7 @@ function Search() {
     };
 
     useEffect(() => {
-        dispatch(getCardsPacsTC());
+        dispatch(getCardsPacksTC());
     }, [debounceMin, debounceMax, packName]);
 
     useEffect(() => {

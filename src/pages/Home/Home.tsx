@@ -1,37 +1,46 @@
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
-
+import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useState} from "react";
-import {createCardsPackTC, } from "../../store/reducers/cards-packs-reducer";
-import {Paper, Table, TableBody,TableContainer} from "@mui/material";
+import {createCardsPackTC, setCardsPacksQueryParams} from "../../store/reducers/cards-packs-reducer";
+import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 
-
+import ModuleFormEditProfile from "./Profile/ModuleFormEditProfile";
 import Search from "./Search";
 import ModuleAddNewItem from "../../components/ModuleAddNewItem";
 import Paginations from "./Paginations";
 import { PackList } from "./PackList/PackList";
-import Profile from "./Profile/Profile";
-import SortPack from "./SortPack";
-
-
 
 function valuetext(value: number) {
     return `${value}°C`;
 }
 
 export const Home = () => {
-
     const dispatch = useAppDispatch()
 
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
+    const userId = useAppSelector(state => state.loginReducer.userData._id)
+    const userAvaName = useAppSelector(state => state.loginReducer.userAvaName)
 
     const [value, setValue] = useState<number[]>([20, 80]);
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[]);
     };
+
+    const handleClickMyPacks = () => {
+        if (userId) {
+            dispatch(setCardsPacksQueryParams({user_id: userId}))
+        }
+    }
+
+    const handleClickAllPacks = () => {
+        if (userId) {
+            dispatch(setCardsPacksQueryParams({user_id: ""}))
+        }
+    }
 
 
     const addItemCallback = (title: string) => {
@@ -48,7 +57,34 @@ export const Home = () => {
         <>
             <Block className="block">
                 <div className="header">
-                    <Profile />
+                    <div className="profile__above">
+                        <ModuleFormEditProfile
+                        />
+                        <ProfileAboveContainer>
+                            <img className="profile__above__avatar" src={Avatar} alt="photo"/>
+                            <span className="profile__above__name">{userAvaName.name}</span>
+                            <span className="profile__above__description">Front-end developer</span>
+                            <div style={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                                marginTop: "18px",
+                                width: "70%",
+                                padding: "3px",
+                            }}>
+                                <Button
+                                    color={"secondary"}
+                                    onClick={() => handleClickMyPacks()}
+                                    variant={"contained"}
+                                    style={{marginLeft: "7px !important"}}>My
+                                </Button>
+                                <Button
+                                    color={"error"}
+                                    onClick={() => handleClickAllPacks()}
+                                    variant={"contained"}>All</Button>
+                            </div>
+                        </ProfileAboveContainer>
+                    </div>
+
                     <ProfileBelow>
                         <ProfileBelowContainer>
                             <span className="profile__below__description">Number of cards</span>
@@ -71,14 +107,20 @@ export const Home = () => {
                             </div>
                         </PackListStyledComponent>
                         <TableContainer component={Paper}>
-                            {/*<div className="packList__table_wrap">*/}
                             <Table sx={{minWidth: 650}} aria-label="simple table">
-                                <SortPack />
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell align="right">Card Count</TableCell>
+                                        <TableCell align="right">Update</TableCell>
+                                        <TableCell align="right">Author name</TableCell>
+                                        <TableCell align="right">Actions</TableCell>
+                                    </TableRow>
+                                </TableHead>
                                 <TableBody>
                                     <PackList/>
                                 </TableBody>
                             </Table>
-                            {/*</div>*/}
                         </TableContainer>
                         <Paginations/>
                     </div>
@@ -87,6 +129,7 @@ export const Home = () => {
         </>
     )
 }
+
 
 const Block = styled.div`
   border-radius: 10px;
@@ -153,17 +196,43 @@ const Block = styled.div`
     border-bottom-right-radius: 25px;
     border-top-right-radius: 25px;
     padding: 30px;
-    height: 100%;
-
-
-    .packList__table_wrap {
-      position: relative;
-    }
-    
+    height: 800px;
   }
 `
 
+const ProfileAboveContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 24%;
 
+  .profile__above__avatar {
+    max-width: 223px;
+    max-height: 218px;
+    border-radius: 5%;
+    object-fit: cover;
+  }
+
+
+  .profile__above__name {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 27px;
+    color: #2D2E46;
+    margin-top: 4px;
+  }
+
+  .profile__above__description {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #2D2E46;
+    opacity: 0.5;
+    margin-top: 4px;
+  }
+
+
+`
 
 const ProfileBelow = styled.div`
   grid-area: 2 / 1 / 3 / 2;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button} from "@mui/material";
-import {setQueryParams} from "../../../store/reducers/cards-packs-reducer";
+import {setCardsPacksQueryParams} from "../../../store/reducers/cards-packs-reducer";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {ButtonStyledComponent} from '../../../components/ButtonStyledComponent';
 
@@ -13,13 +13,13 @@ function ChoiceOfPacksContainer() {
 
     const handleClickMyPacks = () => {
         if (userId) {
-            dispatch(setQueryParams({user_id: userId}))
+            dispatch(setCardsPacksQueryParams({user_id: userId}))
         }
     }
 
     const handleClickAllPacks = () => {
         if (userId) {
-            dispatch(setQueryParams({user_id: ""}))
+            dispatch(setCardsPacksQueryParams({user_id: ""}))
         }
     }
 
