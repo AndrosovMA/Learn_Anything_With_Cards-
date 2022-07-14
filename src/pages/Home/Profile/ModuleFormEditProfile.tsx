@@ -9,19 +9,23 @@ import {IconButton} from "@mui/material";
 import UseAnimations from "react-useanimations";
 import settings from "react-useanimations/lib/settings";
 import {Logout} from "@mui/icons-material";
-import {logoutTC, updateMeTC} from "../../store/reducers/login-reducer";
-import {AppStateType, useAppDispatch} from "../../store/store";
+import {logoutTC, updateMeTC} from "../../../store/reducers/login-reducer";
+import {AppStateType, useAppDispatch} from "../../../store/store";
 import styled from "styled-components";
 import DialogContentText from "@mui/material/DialogContentText";
 import {ChangeEvent, useState} from "react";
 import {useSelector} from "react-redux";
 import {MdAddAPhoto} from "react-icons/md";
+import {ButtonField} from "../../../components/ButtonField";
+import {ButtonStyledComponent} from "../../../components/ButtonStyledComponent";
 
 export default function ModuleFormEditProfile() {
     const avatar = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.avatar)
+    const name = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.name)
 
     const [open, setOpen] = React.useState(false);
     const [editAvatar, setEditAvatar] = useState(false);
+    const [editName, setEditName] = useState(false);
     const [newAvatarURL, setNewAvatarURL] = useState('')
     const [newName, setNewName] = useState('')
 
@@ -40,6 +44,13 @@ export default function ModuleFormEditProfile() {
     const changeAvatarURL = (e: ChangeEvent<HTMLInputElement>) => {
         setNewAvatarURL(e.currentTarget.value)
     }
+    const changeStatusEditName = (status: boolean): void => {
+        setEditName(status)
+    }
+    const changeName = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewName(e.currentTarget.value)
+    }
+
 
     const handleUpdateMeOnClick = (): void => {
         const model = {
@@ -80,13 +91,13 @@ export default function ModuleFormEditProfile() {
                         <img
                             style={{borderRadius: "50%", objectFit: "cover"}}
                             src={avatar} alt="photo" width='100' height='100'/>
-                        <IconButton
+                        <Button
                             className="learningIcons"
                             color={"warning"}>
                             <MdAddAPhoto onClick={() => {
                                 changeStatusEditAvatar(true)
                             }}/>
-                        </IconButton></ImgWrap>
+                        </Button></ImgWrap>
 
                     {
                         editAvatar
@@ -94,7 +105,7 @@ export default function ModuleFormEditProfile() {
                                 autoFocus
                                 margin="dense"
                                 id="avatar"
-                                label="avatar"
+                                label="new avatar"
                                 placeholder="Please insert URL your new avatar "
                                 type="text"
                                 fullWidth
@@ -105,34 +116,60 @@ export default function ModuleFormEditProfile() {
                     }
                     <EditConfig>
                         <TextField
-                            autoFocus
                             margin="dense"
                             id="name"
-                            label="nick name"
+                            label="your current name"
+                            value={name}
                             type="text"
                             fullWidth
                             variant="standard"
                         />
-                        <Button variant="contained">Edit</Button>
+                        <ButtonStyledComponent
+                            width={"100px"}
+                            border={"10px"}
+                            onClick={() => {
+                                changeStatusEditName(true)
+                            }}
+                        >Edit
+                        </ButtonStyledComponent>
+                        <br/>
                     </EditConfig>
+                    {
+                        editName
+                            ? <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="new name"
+                                placeholder="Please write your new name"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={changeName}
+                            />
+                            : null
+                    }
+
                 </DialogContent>
 
-
                 <DialogActions>
-                    <ButtonCustomOne
-
+                    <ButtonStyledComponent
+                        width="168px"
+                        styleClose
                         onClick={() => {
                             handleClose(false)
                             changeStatusEditAvatar(false)
+                            changeStatusEditName(false)
                         }
                         }>Cancel
-                    </ButtonCustomOne>
-                    <ButtonCustomTwo
-
+                    </ButtonStyledComponent>
+                    <ButtonStyledComponent
                         onClick={() => {
                             handleClose(false)
+                            changeStatusEditAvatar(false)
+                            changeStatusEditName(false)
                             handleUpdateMeOnClick()
-                        }}>Save</ButtonCustomTwo>
+                        }}>Save</ButtonStyledComponent>
 
                 </DialogActions>
             </Dialog>
@@ -171,29 +208,3 @@ const EditConfig = styled.div`
   padding: 20px;
 `
 
-const ButtonCustomOne = styled.button`
-  background: #D7D8EF;
-  box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-radius: 30px;
-  /*********/
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: center;
-  letter-spacing: 0.01em;
-  color: #21268F;
-  opacity: 0.8;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  min-width: 100px;
-  height: 36px;
-  text-decoration: none;
-  outline: none;
-  border: 0;
-  cursor: pointer;
-
-`
-const ButtonCustomTwo = styled(ButtonCustomOne)`
-  background: #21268F;
-  color: #ECECF9;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-`

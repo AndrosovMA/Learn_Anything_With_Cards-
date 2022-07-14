@@ -1,26 +1,46 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, ButtonHTMLAttributes, useEffect, useState} from 'react';
 import UseAnimation from "react-useanimations";
 import searchToX from "react-useanimations/lib/searchToX";
 import styled from "styled-components";
 import {useAppDispatch, useAppSelector} from "../../store/store";
+import useDebounce from "../../hooks/useDebounce";
+import {GoX} from "react-icons/go";
 import {getCardsPacksTC, setSearchAC} from "../../store/reducers/cards-packs-reducer";
 
 
 function Search() {
     const packName = useAppSelector(state => state.cardsPacksReducer.query_params.packName);
 
+    const dispatch = useAppDispatch()
+
     const [value, setValue] = useState<string>(packName || '');
 
-    const dispatch = useAppDispatch()
+    //debounce
+    const min = useAppSelector(state => state.cardsPacksReducer.query_params.min);
+    const max = useAppSelector(state => state.cardsPacksReducer.query_params.max);
+    /*************/
+    const requestCountDown = 700;
+    const debounceMin = useDebounce(min, requestCountDown);
+    const debounceMax = useDebounce(max, requestCountDown);
+    const setSearch = useDebounce(value, requestCountDown);
+
+    const searchClear = () => {
+        // e.preventDefault()
+        setValue('')
+    }
+
 
     const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value);
-        dispatch(setSearchAC(e.currentTarget.value));
     };
 
     useEffect(() => {
-        //dispatch(getCardsPacsTC());
-    }, [packName]);
+        dispatch(getCardsPacksTC());
+    }, [debounceMin, debounceMax, packName]);
+
+    useEffect(() => {
+        dispatch(setSearchAC(value));
+    }, [setSearch]);
 
 
     return (
@@ -43,6 +63,12 @@ function Search() {
                     animation={searchToX}
                     fillColor="#21268F"
                 />
+                {value &&
+                    <button onClick={searchClear}>
+                        <GoX className="packList__cancel"></GoX>
+                    </button>
+                }
+
             </div>
         </Wrap>
     );
@@ -94,5 +120,11 @@ const Wrap = styled.div`
     bottom: 0;
   }
 
+  .packList__cancel {
+    position: absolute;
+    left: 428px;
+    cursor: pointer;
+    width: 15px;
+  }
 
 `

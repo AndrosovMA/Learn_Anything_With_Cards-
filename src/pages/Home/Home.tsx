@@ -4,10 +4,10 @@ import styled from "styled-components";
 import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useState} from "react";
-import {createCardsPackTC, setCardsPacksQueryParams,} from "../../store/reducers/cards-packs-reducer";
+import {createCardsPackTC, setCardsPacksQueryParams} from "../../store/reducers/cards-packs-reducer";
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 
-import ModuleFormEditProfile from "./ModuleFormEditProfile";
+import ModuleFormEditProfile from "./Profile/ModuleFormEditProfile";
 import Search from "./Search";
 import ModuleAddNewItem from "../../components/ModuleAddNewItem";
 import Paginations from "./Paginations";

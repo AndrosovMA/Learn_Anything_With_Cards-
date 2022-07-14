@@ -16,11 +16,11 @@ export const initialState = {
     query_params: {
         user_id: "",
         page: 1,
-        pageCount: 0,
-        max: 0,
+        pageCount: 5,
+        max:103,
         min: 0,
         packName: "",
-        sortPacks: ""
+        sortPacks: "0updated"
     } as DomainCardsPackParamsType
 };
 
@@ -45,6 +45,8 @@ export const cardsPacksReducer =
             case 'CARDS-PACKS/SET-QUERY-PARAMS':
                 return {...state, query_params: {...state.query_params, ...action.newParams}};
 
+            case 'CARDS-PACKS/SORT-PACKS-PACK':
+                return { ...state, query_params: { ...state.query_params, sortPacks: action.sortPacks } };
 
             default:
                 return state
@@ -66,10 +68,31 @@ export const setUserId = (value: string | null) =>
     ({type: 'CARDS-PACKS/SET-USER-ID', value} as const);
 export const setCardsPacksQueryParams = (newParams: DomainCardsPackParamsType,) =>
     ({type: 'CARDS-PACKS/SET-QUERY-PARAMS', newParams} as const);
+export const setSortAC = (sortPacks: string) =>
+    ({type: 'CARDS-PACKS/SORT-PACKS-PACK', sortPacks} as const);
 
 export const getCardsPacksTC = (): AppThunk => (dispatch, getState) => {
     dispatch(setAppStatusAC("loading"))
     const params = getState().cardsPacksReducer.query_params
+    cardsPackAPI.getCardsPacks(params)
+        .then((res) => {
+            dispatch(setCardsPacksAC(res.data.cardPacks));
+            dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount));
+            dispatch(setMinCardsCountAC(res.data.minCardsCount));
+            dispatch(setMaxCardsCountAC(res.data.maxCardsCount));
+        })
+        .catch((error) => {
+            handleNetworkError(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
+        })
+}
+
+export const getNumberPacsPageTC = (pageCount?: number, numberPage?: number): AppThunk => (dispatch, getState) => {
+   // debugger
+    dispatch(setAppStatusAC("loading"))
+    const params = {...getState().cardsPacksReducer.query_params, pageCount: pageCount, page:numberPage}
     cardsPackAPI.getCardsPacks(params)
         .then((res) => {
             dispatch(setCardsPacksAC(res.data.cardPacks));
@@ -139,5 +162,6 @@ export type CardsPacksActionsType =
     | ReturnType<typeof setSearchAC>
     | ReturnType<typeof setUserId>
     | ReturnType<typeof setCardsPacksQueryParams>
+    | ReturnType<typeof setSortAC>
     | SetAppStatusActionType
     | SetAppErrorActionType

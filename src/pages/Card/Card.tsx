@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {NavLink} from "react-router-dom";
 import styled from "styled-components";
-import {AiFillStar, AiOutlineSearch, AiOutlineStar} from "react-icons/ai";
+import {AiFillStar, AiOutlineStar} from "react-icons/ai";
 import {
     IconButton,
     Paper,
@@ -16,6 +16,9 @@ import {BsPencil, BsTrash} from "react-icons/bs";
 import UseAnimation from "react-useanimations";
 import home from "react-useanimations/lib/home";
 import searchToX from "react-useanimations/lib/searchToX";
+import ModalUpdate from "./ModalUpdate";
+import ModalDelete from "./ModalDelete";
+import {ButtonStyledComponent} from '../../components/ButtonStyledComponent';
 
 
 function Card() {
@@ -48,59 +51,55 @@ function Card() {
                                     fillColor="#21268F"
                                 />
                             </div>
-                            <button className="packList__headerBlock__btn">Add new Card</button>
-                        </div>
+                            <ButtonStyledComponent
+                                width={"200px"}>
+                                Add new Card</ButtonStyledComponent>
                     </div>
-                    <TableContainer component={Paper}>
-                        <Table sx={{minWidth: 650}} aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Question</TableCell>
-                                    <TableCell align="right">Answer</TableCell>
-                                    <TableCell align="right">Update</TableCell>
-                                    <TableCell align="right">Grade</TableCell>
-                                    <TableCell align="right">Actions</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <TableRow
-                                    sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        8 ответ
-                                    </TableCell>
-                                    <TableCell align="right">8 ответ</TableCell>
-                                    <TableCell align="right">30.06.22</TableCell>
-                                    <TableCell align="right">
-                                        <IconButton>
-                                            <AiFillStar/>
-                                            <AiFillStar/>
-                                            <AiFillStar/>
-                                            <AiOutlineStar/>
-                                            <AiOutlineStar/>
-                                        </IconButton>
-                                    </TableCell>
-                                    <TableCell align="right">
-                                        <IconButton
-
-                                            color={"error"}>
-                                            <BsTrash className="btnUpdate"/>
-                                        </IconButton>
-                                        <IconButton
-
-                                            color={"warning"}>
-                                            <BsPencil
-                                                className="learningIcons"/>
-                                        </IconButton>
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
                 </div>
+                <TableContainer component={Paper}>
+                    <Table sx={{minWidth: 650}} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Question</TableCell>
+                                <TableCell align="right">Answer</TableCell>
+                                <TableCell align="right">Update</TableCell>
+                                <TableCell align="right">Grade</TableCell>
+                                <TableCell align="right">Actions</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                <TableCell component="th" scope="row">
+                                    8 ответ
+                                </TableCell>
+                                <TableCell align="right">8 ответ</TableCell>
+                                <TableCell align="right">30.06.22</TableCell>
+                                <TableCell align="right">
+                                    <IconButton>
+                                        <AiFillStar/>
+                                        <AiFillStar/>
+                                        <AiFillStar/>
+                                        <AiOutlineStar/>
+                                        <AiOutlineStar/>
+                                    </IconButton>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <div className="card__modal__wrap">
+                                        <ModalDelete/>
+                                        <ModalUpdate/>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
-        </Cards>
-    );
+        </div>
+</Cards>
+)
+    ;
 }
 
 export default Card;
@@ -187,25 +186,12 @@ const Cards = styled.div`
     }
   }
 
-  .packList__headerBlock__btn {
-    background: #21268F;
-    box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    border-radius: 30px;
-    /*********/
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
-    letter-spacing: 0.01em;
-    color: #ECECF9;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-    min-width: 184px;
-    height: 36px;
-    text-decoration: none;
-    outline: none;
-    border: 0;
-    cursor: pointer;
 
+  .card__modal__wrap {
+    display: flex;
+    justify-content: end;
+    align-items: center;
   }
+
 
 `
