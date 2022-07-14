@@ -19,9 +19,11 @@ import {MdAddAPhoto} from "react-icons/md";
 
 export default function ModuleFormEditProfile() {
     const avatar = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.avatar)
+    const name = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.name)
 
     const [open, setOpen] = React.useState(false);
     const [editAvatar, setEditAvatar] = useState(false);
+    const [editName, setEditName] = useState(false);
     const [newAvatarURL, setNewAvatarURL] = useState('')
     const [newName, setNewName] = useState('')
 
@@ -40,6 +42,13 @@ export default function ModuleFormEditProfile() {
     const changeAvatarURL = (e: ChangeEvent<HTMLInputElement>) => {
         setNewAvatarURL(e.currentTarget.value)
     }
+    const changeStatusEditName = (status: boolean): void => {
+        setEditName(status)
+    }
+    const changeName = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewName(e.currentTarget.value)
+    }
+
 
     const handleUpdateMeOnClick = (): void => {
         const model = {
@@ -94,7 +103,7 @@ export default function ModuleFormEditProfile() {
                                 autoFocus
                                 margin="dense"
                                 id="avatar"
-                                label="avatar"
+                                label="new avatar"
                                 placeholder="Please insert URL your new avatar "
                                 type="text"
                                 fullWidth
@@ -105,18 +114,39 @@ export default function ModuleFormEditProfile() {
                     }
                     <EditConfig>
                         <TextField
-                            autoFocus
                             margin="dense"
                             id="name"
-                            label="nick name"
+                            label="your current name"
+                            value={name}
                             type="text"
                             fullWidth
                             variant="standard"
                         />
-                        <Button variant="contained">Edit</Button>
+                        <Button variant="contained"
+                                onClick={() => {
+                                    changeStatusEditName(true)
+                                }}
+                        >Edit
+                        </Button>
+                        <br/>
                     </EditConfig>
-                </DialogContent>
+                    {
+                        editName
+                            ? <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="new name"
+                                placeholder="Please write your new name"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={changeName}
+                            />
+                            : null
+                    }
 
+                </DialogContent>
 
                 <DialogActions>
                     <ButtonCustomOne
@@ -124,6 +154,7 @@ export default function ModuleFormEditProfile() {
                         onClick={() => {
                             handleClose(false)
                             changeStatusEditAvatar(false)
+                            changeStatusEditName(false)
                         }
                         }>Cancel
                     </ButtonCustomOne>
@@ -131,6 +162,8 @@ export default function ModuleFormEditProfile() {
 
                         onClick={() => {
                             handleClose(false)
+                            changeStatusEditAvatar(false)
+                            changeStatusEditName(false)
                             handleUpdateMeOnClick()
                         }}>Save</ButtonCustomTwo>
 
