@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import CheckEmails from "../../styles/img/Email_Check.png"
 import {Link} from "react-router-dom";
+import { ButtonStyledComponent } from "../../components/ButtonStyledComponent";
 
 
 export const CheckEmail = () => {
@@ -16,9 +17,11 @@ export const CheckEmail = () => {
                         <img src={CheckEmails} alt="email"/>
                         <span className="email">Check Email</span>
                         <span className="description">We’ve sent an Email with instructions to example@mail.com</span>
-                        <button type="submit" className="form__control__btnCancel">
+                        <ButtonStyledComponent
+                            styleClose
+                            type="submit" className="form__control__btnCancel">
                             <Link to="/login">Cancel</Link>
-                        </button>
+                        </ButtonStyledComponent>
                     </Form>
                 </div>
             </div>
@@ -100,12 +103,6 @@ const Form = styled.div`
   }
 
   .form__control__btnCancel {
-    background: #D7D8EF;
-    border-radius: 30px;
-    width: 124px;
-    height: 36px;
-    cursor: pointer;
-    border: none;
     margin-top: 80px;
 
     a {

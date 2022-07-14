@@ -8,6 +8,7 @@ import openShow from "../../styles/assets/img/openShow.svg"
 import closeShow from "../../styles/assets/img/closeShow.svg"
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {register} from "../../store/reducers/register-reducer";
+import { ButtonStyledComponent } from "../../components/ButtonStyledComponent";
 
 
 type FormikErrorType = {
@@ -95,10 +96,6 @@ export const Register = () => {
                             <span className="form__control__span">Email</span>
                             <input className="form__group__email"
                                    type="email"
-                                // name="email"
-                                // value={formik.values.email}
-                                // onChange={formik.handleChange}
-                                // onBlur={formik.handleBlur}
                                    {...formik.getFieldProps("email")}
 
                             />
@@ -110,10 +107,6 @@ export const Register = () => {
                             <span className="form__control__span">Password</span>
                             <input className="form__group__password"
                                    type={isVisibleOne ? "password" : "text"}
-                                // name="password"
-                                // value={formik.values.password}
-                                // onChange={formik.handleChange}
-                                // onBlur={formik.handleBlur}
                                    {...formik.getFieldProps("password")}
 
                             />
@@ -125,10 +118,6 @@ export const Register = () => {
                             <span className="form__control__span">Confirm password</span>
                             <input className="form__group__password"
                                    type={isVisibleTwo ? "password" : "text"}
-                                // name="passwordConfirm"
-                                // value={formik.values.passwordConfirm}
-                                // onChange={formik.handleChange}
-                                // onBlur={formik.handleBlur}
                                    {...formik.getFieldProps("passwordConfirm")}
                             />
 
@@ -151,17 +140,19 @@ export const Register = () => {
 
                             </div>
                             <div className="form__control__btnWrap">
-                                <button
+                                <ButtonStyledComponent
+                                    styleClose
                                     type="submit"
+                                    width={"100px"}
                                     className="form__control__btnCancel">
                                     <Link to="/login">Cancel</Link>
-                                </button>
-                                <button
+                                </ButtonStyledComponent>
+                                <ButtonStyledComponent
                                     onClick={handleSubmit}
                                     type="submit"
                                     disabled={isAddDisabled}
                                     className={classForAddButton}>Register
-                                </button>
+                                </ButtonStyledComponent>
                             </div>
                         </Form>
                     </form>
@@ -357,13 +348,6 @@ const Form = styled.div`
   }
 
   .form__control__btnCancel {
-    background: #D7D8EF;
-    border-radius: 30px;
-    width: 124px;
-    height: 36px;
-    cursor: pointer;
-    border: none;
-
     a {
       font-weight: 500;
       font-size: 16px;

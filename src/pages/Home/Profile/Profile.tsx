@@ -36,7 +36,7 @@ const ProfileAboveContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 24%;
+  margin-top: 12%;
 
   .profile__above__avatar {
     max-width: 223px;

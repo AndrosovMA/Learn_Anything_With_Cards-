@@ -16,6 +16,8 @@ import DialogContentText from "@mui/material/DialogContentText";
 import {ChangeEvent, useState} from "react";
 import {useSelector} from "react-redux";
 import {MdAddAPhoto} from "react-icons/md";
+import {ButtonField} from "../../../components/ButtonField";
+import {ButtonStyledComponent} from "../../../components/ButtonStyledComponent";
 
 export default function ModuleFormEditProfile() {
     const avatar = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.avatar)
@@ -122,12 +124,14 @@ export default function ModuleFormEditProfile() {
                             fullWidth
                             variant="standard"
                         />
-                        <Button variant="contained"
-                                onClick={() => {
-                                    changeStatusEditName(true)
-                                }}
+                        <ButtonStyledComponent
+                            width={"100px"}
+                            border={"10px"}
+                            onClick={() => {
+                                changeStatusEditName(true)
+                            }}
                         >Edit
-                        </Button>
+                        </ButtonStyledComponent>
                         <br/>
                     </EditConfig>
                     {
@@ -149,23 +153,23 @@ export default function ModuleFormEditProfile() {
                 </DialogContent>
 
                 <DialogActions>
-                    <ButtonCustomOne
-
+                    <ButtonStyledComponent
+                        width="168px"
+                        styleClose
                         onClick={() => {
                             handleClose(false)
                             changeStatusEditAvatar(false)
                             changeStatusEditName(false)
                         }
                         }>Cancel
-                    </ButtonCustomOne>
-                    <ButtonCustomTwo
-
+                    </ButtonStyledComponent>
+                    <ButtonStyledComponent
                         onClick={() => {
                             handleClose(false)
                             changeStatusEditAvatar(false)
                             changeStatusEditName(false)
                             handleUpdateMeOnClick()
-                        }}>Save</ButtonCustomTwo>
+                        }}>Save</ButtonStyledComponent>
 
                 </DialogActions>
             </Dialog>
@@ -204,29 +208,3 @@ const EditConfig = styled.div`
   padding: 20px;
 `
 
-const ButtonCustomOne = styled.button`
-  background: #D7D8EF;
-  box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-radius: 30px;
-  /*********/
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: center;
-  letter-spacing: 0.01em;
-  color: #21268F;
-  opacity: 0.8;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  min-width: 100px;
-  height: 36px;
-  text-decoration: none;
-  outline: none;
-  border: 0;
-  cursor: pointer;
-
-`
-const ButtonCustomTwo = styled(ButtonCustomOne)`
-  background: #21268F;
-  color: #ECECF9;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-`

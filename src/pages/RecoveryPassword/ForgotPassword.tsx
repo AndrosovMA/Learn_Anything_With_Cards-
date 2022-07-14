@@ -1,11 +1,12 @@
 import {useFormik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import {ButtonField} from "../../components/Button";
+import {ButtonField} from "../../components/ButtonField";
 import {forgotPasswordTC} from "../../store/reducers/forgotPassword-reducer";
 import {DispatchType} from "../../store/store";
 import {useDispatch} from "react-redux";
 import { PATH } from "../../enum/path";
+import { ButtonStyledComponent } from "../../components/ButtonStyledComponent";
 
 
 export const ForgotPassword = () => {
@@ -41,9 +42,9 @@ export const ForgotPassword = () => {
                                    type="email"
                             />
                             <span className='form__group__description'>Enter your email address and we will send you further instructions </span>
-                            <ButtonField type="submit">
+                            <ButtonStyledComponent type="submit">
                                 Send Instructions
-                            </ButtonField>
+                            </ButtonStyledComponent>
                             <span className="form__group__password">Did you remember your password?</span>
                             <Link className="form__group__login" to="/login">Try logging in</Link>
                         </Form>
@@ -157,6 +158,7 @@ const Form = styled.div`
     color: #2D2E46;
     opacity: 0.5;
     margin-top: 30px;
+    margin-bottom: 10px;
   }
 
   .form__group__password {

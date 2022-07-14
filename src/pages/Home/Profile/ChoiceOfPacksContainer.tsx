@@ -2,6 +2,7 @@ import React from 'react';
 import {Button} from "@mui/material";
 import {setQueryParams} from "../../../store/reducers/cards-packs-reducer";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
+import {ButtonStyledComponent} from '../../../components/ButtonStyledComponent';
 
 
 function ChoiceOfPacksContainer() {
@@ -30,16 +31,18 @@ function ChoiceOfPacksContainer() {
             width: "70%",
             padding: "3px",
         }}>
-            <Button
-                color={"secondary"}
+            <ButtonStyledComponent
+                border={"10px"}
+                styleClose
+                width={"100px"}
                 onClick={() => handleClickMyPacks()}
-                variant={"contained"}
                 style={{marginLeft: "7px !important"}}>My
-            </Button>
-            <Button
-                color={"error"}
+            </ButtonStyledComponent>
+            <ButtonStyledComponent
+                border={"10px"}
+                width={"100px"}
                 onClick={() => handleClickAllPacks()}
-                variant={"contained"}>All</Button>
+            >All</ButtonStyledComponent>
         </div>
     );
 }
