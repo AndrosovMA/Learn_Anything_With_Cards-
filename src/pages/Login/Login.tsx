@@ -10,6 +10,7 @@ import {loginTC} from "../../store/reducers/login-reducer";
 import {AppStateType, DispatchType} from "../../store/store";
 import {useDispatch, useSelector} from "react-redux";
 import logo from "../../styles/assets/icon/logo.svg"
+import { ButtonStyledComponent } from "../../components/ButtonStyledComponent";
 
 
 export const Login = () => {
@@ -101,7 +102,7 @@ export const Login = () => {
                                         <Link className="form__control__rememberPassword" to="/forgot-password">Forgot
                                             Password</Link>
                                     </div>
-                                    <ButtonField>Login</ButtonField>
+                                    <ButtonStyledComponent>Login</ButtonStyledComponent>
                                     <span className="form__control__rememberAccount">Don’t have an account?</span>
                                     <Link className="form__control__signUp" to="/registration">Sign Up</Link>
                                 </Form>

@@ -9,6 +9,7 @@ import {setNewPasswordTC} from "../../store/reducers/forgotPassword-reducer";
 import {DispatchType} from "../../store/store";
 import {useDispatch} from "react-redux";
 import {PATH} from "../../enum/path";
+import { ButtonStyledComponent } from "../../components/ButtonStyledComponent";
 
 
 export const CreatePassword = () => {
@@ -57,7 +58,7 @@ export const CreatePassword = () => {
                             </div>
                             <span className='form__group__description'>Create new password and we will send you further
                             instructions to email</span>
-                            <ButtonField type="submit">Create new password</ButtonField>
+                            <ButtonStyledComponent type="submit">Create new password</ButtonStyledComponent>
                         </Form>
                     </form>
                 </div>
