@@ -1,16 +1,17 @@
 import React from 'react';
 import ModuleFormEditProfile from "./ModuleFormEditProfile";
-import Avatar from "../../../styles/assets/img/ava3.png";
 
-import {useAppSelector} from "../../../store/store";
+import {AppStateType, useAppSelector} from "../../../store/store";
 
 import styled from "styled-components";
 import ChoiceOfPacksContainer from "./ChoiceOfPacksContainer";
+import {useSelector} from "react-redux";
 
 
 function Profile() {
 
     const userAvaName = useAppSelector(state => state.loginReducer.userAvaName)
+    const avatar = useSelector<AppStateType, string | undefined>(state => state.loginReducer.userAvaName.avatar)
 
     return (
         <div className="profile__above">
@@ -18,7 +19,7 @@ function Profile() {
             <ModuleFormEditProfile />
 
             <ProfileAboveContainer>
-                <img className="profile__above__avatar" src={Avatar} alt="photo"/>
+                <img className="profile__above__avatar" src={avatar} alt="photo"/>
                 <span className="profile__above__name">{userAvaName.name}</span>
                 <span className="profile__above__description">Front-end developer</span>
 
