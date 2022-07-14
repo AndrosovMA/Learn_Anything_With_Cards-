@@ -40,7 +40,7 @@ const ProfileAboveContainer = styled.div`
 
   .profile__above__avatar {
     max-width: 223px;
-    max-height: 218px;
+    max-height: 175px;
     border-radius: 5%;
     object-fit: cover;
   }
