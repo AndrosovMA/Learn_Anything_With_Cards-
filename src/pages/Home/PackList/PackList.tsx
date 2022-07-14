@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import React, {useEffect} from "react";
-import {getCardsPacsTC} from "../../../store/reducers/cards-packs-reducer";
+import {getCardsPacksTC} from "../../../store/reducers/cards-packs-reducer";
 import Pack from "../Pack";
 
 export const PackList = () => {
@@ -10,7 +10,7 @@ export const PackList = () => {
     const userId = useAppSelector(state => state.cardsPacksReducer.query_params.user_id)
 
     useEffect(() => {
-        dispatch(getCardsPacsTC())
+        dispatch(getCardsPacksTC())
     }, [userId]);
 
     return (

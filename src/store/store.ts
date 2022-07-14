@@ -8,12 +8,14 @@ import { TypedUseSelectorHook } from "react-redux";
 import {AppActionsType, appReducer } from "./reducers/app-reducer";
 import {CardsPacksActionsType, cardsPacksReducer} from "./reducers/cards-packs-reducer";
 import {forgotPasswordReducer} from "./reducers/forgotPassword-reducer";
+import {CardsActionsType, cardsReducer} from "./reducers/cards-reducer";
 
 export const reducers = combineReducers({
     loginReducer,
     registerReducer,
     appReducer,
     cardsPacksReducer,
+    cardsReducer,
     forgotPasswordReducer
 })
 
@@ -29,7 +31,8 @@ export const useAppDispatch = () => useDispatch<DispatchType>()
 export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector
 
 //тип всех action-ов приложения
-export type AllActionsAppType = RegisterActionsType | AppActionsType | LoginActionsType | CardsPacksActionsType
+export type AllActionsAppType = RegisterActionsType | AppActionsType | LoginActionsType
+    | CardsPacksActionsType | CardsActionsType
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AllActionsAppType>
 

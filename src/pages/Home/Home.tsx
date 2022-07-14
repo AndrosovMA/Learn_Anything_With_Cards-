@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useState} from "react";
-import {createCardsPackTC, setQueryParams,} from "../../store/reducers/cards-packs-reducer";
+import {createCardsPackTC, setCardsPacksQueryParams,} from "../../store/reducers/cards-packs-reducer";
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 
 import ModuleFormEditProfile from "./ModuleFormEditProfile";
@@ -32,13 +32,13 @@ export const Home = () => {
 
     const handleClickMyPacks = () => {
         if (userId) {
-            dispatch(setQueryParams({user_id: userId}))
+            dispatch(setCardsPacksQueryParams({user_id: userId}))
         }
     }
 
     const handleClickAllPacks = () => {
         if (userId) {
-            dispatch(setQueryParams({user_id: ""}))
+            dispatch(setCardsPacksQueryParams({user_id: ""}))
         }
     }
 

@@ -27,22 +27,22 @@ export const initialState = {
 export const cardsPacksReducer =
     (state: InitialStateType = initialState, action: CardsPacksActionsType): InitialStateType => {
         switch (action.type) {
-            case 'CARDS/SET-CARDS-PACKS':
+            case 'CARDS-PACKS/SET-CARDS-PACKS':
                 return {...state, cardsPacks: action.cardsPacks};
-            case "CARDS/SET-CARDS-PACKS-TOTAL-COUNT":
+            case "CARDS-PACKS/SET-CARDS-PACKS-TOTAL-COUNT":
                 return {...state, cardPacksTotalCount: action.cardPacksTotalCount};
-            case "CARDS/SET-MIN-CARDS-COUNT":
+            case "CARDS-PACKS/SET-MIN-CARDS-COUNT":
                 return {...state, minCardsCount: action.minCardsCount};
-            case "CARDS/SET-MAX-CARDS-COUNT":
+            case "CARDS-PACKS/SET-MAX-CARDS-COUNT":
                 return {...state, maxCardsCount: action.maxCardsCount};
             /***********/
-            case "CARDS/SET-SEARCH":
+            case "CARDS-PACKS/SET-SEARCH":
                 return {...state, query_params: {...state.query_params, packName: action.searchValue}};
 
-            case 'CARDS/SET-USER-ID':
+            case 'CARDS-PACKS/SET-USER-ID':
                 return {...state, query_params: {...state.query_params, user_id: action.value}};
 
-            case 'CARDS/SET-QUERY-PARAMS':
+            case 'CARDS-PACKS/SET-QUERY-PARAMS':
                 return {...state, query_params: {...state.query_params, ...action.newParams}};
 
 
@@ -53,21 +53,21 @@ export const cardsPacksReducer =
 
 // actions
 export const setCardsPacksAC = (cardsPacks: CardsPackType[]) =>
-    ({type: 'CARDS/SET-CARDS-PACKS', cardsPacks} as const);
+    ({type: 'CARDS-PACKS/SET-CARDS-PACKS', cardsPacks} as const);
 export const setCardPacksTotalCountAC = (cardPacksTotalCount: number) =>
-    ({type: 'CARDS/SET-CARDS-PACKS-TOTAL-COUNT', cardPacksTotalCount} as const);
+    ({type: 'CARDS-PACKS/SET-CARDS-PACKS-TOTAL-COUNT', cardPacksTotalCount} as const);
 export const setMinCardsCountAC = (minCardsCount: number) =>
-    ({type: 'CARDS/SET-MIN-CARDS-COUNT', minCardsCount} as const);
+    ({type: 'CARDS-PACKS/SET-MIN-CARDS-COUNT', minCardsCount} as const);
 export const setMaxCardsCountAC = (maxCardsCount: number) =>
-    ({type: 'CARDS/SET-MAX-CARDS-COUNT', maxCardsCount} as const);
+    ({type: 'CARDS-PACKS/SET-MAX-CARDS-COUNT', maxCardsCount} as const);
 export const setSearchAC = (searchValue: string) =>
-    ({type: 'CARDS/SET-SEARCH', searchValue} as const);
+    ({type: 'CARDS-PACKS/SET-SEARCH', searchValue} as const);
 export const setUserId = (value: string | null) =>
-    ({type: 'CARDS/SET-USER-ID', value} as const);
-export const setQueryParams = (newParams: DomainCardsPackParamsType,) =>
-    ({type: 'CARDS/SET-QUERY-PARAMS', newParams} as const);
+    ({type: 'CARDS-PACKS/SET-USER-ID', value} as const);
+export const setCardsPacksQueryParams = (newParams: DomainCardsPackParamsType,) =>
+    ({type: 'CARDS-PACKS/SET-QUERY-PARAMS', newParams} as const);
 
-export const getCardsPacsTC = (): AppThunk => (dispatch, getState) => {
+export const getCardsPacksTC = (): AppThunk => (dispatch, getState) => {
     dispatch(setAppStatusAC("loading"))
     const params = getState().cardsPacksReducer.query_params
     cardsPackAPI.getCardsPacks(params)
@@ -89,7 +89,7 @@ export const createCardsPackTC = (payload: CreateCardsPackPayloadType): AppThunk
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.createCardsPack(payload)
         .then(() => {
-            dispatch(getCardsPacsTC())
+            dispatch(getCardsPacksTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)
@@ -102,7 +102,7 @@ export const updateCardsPackTC = (payload: UpdateCardsPackPayloadType): AppThunk
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.updateCardsPack(payload)
         .then(() => {
-            dispatch(getCardsPacsTC())
+            dispatch(getCardsPacksTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)
@@ -116,7 +116,7 @@ export const deleteCardsPackTC = (id: string): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.deleteCardsPack(id)
         .then(() => {
-            dispatch(getCardsPacsTC())
+            dispatch(getCardsPacksTC())
         })
         .catch((error) => {
             handleNetworkError(error, dispatch)
@@ -129,14 +129,15 @@ export const deleteCardsPackTC = (id: string): AppThunk => (dispatch) => {
 
 //type
 type InitialStateType = typeof initialState
+export type SetCardsPacksActionType = ReturnType<typeof setCardsPacksAC>
 
 export type CardsPacksActionsType =
-    | ReturnType<typeof setCardsPacksAC>
+    SetCardsPacksActionType
     | ReturnType<typeof setCardPacksTotalCountAC>
     | ReturnType<typeof setMinCardsCountAC>
     | ReturnType<typeof setMaxCardsCountAC>
     | ReturnType<typeof setSearchAC>
     | ReturnType<typeof setUserId>
-    | ReturnType<typeof setQueryParams>
+    | ReturnType<typeof setCardsPacksQueryParams>
     | SetAppStatusActionType
     | SetAppErrorActionType

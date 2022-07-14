@@ -9,10 +9,9 @@ import {GiBlackBook} from "react-icons/gi";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {deleteCardsPackTC, updateCardsPackTC} from "../../store/reducers/cards-packs-reducer";
 import {NavLink} from 'react-router-dom';
-import {CardsType} from '../../api/cards/cards-api';
 
 
-function Pack({pack}: { pack: CardsPackType & CardsType }) {
+function Pack({pack}: { pack: CardsPackType  }) {
     const userId = useAppSelector(state => state.loginReducer.userData._id)
 
 
@@ -38,7 +37,7 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
                             textDecoration: "none",
                             color: "black", fontWeight: '600'
                         }}
-                        to={`/cards/${pack.cardsPack_id}`}>
+                        to={`/cards/${pack._id}`}>
                         {pack.name.slice(0, 20)}
                     </NavLink>
                 </TableCell>

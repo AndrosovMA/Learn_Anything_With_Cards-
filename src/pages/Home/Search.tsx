@@ -3,7 +3,7 @@ import UseAnimation from "react-useanimations";
 import searchToX from "react-useanimations/lib/searchToX";
 import styled from "styled-components";
 import {useAppDispatch, useAppSelector} from "../../store/store";
-import {getCardsPacsTC, setSearchAC} from "../../store/reducers/cards-packs-reducer";
+import {getCardsPacksTC, setSearchAC} from "../../store/reducers/cards-packs-reducer";
 
 
 function Search() {
