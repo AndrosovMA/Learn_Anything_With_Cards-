@@ -39,8 +39,8 @@ const ProfileAboveContainer = styled.div`
   margin-top: 24%;
 
   .profile__above__avatar {
-    width: 223px;
-    height: 179px;
+    max-width: 223px;
+    max-height: 175px;
     border-radius: 5%;
     object-fit: cover;
   }

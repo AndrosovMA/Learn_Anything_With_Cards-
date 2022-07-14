@@ -91,6 +91,25 @@ export const getCardsPacsTC = (): AppThunk => (dispatch, getState) => {
         })
 }
 
+export const getNumberPacsPageTC = (pageCount?: number, numberPage?: number): AppThunk => (dispatch, getState) => {
+   // debugger
+    dispatch(setAppStatusAC("loading"))
+    const params = {...getState().cardsPacksReducer.query_params, pageCount: pageCount, page:numberPage}
+    cardsPackAPI.getCardsPacks(params)
+        .then((res) => {
+            dispatch(setCardsPacksAC(res.data.cardPacks));
+            dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount));
+            dispatch(setMinCardsCountAC(res.data.minCardsCount));
+            dispatch(setMaxCardsCountAC(res.data.maxCardsCount));
+        })
+        .catch((error) => {
+            handleNetworkError(error, dispatch)
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
+        })
+}
+
 export const createCardsPackTC = (payload: CreateCardsPackPayloadType): AppThunk => (dispatch) => {
     dispatch(setAppStatusAC("loading"))
     cardsPackAPI.createCardsPack(payload)
