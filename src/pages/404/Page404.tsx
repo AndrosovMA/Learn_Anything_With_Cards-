@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {ButtonField} from "../../components/Button";
+import {ButtonField} from "../../components/ButtonField";
 
 
 export const Page404 = () => {

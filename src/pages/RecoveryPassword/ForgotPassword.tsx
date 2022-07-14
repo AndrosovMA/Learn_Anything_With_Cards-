@@ -1,7 +1,7 @@
 import {useFormik} from "formik";
 import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import {ButtonField} from "../../components/Button";
+import {ButtonField} from "../../components/ButtonField";
 import {forgotPasswordTC} from "../../store/reducers/forgotPassword-reducer";
 import {DispatchType} from "../../store/store";
 import {useDispatch} from "react-redux";

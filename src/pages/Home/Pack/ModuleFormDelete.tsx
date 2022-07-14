@@ -10,6 +10,7 @@ import UseAnimations from "react-useanimations";
 import {useAppDispatch} from "../../../store/store";
 import {deleteCardsPackTC} from "../../../store/reducers/cards-packs-reducer";
 import styled from "styled-components";
+import { ButtonStyledComponent } from '../../../components/ButtonStyledComponent';
 
 type ModuleFormDeleteType = {
     _id:string
@@ -71,42 +72,20 @@ export default function ModuleFormDelete({_id, user_id}: ModuleFormDeleteType) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <ButtonCustomOne onClick={handleClose}>Disagree</ButtonCustomOne>
-                    <ButtonCustomTwo onClick={() => handleClickDeletePack(_id, user_id)}
+                    <ButtonStyledComponent
+                        width={"100px"}
+                        styleClose
+                        onClick={handleClose}>Disagree</ButtonStyledComponent>
+                    <ButtonStyledComponent
+                        width={"100px"}
+                        onClick={() => handleClickDeletePack(_id, user_id)}
                             autoFocus>
                         Agree
-                    </ButtonCustomTwo>
+                    </ButtonStyledComponent>
                 </DialogActions>
             </Dialog>
         </Wrap>
     );
 }
 const Wrap = styled.div`
-
-`
-const ButtonCustomOne = styled.button`
-  background: #D7D8EF;
-  box-shadow: 0 4px 18px rgba(33, 38, 143, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-radius: 30px;
-  /*********/
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: center;
-  letter-spacing: 0.01em;
-  color: #21268F;
-  opacity: 0.8;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  min-width: 100px;
-  height: 36px;
-  text-decoration: none;
-  outline: none;
-  border: 0;
-  cursor: pointer;
-
-`
-const ButtonCustomTwo = styled(ButtonCustomOne)`
-  background: #21268F;
-  color: #ECECF9;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 `

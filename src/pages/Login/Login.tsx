@@ -2,7 +2,7 @@ import {Avatar, Checkbox, FormControlLabel} from "@mui/material"
 import {useFormik} from "formik";
 import styled from "styled-components";
 import {Link, Navigate} from "react-router-dom";
-import {ButtonField} from "../../components/Button";
+import {ButtonField} from "../../components/ButtonField";
 import {useState} from "react";
 import openShow from "../../styles/assets/img/openShow.svg";
 import closeShow from "../../styles/assets/img/closeShow.svg";

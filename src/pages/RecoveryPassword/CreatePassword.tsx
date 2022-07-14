@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {AiFillEye} from "react-icons/ai";
 import InputField from "../../components/InputField";
 import {ChangeEvent, useState} from "react";
-import {ButtonField} from "../../components/Button";
+import {ButtonField} from "../../components/ButtonField";
 import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import {setNewPasswordTC} from "../../store/reducers/forgotPassword-reducer";
