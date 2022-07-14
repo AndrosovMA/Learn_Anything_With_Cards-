@@ -20,7 +20,7 @@ function Pack({pack}: { pack: CardsPackType & CardsType }) {
 
     return (
         <>
-            <TableRow
+                <TableRow
                 key={pack._id}
                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
             >
