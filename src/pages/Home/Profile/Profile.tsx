@@ -16,14 +16,14 @@ function Profile() {
     return (
         <div className="profile__above">
 
-            <ModuleFormEditProfile />
+            <ModuleFormEditProfile/>
 
             <ProfileAboveContainer>
                 <img className="profile__above__avatar" src={avatar} alt="photo"/>
                 <span className="profile__above__name">{userAvaName.name}</span>
                 <span className="profile__above__description">Front-end developer</span>
 
-                    <ChoiceOfPacksContainer />
+                <ChoiceOfPacksContainer/>
 
             </ProfileAboveContainer>
         </div>
@@ -39,8 +39,8 @@ const ProfileAboveContainer = styled.div`
   margin-top: 24%;
 
   .profile__above__avatar {
-    max-width: 223px;
-    max-height: 218px;
+    width: 223px;
+    height: 179px;
     border-radius: 5%;
     object-fit: cover;
   }
