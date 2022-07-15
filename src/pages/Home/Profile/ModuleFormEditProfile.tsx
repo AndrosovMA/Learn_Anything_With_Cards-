@@ -5,7 +5,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import {IconButton} from "@mui/material";
 import UseAnimations from "react-useanimations";
 import settings from "react-useanimations/lib/settings";
 import {Logout} from "@mui/icons-material";
@@ -16,7 +15,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import {ChangeEvent, useState} from "react";
 import {useSelector} from "react-redux";
 import {MdAddAPhoto} from "react-icons/md";
-import {ButtonField} from "../../../components/ButtonField";
 import {ButtonStyledComponent} from "../../../components/ButtonStyledComponent";
 
 export default function ModuleFormEditProfile() {
@@ -62,7 +60,7 @@ export default function ModuleFormEditProfile() {
     };
 
     return (
-        <div>
+        <Wrap>
             <div className="profile__above_settings_wrap">
                 <Button>
                     <UseAnimations
@@ -153,6 +151,7 @@ export default function ModuleFormEditProfile() {
                 </DialogContent>
 
                 <DialogActions>
+                    <div style={{marginBottom: "5px"}}>
                     <ButtonStyledComponent
                         width="168px"
                         styleClose
@@ -170,13 +169,19 @@ export default function ModuleFormEditProfile() {
                             changeStatusEditName(false)
                             handleUpdateMeOnClick()
                         }}>Save</ButtonStyledComponent>
-
+                    </div>
                 </DialogActions>
             </Dialog>
-        </div>
+        </Wrap>
     );
 }
-
+//
+const Wrap = styled.div`
+    .btn__wrap {
+      margin-bottom: 4px;
+    }
+    
+`
 const ImgWrap = styled.div`
   display: flex;
   justify-content: start;

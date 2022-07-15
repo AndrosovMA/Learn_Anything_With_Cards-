@@ -11,7 +11,9 @@ import ModuleFormEditProfile from "./Profile/ModuleFormEditProfile";
 import Search from "./Search";
 import ModuleAddNewItem from "../../components/ModuleAddNewItem";
 import Paginations from "./Paginations";
-import { PackList } from "./PackList/PackList";
+import {PackList} from "./PackList/PackList";
+import ChoiceOfPacksContainer from "./Profile/ChoiceOfPacksContainer";
+import SortPack from "./SortPack";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -71,16 +73,7 @@ export const Home = () => {
                                 width: "70%",
                                 padding: "3px",
                             }}>
-                                <Button
-                                    color={"secondary"}
-                                    onClick={() => handleClickMyPacks()}
-                                    variant={"contained"}
-                                    style={{marginLeft: "7px !important"}}>My
-                                </Button>
-                                <Button
-                                    color={"error"}
-                                    onClick={() => handleClickAllPacks()}
-                                    variant={"contained"}>All</Button>
+                                <ChoiceOfPacksContainer />
                             </div>
                         </ProfileAboveContainer>
                     </div>
@@ -106,17 +99,9 @@ export const Home = () => {
                                 />
                             </div>
                         </PackListStyledComponent>
-                        <TableContainer component={Paper}>
+                        <TableContainer component={Paper} className="pack__table__wrap">
                             <Table sx={{minWidth: 650}} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell align="right">Card Count</TableCell>
-                                        <TableCell align="right">Update</TableCell>
-                                        <TableCell align="right">Author name</TableCell>
-                                        <TableCell align="right">Actions</TableCell>
-                                    </TableRow>
-                                </TableHead>
+                                <SortPack />
                                 <TableBody>
                                     <PackList/>
                                 </TableBody>
@@ -197,6 +182,12 @@ const Block = styled.div`
     border-top-right-radius: 25px;
     padding: 30px;
     height: 800px;
+
+    .pack__table__wrap {
+      height: 61%;
+      border-bottom: none;
+    }
+
   }
 `
 
