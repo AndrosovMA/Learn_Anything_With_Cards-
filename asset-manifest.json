@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/learn_anything_with_cards/static/css/main.69e379d5.css",
-    "main.js": "/learn_anything_with_cards/static/js/main.5988220c.js",
+    "main.js": "/learn_anything_with_cards/static/js/main.43a1d977.js",
     "static/js/787.8b2cdbea.chunk.js": "/learn_anything_with_cards/static/js/787.8b2cdbea.chunk.js",
     "static/media/logo.svg": "/learn_anything_with_cards/static/media/logo.eb69407f5ef9e283c564e57b716d6291.svg",
     "index.html": "/learn_anything_with_cards/index.html",
     "static/media/openShow.svg": "/learn_anything_with_cards/static/media/openShow.5b868a138f840b91e6fb82dffb0d8f13.svg",
     "static/media/closeShow.svg": "/learn_anything_with_cards/static/media/closeShow.5330f7c33c2f5cff6973dd7997a5010c.svg",
     "main.69e379d5.css.map": "/learn_anything_with_cards/static/css/main.69e379d5.css.map",
-    "main.5988220c.js.map": "/learn_anything_with_cards/static/js/main.5988220c.js.map",
+    "main.43a1d977.js.map": "/learn_anything_with_cards/static/js/main.43a1d977.js.map",
     "787.8b2cdbea.chunk.js.map": "/learn_anything_with_cards/static/js/787.8b2cdbea.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.69e379d5.css",
-    "static/js/main.5988220c.js"
+    "static/js/main.43a1d977.js"
   ]
 }
