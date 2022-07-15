@@ -63,19 +63,19 @@ export default function ModuleFormDelete({_id, user_id}: ModuleFormDeleteType) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Use Google's location service?"}
+                    {"Delete Pack"}
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
+                        Do you really want to remove Pack Name - Name Pack?
+                        All cards will be excluded from this course.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <ButtonStyledComponent
                         width={"100px"}
                         styleClose
-                        onClick={handleClose}>Disagree</ButtonStyledComponent>
+                        onClick={handleClose}>Delete</ButtonStyledComponent>
                     <ButtonStyledComponent
                         width={"100px"}
                         onClick={() => handleClickDeletePack(_id, user_id)}

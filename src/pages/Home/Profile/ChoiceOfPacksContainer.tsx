@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from "@mui/material";
 import {setCardsPacksQueryParams} from "../../../store/reducers/cards-packs-reducer";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {ButtonStyledComponent} from '../../../components/ButtonStyledComponent';
@@ -28,7 +27,7 @@ function ChoiceOfPacksContainer() {
             display: "flex",
             justifyContent: "space-around",
             marginTop: "18px",
-            width: "70%",
+            width: "100%",
             padding: "3px",
         }}>
             <ButtonStyledComponent

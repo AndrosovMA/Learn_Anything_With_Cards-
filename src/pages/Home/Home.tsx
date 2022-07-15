@@ -1,17 +1,17 @@
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
-import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useState} from "react";
 import {createCardsPackTC, setCardsPacksQueryParams} from "../../store/reducers/cards-packs-reducer";
-import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Paper, Table, TableBody, TableContainer} from "@mui/material";
 
-import ModuleFormEditProfile from "./Profile/ModuleFormEditProfile";
 import Search from "./Search";
 import ModuleAddNewItem from "../../components/ModuleAddNewItem";
 import Paginations from "./Paginations";
-import { PackList } from "./PackList/PackList";
+import {PackList} from "./PackList/PackList";
+import SortPack from "./SortPack";
+import Profile from "./Profile/Profile";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -22,7 +22,7 @@ export const Home = () => {
 
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     const userId = useAppSelector(state => state.loginReducer.userData._id)
-    const userAvaName = useAppSelector(state => state.loginReducer.userAvaName)
+
 
     const [value, setValue] = useState<number[]>([20, 80]);
 
@@ -57,34 +57,7 @@ export const Home = () => {
         <>
             <Block className="block">
                 <div className="header">
-                    <div className="profile__above">
-                        <ModuleFormEditProfile
-                        />
-                        <ProfileAboveContainer>
-                            <img className="profile__above__avatar" src={Avatar} alt="photo"/>
-                            <span className="profile__above__name">{userAvaName.name}</span>
-                            <span className="profile__above__description">Front-end developer</span>
-                            <div style={{
-                                display: "flex",
-                                justifyContent: "space-around",
-                                marginTop: "18px",
-                                width: "70%",
-                                padding: "3px",
-                            }}>
-                                <Button
-                                    color={"secondary"}
-                                    onClick={() => handleClickMyPacks()}
-                                    variant={"contained"}
-                                    style={{marginLeft: "7px !important"}}>My
-                                </Button>
-                                <Button
-                                    color={"error"}
-                                    onClick={() => handleClickAllPacks()}
-                                    variant={"contained"}>All</Button>
-                            </div>
-                        </ProfileAboveContainer>
-                    </div>
-
+                    <Profile />
                     <ProfileBelow>
                         <ProfileBelowContainer>
                             <span className="profile__below__description">Number of cards</span>
@@ -106,17 +79,9 @@ export const Home = () => {
                                 />
                             </div>
                         </PackListStyledComponent>
-                        <TableContainer component={Paper}>
+                        <TableContainer component={Paper} className="pack__table__wrap">
                             <Table sx={{minWidth: 650}} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Name</TableCell>
-                                        <TableCell align="right">Card Count</TableCell>
-                                        <TableCell align="right">Update</TableCell>
-                                        <TableCell align="right">Author name</TableCell>
-                                        <TableCell align="right">Actions</TableCell>
-                                    </TableRow>
-                                </TableHead>
+                                <SortPack />
                                 <TableBody>
                                     <PackList/>
                                 </TableBody>
@@ -197,6 +162,12 @@ const Block = styled.div`
     border-top-right-radius: 25px;
     padding: 30px;
     height: 800px;
+
+    .pack__table__wrap {
+      height: 61%;
+      border-bottom: none;
+    }
+
   }
 `
 

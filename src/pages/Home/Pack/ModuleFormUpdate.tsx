@@ -77,7 +77,7 @@ export default function ModuleFormUpdate({_id, user_id}: ModuleFormUpdateType) {
                         onClick={handleClose}>Cancel</ButtonStyledComponent>
                     <ButtonStyledComponent
                         width={"100px"}
-                        onClick={() => handleClickUpdatePack(_id, user_id)}>Subscribe</ButtonStyledComponent>
+                        onClick={() => handleClickUpdatePack(_id, user_id)}>Agree</ButtonStyledComponent>
                 </DialogActions>
             </Dialog>
         </Wrap>
