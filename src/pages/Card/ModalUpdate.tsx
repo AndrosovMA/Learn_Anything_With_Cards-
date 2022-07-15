@@ -32,7 +32,7 @@ export default function ModalUpdate() {
             </IconButton>
             {/*</Button>*/}
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Subscribe</DialogTitle>
+                <DialogTitle>Agree</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         To subscribe to this website, please enter your email address here. We
@@ -50,7 +50,7 @@ export default function ModalUpdate() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
+                    <Button onClick={handleClose}>Agree</Button>
                 </DialogActions>
             </Dialog>
         </Wrap>

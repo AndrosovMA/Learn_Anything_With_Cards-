@@ -1,19 +1,17 @@
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
-import Avatar from "../../styles/assets/img/ava3.png"
 import Slider from "@mui/material/Slider/Slider";
 import React, {useState} from "react";
 import {createCardsPackTC, setCardsPacksQueryParams} from "../../store/reducers/cards-packs-reducer";
-import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Paper, Table, TableBody, TableContainer} from "@mui/material";
 
-import ModuleFormEditProfile from "./Profile/ModuleFormEditProfile";
 import Search from "./Search";
 import ModuleAddNewItem from "../../components/ModuleAddNewItem";
 import Paginations from "./Paginations";
 import {PackList} from "./PackList/PackList";
-import ChoiceOfPacksContainer from "./Profile/ChoiceOfPacksContainer";
 import SortPack from "./SortPack";
+import Profile from "./Profile/Profile";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -24,7 +22,7 @@ export const Home = () => {
 
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     const userId = useAppSelector(state => state.loginReducer.userData._id)
-    const userAvaName = useAppSelector(state => state.loginReducer.userAvaName)
+
 
     const [value, setValue] = useState<number[]>([20, 80]);
 
@@ -59,25 +57,7 @@ export const Home = () => {
         <>
             <Block className="block">
                 <div className="header">
-                    <div className="profile__above">
-                        <ModuleFormEditProfile
-                        />
-                        <ProfileAboveContainer>
-                            <img className="profile__above__avatar" src={Avatar} alt="photo"/>
-                            <span className="profile__above__name">{userAvaName.name}</span>
-                            <span className="profile__above__description">Front-end developer</span>
-                            <div style={{
-                                display: "flex",
-                                justifyContent: "space-around",
-                                marginTop: "18px",
-                                width: "70%",
-                                padding: "3px",
-                            }}>
-                                <ChoiceOfPacksContainer />
-                            </div>
-                        </ProfileAboveContainer>
-                    </div>
-
+                    <Profile />
                     <ProfileBelow>
                         <ProfileBelowContainer>
                             <span className="profile__below__description">Number of cards</span>
