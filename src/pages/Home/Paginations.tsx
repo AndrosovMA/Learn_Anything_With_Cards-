@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {useState} from "react";
-import {getNumberPacsPageTC} from "../../store/reducers/cards-packs-reducer";
+import {getCardsPacksTC} from "../../store/reducers/cards-packs-reducer";
 
 
 export default function Paginations() {
@@ -21,11 +21,11 @@ export default function Paginations() {
     const handleChange = (event: SelectChangeEvent) => {
         setCountPacksOnPage(event.target.value as string);
         const pageCount = Number(event.target.value);
-        dispatch(getNumberPacsPageTC(pageCount));
+        dispatch(getCardsPacksTC(pageCount));
     };
 
     const changeNumberPage = (event: React.ChangeEvent<unknown>, numberPage: number) => {
-        dispatch(getNumberPacsPageTC(+countPacksOnPage, numberPage));
+        dispatch(getCardsPacksTC(+countPacksOnPage, numberPage));
     }
 
     return (
