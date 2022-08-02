@@ -2,8 +2,8 @@ import {useAppDispatch, useAppSelector} from "../../store/store";
 import {Navigate} from "react-router-dom";
 import styled from "styled-components";
 import Slider from "@mui/material/Slider/Slider";
-import React, {useState} from "react";
-import {createCardsPackTC, setCardsPacksQueryParams} from "../../store/reducers/cards-packs-reducer";
+import React, {useEffect, useState} from "react";
+import {createCardsPackTC, getCardsPacksTC, setCardsPacksQueryParams} from "../../store/reducers/cards-packs-reducer";
 import {Paper, Table, TableBody, TableContainer} from "@mui/material";
 
 import Search from "./Search";
@@ -12,6 +12,7 @@ import Paginations from "./Paginations";
 import {PackList} from "./PackList/PackList";
 import SortPack from "./SortPack";
 import Profile from "./Profile/Profile";
+import useDebounce from "../../hooks/useDebounce";
 
 function valuetext(value: number) {
     return `${value}°C`;
@@ -22,6 +23,21 @@ export const Home = () => {
 
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     const userId = useAppSelector(state => state.loginReducer.userData._id)
+
+    const sortPacks = useAppSelector(state => state.cardsPacksReducer.query_params.sortPacks)
+    const userIdCardsPacks = useAppSelector(state => state.cardsPacksReducer.query_params.user_id)
+    const packName = useAppSelector(state => state.cardsPacksReducer.query_params.packName);
+
+    // data from search.tsx
+    const min = useAppSelector(state => state.cardsPacksReducer.query_params.min);
+    const max = useAppSelector(state => state.cardsPacksReducer.query_params.max);
+    const requestCountDown = 700;
+    const debounceMin = useDebounce(min, requestCountDown);
+    const debounceMax = useDebounce(max, requestCountDown);
+
+    useEffect(() => {
+        dispatch(getCardsPacksTC());
+    }, [sortPacks, userIdCardsPacks, packName, debounceMin, debounceMax]);
 
 
     const [value, setValue] = useState<number[]>([20, 80]);
@@ -42,11 +58,9 @@ export const Home = () => {
         }
     }
 
-
     const addItemCallback = (title: string) => {
         dispatch(createCardsPackTC({cardsPack: {name: title}}))
     }
-
 
     if (!isLoggedIn) {
         return <Navigate to="/login"/>
@@ -74,7 +88,7 @@ export const Home = () => {
                         <PackListStyledComponent>
                             <h1 className="packList__title">Pack List</h1>
                             <div className="packList__headerBlock">
-                                <Search/>
+                                <Search requestCountDown={requestCountDown}/>
                                 <ModuleAddNewItem addItem={addItemCallback}
                                 />
                             </div>
@@ -211,7 +225,6 @@ const ProfileBelow = styled.div`
 
 
 `
-
 
 const ProfileBelowContainer = styled.div`
   padding-top: 17px;
