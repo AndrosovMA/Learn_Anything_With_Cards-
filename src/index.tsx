@@ -21,16 +21,16 @@ const theme = createTheme({
 });
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-        <Provider store={store}>
-            <ThemeProvider theme={theme}>
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
             <HashRouter>
                 <App/>
             </HashRouter>
-                </ThemeProvider>
-        </Provider>
+        </ThemeProvider>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,17 +1,10 @@
-import {useAppDispatch, useAppSelector} from "../../../store/store";
-import React, {useEffect} from "react";
-import {getCardsPacksTC} from "../../../store/reducers/cards-packs-reducer";
+import {useAppSelector} from "../../../store/store";
+import React from "react";
 import Pack from "../Pack/Pack";
 
 export const PackList = () => {
-    const dispatch = useAppDispatch()
 
     const packs = useAppSelector(state => state.cardsPacksReducer.cardsPacks)
-    const userId = useAppSelector(state => state.cardsPacksReducer.query_params.user_id)
-
-    useEffect(() => {
-        dispatch(getCardsPacksTC())
-    }, [userId]);
 
     return (
         <>

@@ -71,27 +71,11 @@ export const setCardsPacksQueryParams = (newParams: DomainCardsPackParamsType,) 
 export const setSortAC = (sortPacks: string) =>
     ({type: 'CARDS-PACKS/SORT-PACKS-PACK', sortPacks} as const);
 
-export const getCardsPacksTC = (): AppThunk => (dispatch, getState) => {
-    dispatch(setAppStatusAC("loading"))
-    const params = getState().cardsPacksReducer.query_params
-    cardsPackAPI.getCardsPacks(params)
-        .then((res) => {
-            dispatch(setCardsPacksAC(res.data.cardPacks));
-            dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount));
-            dispatch(setMinCardsCountAC(res.data.minCardsCount));
-            dispatch(setMaxCardsCountAC(res.data.maxCardsCount));
-        })
-        .catch((error) => {
-            handleNetworkError(error, dispatch)
-        })
-        .finally(() => {
-            dispatch(setAppStatusAC("idle"))
-        })
-}
 
-export const getNumberPacsPageTC = (pageCount?: number, numberPage?: number): AppThunk => (dispatch, getState) => {
-   // debugger
+// thanks
+export const getCardsPacksTC = (pageCount?: number, numberPage?: number): AppThunk => (dispatch, getState) => {
     dispatch(setAppStatusAC("loading"))
+    // const params = getState().cardsPacksReducer.query_params
     const params = {...getState().cardsPacksReducer.query_params, pageCount: pageCount, page:numberPage}
     cardsPackAPI.getCardsPacks(params)
         .then((res) => {
