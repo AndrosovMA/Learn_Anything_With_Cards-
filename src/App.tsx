@@ -48,7 +48,7 @@ function App() {
         </Box>
     }
 
-//Maks где ты?????
+//Maks где ты???
 
     return (
         <>
