@@ -1,27 +1,22 @@
-import React, {ChangeEvent, ButtonHTMLAttributes, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import UseAnimation from "react-useanimations";
 import searchToX from "react-useanimations/lib/searchToX";
 import styled from "styled-components";
 import {useAppDispatch, useAppSelector} from "../../store/store";
 import useDebounce from "../../hooks/useDebounce";
 import {GoX} from "react-icons/go";
-import {getCardsPacksTC, setSearchAC} from "../../store/reducers/cards-packs-reducer";
+import {setSearchAC} from "../../store/reducers/cards-packs-reducer";
 
 
-function Search() {
+function Search(props: PropsType) {
+    const {requestCountDown} = props
+
     const packName = useAppSelector(state => state.cardsPacksReducer.query_params.packName);
 
     const dispatch = useAppDispatch()
 
     const [value, setValue] = useState<string>(packName || '');
 
-    //debounce
-    const min = useAppSelector(state => state.cardsPacksReducer.query_params.min);
-    const max = useAppSelector(state => state.cardsPacksReducer.query_params.max);
-    /*************/
-    const requestCountDown = 700;
-    const debounceMin = useDebounce(min, requestCountDown);
-    const debounceMax = useDebounce(max, requestCountDown);
     const setSearch = useDebounce(value, requestCountDown);
 
     const searchClear = () => {
@@ -34,9 +29,6 @@ function Search() {
         setValue(e.currentTarget.value);
     };
 
-    useEffect(() => {
-        dispatch(getCardsPacksTC());
-    }, [debounceMin, debounceMax, packName]);
 
     useEffect(() => {
         dispatch(setSearchAC(value));
@@ -75,6 +67,10 @@ function Search() {
 }
 
 export default Search;
+
+type PropsType = {
+    requestCountDown: number
+}
 
 const Wrap = styled.div`
   .packList__headerBlock__Search {

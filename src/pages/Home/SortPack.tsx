@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {getCardsPacksTC, setSortAC} from "../../store/reducers/cards-packs-reducer";
+import React, {useState} from 'react';
+import {useAppDispatch} from "../../store/store";
+import {setSortAC} from "../../store/reducers/cards-packs-reducer";
 import {TableCell, TableHead, TableRow} from "@mui/material";
 
 import UseAnimation from "react-useanimations";
@@ -12,7 +12,6 @@ import styled from "styled-components";
 function SortPack() {
     const [open, setOpen] = useState<boolean>(false);
     const dispatch = useAppDispatch()
-    const sortPacks = useAppSelector(state => state.cardsPacksReducer.query_params.sortPacks)
 
     const ASK = 0
     const DESK = 1
@@ -23,11 +22,6 @@ function SortPack() {
         dispatch(setSortAC(sortPacks));
         setOpen(!open);
     };
-
-    useEffect(() => {
-        dispatch(getCardsPacksTC());
-    }, [sortPacks]);
-
 
     return (
         <>
